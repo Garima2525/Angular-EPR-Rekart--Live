@@ -1,0 +1,193 @@
+
+  <app-header></app-header>
+  <app-sidenav></app-sidenav>
+  <div id="content" class="app-content" role="main">
+    <div class="app-content-body ">
+      <div class="bg-white b-b-none wrapper-md main">
+        <div class="row">
+          <div class="col-sm-6 col-xs-6">
+            <h4 class="m-n font-bold ">User List</h4>
+          </div>
+          <div class="col-sm-6 text-right poppins hidden-xs">
+            <button class="button" data-toggle="modal"
+            data-target="#exampleModalCenter" style="cursor: pointer;"><i class="fa fa-plus"></i> Add User</button>
+          </div>
+        </div>
+      </div>
+  <kendo-grid [kendoGridBinding]="gridView" kendoGridSelectBy="id" [selectedKeys]="mySelection" [pageSize]="20"
+    [pageable]="true" [sortable]="true" [reorderable]="true" [resizable]="true" [height]="500"
+    [columnMenu]="{ filter: true }">
+    <ng-template kendoGridToolbarTemplate>
+      <input placeholder="Search in all columns..." kendoTextBox (input)="onFilter($event)" />
+      <kendo-grid-spacer></kendo-grid-spacer>
+    </ng-template>
+    
+  
+    <kendo-grid-column  title="Name" [width]="100">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <div class="user">{{ dataItem.username }}</div>
+      </ng-template>
+    </kendo-grid-column>
+   
+    <kendo-grid-column  title="Email" [width]="100">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <div class="user">{{ dataItem.email }}</div>
+      </ng-template>
+    </kendo-grid-column>
+  
+    <kendo-grid-column  title="Mobile" [width]="100">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <div class="user">{{ dataItem.phone }}</div>
+      </ng-template>
+    </kendo-grid-column>
+   
+    <!-- <kendo-grid-column title="Controls" [width]="100" [class]="{ 'text-center': true }" [resizable]="false"
+      [filterable]="false">
+      <ng-template kendoGridCellTemplate let-customer>
+        <kendo-menu>
+          <kendo-menu-item icon="gear" >
+            <kendo-menu-item text="Edit" url="" icon="edit"> </kendo-menu-item>
+           
+          </kendo-menu-item>
+        </kendo-menu>
+  
+      </ng-template>
+    </kendo-grid-column> -->
+  </kendo-grid>
+  
+  
+  </div>
+  </div>
+  
+
+  <!-- Modal -->
+      
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close  m-t-xs" data-dismiss="modal"><span>⤬</span></button>
+            <span class="modal-title  font-weight-600 text-20">Add User</span>
+          </div>
+          <div class="modal-body">
+            <div class="details">
+              <form [formGroup]="userform" (ngSubmit)="onsubmit()">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label font-weight-600">Name <span class="text-theme">*</span></label>
+                      <input type="text" class="form-control  input-sm" placeholder="Name" formControlName="username">
+                      <div *ngIf="f.username.errors && f.username.errors.required && isValidFormSubmitted"
+                        class="text-danger text-left mb-1 errorcontrols">
+                        <div *ngIf="f.username.errors.required"><small>Name is
+                            required.</small></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 form-group">
+                    <label>Email <span class="text-theme">*</span></label>
+                    <input type="text" class="form-control" placeholder="Enter Email" formControlName="email">
+                    <div *ngIf="f.email.touched && f.email.invalid && isValidFormSubmitted"
+                      class="text-danger text-left mb-1 errorcontrols">
+                      <div *ngIf="f.email.invalid"><small>Invalid Email.</small></div>
+                    </div>
+                  </div>
+
+
+                </div>
+                <div class="row">
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label font-weight-600">Mobile <span class="text-theme">*</span></label>
+                      <input type="text" class="form-control  input-sm" placeholder="Phone" formControlName="phone">
+                       <div *ngIf="f.phone.errors  && isValidFormSubmitted" class="text-danger text-left mb-1 errorcontrols">
+                    <div *ngIf="f.phone.errors.required"><small>Mobile is required.</small></div>
+                    <div *ngIf="f.phone.errors.pattern">Invalid Mobile.</div>
+                  </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label font-weight-600">Designation <span class="text-theme">*</span></label>
+                      <input type="text" class="form-control  input-sm" placeholder="Designation" formControlName="designation">
+                      <div *ngIf="f.designation.errors && f.designation.errors.required && isValidFormSubmitted"
+                        class="text-danger text-left mb-1 errorcontrols">
+                        <div *ngIf="f.designation.errors.required"><small>Designation is
+                            required.</small></div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
+                <div class="row">
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label font-weight-600">Password <span class="text-theme">*</span></label>
+                      <input type="text" class="form-control  input-sm" placeholder="Password" formControlName="password">
+                      <div *ngIf="f.password.errors && f.password.errors.required && isValidFormSubmitted"
+                        class="text-danger text-left mb-1 errorcontrols">
+                        <div *ngIf="f.password.errors.required"><small>Password is
+                            required.</small></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label font-weight-600">Confirm
+                       Password <span class="text-theme">*</span></label>
+                      <input type="text" class="form-control  input-sm" placeholder="Confirm Password" formControlName="cpassword">
+                      <div *ngIf="f.cpassword.errors && f.cpassword.errors.required && isValidFormSubmitted"
+                        class="text-danger text-left mb-1 errorcontrols">
+                        <div *ngIf="f.cpassword.errors.required"><small>Confirm Password is
+                            required.</small></div>
+                      </div>
+                      <div *ngIf="f.cpassword.errors && f.cpassword.errors.mustMatch"
+                        class="text-danger text-left mb-1 errorcontrols">
+                        <div *ngIf="f.cpassword.errors.mustMatch"><small>Password and Confirm Password is not match.</small></div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label font-weight-600">Role <span class="text-theme">*</span></label>
+                      <select class="form-control validation user_role input-sm" name="role" formControlName="role">
+                        <option value="">Choose Role</option>
+                        <option *ngFor="let obj of roledata" value={{obj._id}}> {{obj.role_name}} </option>
+                       
+                      </select>
+                      <div *ngIf="f.role.errors && f.role.errors.required && isValidFormSubmitted"
+                        class="text-danger text-left mb-1 errorcontrols">
+                        <div *ngIf="f.role.errors.required"><small>Role Name is
+                            required.</small></div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="control-label font-weight-600">&nbsp;</label>
+                    <div class="form-group">
+                      <button type="button" class=" bt light" (click)="handleWarningAlert()">Cancel</button>
+                        <button type="submit" class= "bt danger"   *ngIf="buttondisabled" style="margin-left: 2%;">Save</button>
+                     
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+      <!-- mode end -->

@@ -1,0 +1,57 @@
+<app-header></app-header>
+<app-sidenav></app-sidenav>
+<div id="content" class="app-content" role="main">
+  <div class="app-content-body ">
+    <div class="bg-white b-b-none wrapper-md main">
+      <div class="row">
+        <div class="col-sm-6 col-xs-12">
+          <h4 class="m-n font-bold ">User's Role</h4>
+        </div>
+        <div class="col-sm-6 text-right poppins hidden-xs">
+          <button routerLink="/add-role" class="button"><i
+            class="fa fa-plus"></i> Add Role</button>
+        </div>
+      </div>
+
+    </div>
+    <kendo-grid [kendoGridBinding]="gridView" kendoGridSelectBy="id" [selectedKeys]="mySelection" [pageSize]="20"
+    [pageable]="true" [sortable]="true" [reorderable]="true" [resizable]="true" [height]="500"
+    [columnMenu]="{ filter: true }">
+    <ng-template kendoGridToolbarTemplate>
+      <input placeholder="Search in all columns..." kendoTextBox (input)="onFilter($event)" />
+      <kendo-grid-spacer></kendo-grid-spacer>
+    </ng-template>
+    
+  
+    <kendo-grid-column  title="Role Name" [width]="100">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <div class="role">{{ dataItem.role_name }}</div>
+      </ng-template>
+    </kendo-grid-column>
+   
+    <kendo-grid-column  title="Role Description" [width]="100">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <div class="role">{{ dataItem.description }}</div>
+      </ng-template>
+    </kendo-grid-column>
+  
+    
+   
+    <kendo-grid-column title="Action" [width]="100" [class]="{ 'text-center': true }" [resizable]="false"
+      [filterable]="false">
+      <ng-template kendoGridCellTemplate let-role>
+        <kendo-menu>
+          <kendo-menu-item icon="gear" >
+            <kendo-menu-item text="Edit" url="/edit-role/{{ role._id }}" icon="edit"> </kendo-menu-item>
+           
+          </kendo-menu-item>
+        </kendo-menu>
+  
+      </ng-template>
+    </kendo-grid-column>
+  </kendo-grid>
+
+  </div>
+
+
+ 

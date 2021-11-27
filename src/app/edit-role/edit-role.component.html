@@ -1,0 +1,471 @@
+<app-header></app-header>
+<app-sidenav></app-sidenav>
+<div id="content" class="app-content" role="main">
+  <div class="app-content-body ">
+    <div class=" b-b-none wrapper-md main">
+      <div class="row">
+        <div class="col-sm-6 col-xs-12">
+          <h4 class="m-n font-bold ">Disposal Facility/PWPF</h4>
+        </div>
+        <div class="col-sm-6 text-right poppins hidden-xs">
+          <button class="button" routerLink="/role"><i class="fa fa-undo"></i>
+            Back</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-sm-12" style="margin:0px;padding: 0px;">
+
+    <div class="wrapper-md">
+      <div class="panel b-a">
+        <div class="panel-body">
+          <form role="form" [formGroup]="addroleform" (ngSubmit)="onFormSubmit()">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="control-label font-weight-600">Role Name  <span class="text-theme">*</span></label>
+                  <input type="text" class="form-control validate" formControlName="role_name" >
+                  <div *ngIf="f.role_name.errors && f.role_name.errors.required && isValidFormSubmitted"
+                  class="text-danger text-left mb-1 errorcontrols">
+                  <div *ngIf="f.role_name.errors.required"><small>Role Name is
+                      required.</small></div>
+                </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="control-label font-weight-600">Role Description</label>
+                  <input type="text" class="form-control validate" formControlName="description">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-7">
+                <div class="table-responsive">
+                  <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                      <!-- <tr>
+                                        <th colspan="6" class="text-center">Group Permissions<label class="i-checks i-checks"> Select All&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <input type="checkbox"  data-md-icheck (change)="toggleallVisibility($event)">
+                                            <i></i>
+                                        </label></th>
+                                    </tr> -->
+                      <tr>
+                        <th class="text-center">Module</th>
+                        <!-- <th class="text-center ">Full Access</th> -->
+                        <th class="text-center">View</th>
+                        <th class="text-center">Create</th>
+                        <th class="text-center">Edit</th>
+                        <th class="text-center">Delete</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="font-bold">Customer</td>
+                        
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox"  formControlName="customerview">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox"  formControlName="customercreate">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox"  formControlName="customeredit">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox"  formControlName="customerdelete">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td class="font-bold">Order/PO</td>
+                       
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox"  formControlName="orderview">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox"  formControlName="ordercreate">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox"  formControlName="orderedit">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox"  formControlName="orderdelete">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td class="font-bold">Target Setting</td>
+                       
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox" formControlName="targetview">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox"  formControlName="targetcreate">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox"  formControlName="targetedit">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox"  formControlName="targetdelete">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td class="font-bold">Collection &
+                          Disposal Execution</td>
+                       
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox"  formControlName="collectiondisposalview">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox"  formControlName="collectiondisposalcreate">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox"  formControlName="collectiondisposaledit">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox"  formControlName="collectiondisposaldelete">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                      </tr>
+
+
+
+
+
+                      <tr>
+                        <td class="font-bold">ULB</td>
+                       
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox"  formControlName="ulbview">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox"  formControlName="ulbcreate">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox" formControlName="ulbedit">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox" formControlName="ulbdelete">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="font-bold">Collection Centers</td>
+                       
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox" 
+                                formControlName="collectioncenterview">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox" 
+                                formControlName="collectioncentercreate">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox" 
+                                formControlName="collectioncenteredit">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox" 
+                                formControlName="collectioncenterdelete">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td class="font-bold">Transporter</td>
+                        
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox" 
+                                formControlName="transporterview">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox" 
+                                formControlName="transportercreate">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox" 
+                                formControlName="transporteredit">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox" 
+                                formControlName="transporterdelete">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="font-bold">Disposal Facility/PWPF</td>
+                       
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox"  formControlName="disposalview">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox" 
+                                formControlName="disposalcreate">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox"  formControlName="disposaledit">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox" 
+                                formControlName="disposaldelete">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="font-bold">Users</td>
+                       
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox"  formControlName="userview">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox" formControlName="usercreate">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox" formControlName="useredit">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox"  formControlName="userdelete">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="font-bold">Role And Permission</td>
+                        
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox"  formControlName="roleview">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox"  formControlName="rolecreate">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox"  formControlName="roleedit">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="checkbox g-my-0">
+                            <label class="i-checks i-checks">
+                              <input type="checkbox"  formControlName="roledelete">
+                              <i></i>
+                            </label>
+                          </div>
+                        </td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              
+             
+            </div>
+
+
+
+            <div class="row m-t-md">
+              <div class="col-md-12">
+               
+                <button type="button" class=" bt light" (click)="handleWarningAlert()">Cancel</button>
+                <button type="submit" class=" bt danger" [disabled]="isValidbutton" (click)="saveform('save')" style="margin-left: 2%;">Save</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+</div>

@@ -1,0 +1,83 @@
+<app-header></app-header> 
+ <app-sidenav></app-sidenav>
+ <div id="content" class="app-content" role="main">
+    <div class="app-content-body ">
+      <div class="bg-white b-b-none wrapper-md main">
+        <div class="row">
+          <div class="col-sm-6 ">
+            <h4 class="m-n font-bold ">Target Setting List</h4>
+          </div>
+          <div class="col-sm-6 text-right poppins hidden-xs">
+            <button routerLink="/goal" class="button"><i
+              class="fa fa-plus"></i> Add Target Setting</button>
+          </div>
+        </div>
+      </div>
+
+      <kendo-grid
+      [kendoGridBinding]="gridView"
+      kendoGridSelectBy="id"
+      [selectedKeys]="mySelection"
+      [pageSize]="20"
+      [pageable]="true"
+      [sortable]="true"
+      [reorderable]="true"
+      [resizable]="true"
+      [height]="500"
+      [columnMenu]="{ filter: true }">
+      <ng-template kendoGridToolbarTemplate>
+      <input
+          placeholder="Search in all columns..."
+          kendoTextBox
+          (input)="onFilter($event)"
+          />
+      <kendo-grid-spacer></kendo-grid-spacer>
+      
+      </ng-template>
+      
+      
+        <kendo-grid-column field="Target Name" title="Target Name" [width]="100">
+          <ng-template kendoGridCellTemplate let-dataItem>
+           
+          <div class="target_id text-theme"># {{dataItem.target_name}}</div>
+           
+        </ng-template>
+        </kendo-grid-column>
+        <kendo-grid-column field="target_duration" title="Target Duration" [width]="100">
+        </kendo-grid-column>
+        <kendo-grid-column field="state" title="Target State" [width]="100">
+        </kendo-grid-column>
+        <kendo-grid-column field="Target Created" title="Target Created" [width]="100">
+          <ng-template kendoGridCellTemplate let-dataItem>
+           
+          <div class="target_id text-theme"># {{dataItem.created_at|date:'dd-MM-yyyy'}}</div>
+           
+        </ng-template>
+        </kendo-grid-column>
+        
+      
+        
+      
+       <kendo-grid-column
+       title="Controls"
+       [width]="100"
+       [class]="{ 'text-center': true }"
+       [resizable]="false"
+       [filterable]="false"
+      >
+       <ng-template kendoGridCellTemplate let-disposal>
+        <kendo-menu>
+          <kendo-menu-item icon="gear">
+            <kendo-menu-item text="Edit" url="" icon="edit"> </kendo-menu-item>
+            <kendo-menu-item text="Delete" icon="delete"></kendo-menu-item>
+          </kendo-menu-item>
+         
+        </kendo-menu>
+       </ng-template>
+      </kendo-grid-column>
+      </kendo-grid>
+
+
+
+      </div>
+      </div>
