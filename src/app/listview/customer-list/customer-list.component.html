@@ -55,10 +55,10 @@
   <kendo-grid-column  title="Registration" [width]="100">
     <ng-template kendoGridCellTemplate let-dataItem>
       <div class="cpcb_registration ">CPCB : {{ dataItem.cpcb_registration}}</div>
-      <div class="cpcb_validity"><i _ngcontent-fcn-c561="" aria-hidden="true" class="fa fa-calendar-check-o" style="color: green;"></i> CPCB Validity : {{ dataItem.cpcb_validity |date:'dd-MM-yyyy'}}</div>
+      <div class="cpcb_validity"><i _ngcontent-fcn-c561="" aria-hidden="true" class="fa fa-calendar-check-o" style="color: green;"></i> CPCB Validity : {{ dataItem.cpcb_validity |date:'dd-MM-yyyy'}} ({{calculateDiff(dataItem.cpcb_validity)}})</div>
      
       <div class="spcb_registration ">SPCB : {{ dataItem.spcb_registration}}</div>
-      <div class="spcb_validity"><i _ngcontent-fcn-c561="" aria-hidden="true" class="fa fa-calendar-check-o" style="color: green;"></i> SPCB Validity : {{ dataItem.spcb_validity |date:'dd-MM-yyyy' }}</div>
+      <div class="spcb_validity"><i _ngcontent-fcn-c561="" aria-hidden="true" class="fa fa-calendar-check-o" style="color: green;"></i> SPCB Validity : {{ dataItem.spcb_validity |date:'dd-MM-yyyy' }} ({{calculateDiff(dataItem.spcb_validity)}})</div>
     </ng-template>
   </kendo-grid-column>
   

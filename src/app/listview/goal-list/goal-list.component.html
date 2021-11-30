@@ -39,7 +39,7 @@
         <kendo-grid-column field="Target Name" title="Target Name" [width]="100">
           <ng-template kendoGridCellTemplate let-dataItem>
            
-          <div class="target_id text-theme"># {{dataItem.target_name}}</div>
+          <div class="target_id ">{{dataItem.target_name}}</div>
            
         </ng-template>
         </kendo-grid-column>
@@ -50,34 +50,31 @@
         <kendo-grid-column field="Target Created" title="Target Created" [width]="100">
           <ng-template kendoGridCellTemplate let-dataItem>
            
-          <div class="target_id text-theme"># {{dataItem.created_at|date:'dd-MM-yyyy'}}</div>
+          <div class="target_id"><i _ngcontent-fcn-c561="" aria-hidden="true" class="fa fa-calendar-check-o" style="color: green;"></i> {{dataItem.created_at|date:'dd-MM-yyyy'}}</div>
            
         </ng-template>
         </kendo-grid-column>
-        
+     
       
-        
       
        <kendo-grid-column
-       title="Controls"
+       title="Action"
        [width]="100"
        [class]="{ 'text-center': true }"
        [resizable]="false"
        [filterable]="false"
       >
-       <ng-template kendoGridCellTemplate let-disposal>
+       <ng-template kendoGridCellTemplate let-target>
         <kendo-menu>
           <kendo-menu-item icon="gear">
             <kendo-menu-item text="Edit" url="" icon="edit"> </kendo-menu-item>
-            <kendo-menu-item text="Delete" icon="delete"></kendo-menu-item>
+            <kendo-menu-item text="Details" url="/targetview/{{ target._id }}" icon="info"> </kendo-menu-item>
           </kendo-menu-item>
          
         </kendo-menu>
        </ng-template>
       </kendo-grid-column>
       </kendo-grid>
-
-
 
       </div>
       </div>

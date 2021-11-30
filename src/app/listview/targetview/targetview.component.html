@@ -1,0 +1,49 @@
+<app-header></app-header>
+<app-sidenav></app-sidenav>
+<div id="content" class="app-content" role="main">
+    <div class="app-content-body ">
+      <div class="bg-white b-b-none wrapper-md main" style="height: 100px;">
+        <div class="row">
+          <div class="col-sm-6 ">
+            <h4 class="m-n font-bold ">Target Details</h4>
+            <div style="padding-top:5px;"><b>Target Name :</b> {{dataname}}</div>
+            <div><b>Target Duration :</b> {{dataduration}}</div>
+            
+          </div>
+          <div class="col-sm-6 text-right poppins hidden-xs">
+            <!-- <a href="/goal" class="btn m-b-xs btn-sm text-10 btn-info btn-3d add-role-model"><i
+              class="fa fa-plus"></i> Add Target Setting</a> -->
+          </div>
+        </div>
+      </div>
+  <div class="col-cm-12" style="background-color: white;">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Material</th>
+          <th scope="col">City</th>
+          <th scope="col">ULB</th>
+          <th scope="col">Collection Center</th>
+          <th scope="col">Disposal</th>
+          <th scope="col">Collection Target Qty</th>
+          <th scope="col">Target Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let items of dataItem">
+        <th scope="row" class="text-theme">{{items.material_name}}</th>
+          <td>{{items.city}}</td>
+          <td>{{items.ulb}}</td>
+          <td>{{items.collection_center}}</td>
+          <td>{{items.disposal}}</td>
+          <td>{{items.collection_target}}</td>
+          <td>{{items.target_date |date:'dd-MM-yyyy'}}</td>
+        </tr>
+      
+       
+      </tbody>
+    </table>
+  </div>
+      
+
+</div></div>

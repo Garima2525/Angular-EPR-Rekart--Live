@@ -61,6 +61,7 @@ import { AllotmentComponent } from './allotment/allotment.component';
 
 import { GoalListComponent } from './listview/goal-list/goal-list.component';
 import { EditRoleComponent } from './edit-role/edit-role.component';
+import { TargetviewComponent } from './listview/targetview/targetview.component';
 
 @NgModule({
   declarations: [
@@ -98,6 +99,7 @@ import { EditRoleComponent } from './edit-role/edit-role.component';
    
     GoalListComponent,
         EditRoleComponent,
+        TargetviewComponent,
   ],
   imports: [
     BrowserModule,

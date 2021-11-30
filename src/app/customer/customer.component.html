@@ -30,10 +30,13 @@
                   <label>Industry Type <span class="text-theme">*</span> </label>
                   <select class="form-control" formControlName="industry_type">
                     <option value="">select Industry Type </option>
-                    <option value="test1">Test1</option>
-                    <option value="test2">Test2</option>
-                    <option value="test3">Test3</option>
+                    <option value="CEMENT">CEMENT</option>
+                    <option value="CHEMICALS">CHEMICALS</option>
+                    <option value="FMCG">FMCG</option>
+                    <option value="RAILWAYS">RAILWAYS</option>
+                    <option value="BIOTECHNOLOGY">BIOTECHNOLOGY</option>
                   </select>
+
                   <div *ngIf="f.industry_type.errors && f.industry_type.errors.required && isValidFormSubmitted"
                     class="text-danger text-left mb-1 errorcontrols">
                     <div *ngIf="f.industry_type.errors.required"><small>Industry is required.</small></div>

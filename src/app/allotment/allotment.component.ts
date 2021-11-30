@@ -198,9 +198,8 @@ export class AllotmentComponent implements OnInit {
         this.mainDisExcArr,
       ]).subscribe((result: any) => {
         this.Toaster.showSuccess('Allotment Saved.');
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 5000);
+         window.location.reload();
+       
       });
     }
   }

@@ -140,4 +140,13 @@ export class CustomerListComponent implements OnInit {
 
     this.dataBinding.skip = 0;
   }
+
+
+  calculateDiff(dateSent:any){
+    let currentDate = new Date();
+    dateSent = new Date(dateSent);
+ 
+     let days= Math.floor((Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()) - Date.UTC(dateSent.getFullYear(), dateSent.getMonth(), dateSent.getDate()) ) /(1000 * 60 * 60 * 24));
+     return Number(-days)
+   }
 }

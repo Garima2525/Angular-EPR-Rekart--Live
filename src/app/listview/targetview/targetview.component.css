@@ -1,0 +1,4 @@
+.table > thead > tr > th {
+    padding: 8px 15px;
+    border-bottom: 2px solid #eaeff0;
+}

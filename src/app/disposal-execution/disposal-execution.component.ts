@@ -12,12 +12,15 @@ import {DisposalExecutionService} from '../service/disposal-execution.service';
 import { UlbserviceService } from '../service/ulbservice.service';
 import { CollectioncenterserviceService } from '../service/collectioncenterservice.service';
 import Swal from 'sweetalert2';
+import { TranporterserviceService } from '../service/tranporterservice.service';
 @Component({
   selector: 'app-disposal-execution',
   templateUrl: './disposal-execution.component.html',
   styleUrls: ['./disposal-execution.component.css']
 })
 export class DisposalExecutionComponent implements OnInit {
+  
+
   uniqid: any;
   disposalexecutionform!: FormGroup;
   login_id: any;
@@ -44,6 +47,7 @@ ammountInfo:any=[{
   collectiondata: any;
   ULBdata: any;
   DISdata: any;
+  transporterdata:any
   constructor(
     private disposalexecution: DisposalExecutionService,
     private CountryStateCityService: CountryStateCityService,
@@ -54,8 +58,11 @@ ammountInfo:any=[{
     private Attach: AttachmentService,
     private DisposalS: DisposalserviceService,
     private ULB:UlbserviceService,
-    private CC:CollectioncenterserviceService
-  ) { }
+    private CC:CollectioncenterserviceService,
+    private transporter:TranporterserviceService
+  ) {
+   
+   }
 
   ngOnInit(): void {
     this.todayDate = new Date();
@@ -80,6 +87,13 @@ ammountInfo:any=[{
       // console.log(Disdatas);
       this.DISdata = Disdatas.result;
     });
+
+    this.transporter.getalltransporter().subscribe((data: any) => {
+      console.log(data.result);
+
+      this.transporterdata = data.result;
+    });
+
     this.forminit();
     this.modalforminit();
   }
@@ -260,5 +274,8 @@ handleWarningAlert() {
       console.log('Clicked No, File is safe!');
     }
   });
+}
+handleFilter(value:any) {
+  this.transporterdata = this.transporterdata.filter((s:any) => s.text.toLowerCase().indexOf(value.toLowerCase()) !== -1);
 }
 }

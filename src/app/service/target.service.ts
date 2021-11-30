@@ -41,4 +41,26 @@ export class TargetService {
     return this.http.get(api_url,httpOptions)
   }
 
+  gettargetbyid(id: any){
+    let api_url=this.base_url+'gettargetbyid/' + id;
+    const httpOptions={
+      headers:new HttpHeaders({
+        'content-type': 'application/json;charset=UTF-8',
+        apikey: '8GWF6J1-WVG40Q4-HBWGNVY-9VXTXQ8',
+      }),
+    }
+    return this.http.get(api_url,httpOptions)
+  }
+
+  targetupdatebyid(id: any) {
+    let api_url = this.base_url + 'targetupdatebyid/' + id;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-type': 'application/json;charset=UTF-8',
+        apikey: '8GWF6J1-WVG40Q4-HBWGNVY-9VXTXQ8',
+      }),
+    };
+    return this.http.get(api_url, httpOptions);
+  }
+
 }

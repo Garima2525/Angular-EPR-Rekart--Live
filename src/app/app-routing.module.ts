@@ -30,6 +30,7 @@ import { AllotmentComponent } from './allotment/allotment.component';
 import{TargetListComponent} from './listview/target-list/target-list.component'
 import { GoalListComponent } from './listview/goal-list/goal-list.component'; 
 import { EditRoleComponent } from './edit-role/edit-role.component';
+import {TargetviewComponent} from './listview/targetview/targetview.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -75,7 +76,8 @@ const routes: Routes = [
   },
   {path:'target-list',component:TargetListComponent},
   {path:'goal-list',component:GoalListComponent},
-  {path:'edit-role/:id',component:EditRoleComponent}
+  {path:'edit-role/:id',component:EditRoleComponent},
+  {path:'targetview/:id',component:TargetviewComponent}
  
 ];
 

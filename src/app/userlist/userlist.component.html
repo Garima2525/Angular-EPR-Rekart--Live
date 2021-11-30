@@ -34,7 +34,18 @@
         <div class="user">{{ dataItem.email }}</div>
       </ng-template>
     </kendo-grid-column>
+    <kendo-grid-column  title="Designation" [width]="100">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <div class="user">{{ dataItem.designation }}</div>
+      </ng-template>
+    </kendo-grid-column>
   
+    <kendo-grid-column  title="Role" [width]="100">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <div class="user">{{ dataItem.role }}</div>
+      </ng-template>
+    </kendo-grid-column>
+
     <kendo-grid-column  title="Mobile" [width]="100">
       <ng-template kendoGridCellTemplate let-dataItem>
         <div class="user">{{ dataItem.phone }}</div>
@@ -86,8 +97,8 @@
                     </div>
                   </div>
                   <div class="col-md-6 form-group">
-                    <label>Email <span class="text-theme">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Email" formControlName="email">
+                    <label class="control-label font-weight-600">Email <span class="text-theme">*</span></label>
+                    <input type="text" class="form-control" placeholder="Email" formControlName="email">
                     <div *ngIf="f.email.touched && f.email.invalid && isValidFormSubmitted"
                       class="text-danger text-left mb-1 errorcontrols">
                       <div *ngIf="f.email.invalid"><small>Invalid Email.</small></div>

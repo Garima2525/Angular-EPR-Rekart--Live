@@ -21,6 +21,7 @@ export class EditCustomerComponent implements OnInit {
   states: any;
   district: any;
   country: any;
+  todayDate:any;
   uniqueId: any;
   pincodeerrorStatus = false;
   pincodeerrormsg: any;
@@ -94,6 +95,7 @@ export class EditCustomerComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.todayDate = new Date();
     this.customerId=this._Activatedroute.snapshot.paramMap.get("id")
     this.customerService.getcustomerbyid(this.customerId).subscribe((data:any)=>{
       this.forminit(data.result[0]);

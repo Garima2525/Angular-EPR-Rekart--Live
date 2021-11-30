@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { SwiperOptions } from 'swiper';
@@ -7,6 +8,7 @@ import { AuthService } from '../service/auth.service';
 import { CountryStateCityService } from '../service/country-state-city.service';
 import { TargetService } from '../service/target.service';
 import { TosterService } from '../service/toster.service';
+import { AttachmentService } from '../service/attachment.service';
 
 @Component({
   selector: 'app-goal',
@@ -14,7 +16,8 @@ import { TosterService } from '../service/toster.service';
   styleUrls: ['./goal.component.css'],
 })
 export class GoalComponent implements OnInit {
-
+  @ViewChild('closebutton')
+  closebutton:any;
 
   targetInfo: any = [
     {
@@ -33,16 +36,30 @@ export class GoalComponent implements OnInit {
   targetForm!:FormGroup;
   statesdata: any;
   statename: any;
+  uniqueId: any;
   isValidFormSubmitted: any;
+  isValidFormSubmittedModal: any;
   saveas: any;
   saveasnew: any;
   isValidbutton: any;
+  isValidbuttonModal: any;
   login_id: any;
   targetname: any;
+  filedatainput:any;
   targetDuration: any;
-  constructor( private CountryStateCityService: CountryStateCityService,private fb:FormBuilder, private target:TargetService,private toast: TosterService,
-    private Auth: AuthService,
-    private Route: Router,) {}
+  goalModalform!: FormGroup;
+  goalattachments: any = [];
+
+  ulbattachments: any = [];
+  constructor(
+     private CountryStateCityService: CountryStateCityService,
+     private fb:FormBuilder, 
+     private target:TargetService,
+     private toast: TosterService,
+      private Auth: AuthService,
+      private Route: Router,
+      private Attach: AttachmentService,
+    ) {}
 
   ngOnInit(): void {
     this.Auth.userLoggedIn().subscribe((logindata: any) => {
@@ -53,6 +70,7 @@ export class GoalComponent implements OnInit {
       console.log(data.result);
       this.statedata = data.result;
       this.onformInit()
+      this.modalforminit();
     });
   }
  
@@ -84,7 +102,8 @@ export class GoalComponent implements OnInit {
       target_duration:'',
       state:'',
       user_id:'',
-      target_info:''
+      target_info:'',
+      attachments:''
     })
   }
 
@@ -133,7 +152,42 @@ export class GoalComponent implements OnInit {
   getTargetDuration(e:any){
     this.targetDuration = e.target.value;
   }
+  modalforminit() {
+    this.goalModalform = this.fb.group({
+      type_id: this.uniqueId,
+      type: 'target',
+      document_type: ['', Validators.required],
+      document_no: ['', Validators.required],
+      image: ['', Validators.required],
+      validity: ['', Validators.required],
+    });
+  }
 
+  get fm() {
+    return this.goalModalform.controls;
+  }
+    fileupload(e:any){
+    console.log(e.target.files[0].type);
+    if (
+      e.target.files[0].type == 'application/pdf' ||
+      e.target.files[0].type == 'image/png' ||
+      e.target.files[0].type == 'image/jpeg' ||
+      e.target.files[0].type == 'image/jpg'
+    ){
+      this.Attach.UploadFile(e.target.files, this.uniqueId).subscribe(
+        (imagedata: any) => {
+          console.log(imagedata);
+          this.filedatainput = imagedata.url;
+           this.isValidbuttonModal=false;
+        }
+      );
+    }
+    else{
+       this.filedatainput = null;
+       this.toast.showError('Invalid File.');
+        this.isValidbuttonModal=true;
+    }
+  }
   onFormSubmit() {
     this.isValidFormSubmitted = false;
     if (this.targetForm.invalid) {
@@ -148,6 +202,7 @@ export class GoalComponent implements OnInit {
       this.targetForm.value.state = this.statename;
       this.targetForm.value.target_name = this.targetname;
       this.targetForm.value.target_duration = this.targetDuration;
+      this.targetForm.value.attachments = this.goalattachments;
       console.log(this.targetForm, 'true');
       this.target.submitForm(this.targetForm.value).subscribe((data:any) => {
         console.log(data);
@@ -168,7 +223,29 @@ export class GoalComponent implements OnInit {
       });
     }
   }
-
+  onModalFormSubmit() {
+    this.isValidFormSubmittedModal = false;
+    if (this.goalModalform.invalid) {
+      console.log(this.goalModalform, 'error');
+      this.isValidFormSubmittedModal = true;
+      this.isValidbuttonModal = false;
+    } else {
+      console.log(this.goalModalform, 'true');
+      this.isValidbuttonModal = true;
+      this.goalModalform.value.image=this.filedatainput;
+      this.goalModalform.value.type_id= this.uniqueId;
+      this.goalModalform.value.type= 'target';
+      let formadata=this.goalModalform.value;
+      this.Attach.submitForm(formadata).subscribe((data: any) => {
+        this.goalattachments.push(data);
+        console.log(this.goalattachments);
+         this.toast.showSuccess('Attachment added.');
+         this.goalModalform.reset();
+         this.closebutton.nativeElement.click();
+        this.isValidbuttonModal=false;
+      });
+    }
+  }
   handleWarningAlert() {
     Swal.fire({
       
@@ -191,6 +268,10 @@ export class GoalComponent implements OnInit {
     this.targetInfo[i][value]=w.target.value;
     this.targetInfo[i].state=this.statename;
   }
-
+  deleteAttachment(i:any){
+    console.log(i)
+    this.goalattachments.splice(i, 1);
+    console.log(this.goalattachments);
+  }
 
 }

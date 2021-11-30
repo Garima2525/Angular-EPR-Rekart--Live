@@ -12,8 +12,7 @@
           <div class="col-sm-6 text-right poppins hidden-xs">
             <button type="button" class=" bt light" (click)="handleWarningAlert()">Cancel</button>
             <button type="submit" class=" bt danger" [disabled]="isValidbutton" (click)="saveform('save')">Save</button>
-            <button type="submit" class=" bt dark" [disabled]="isValidbutton" (click)="saveasnewform('savenew')">Save &
-              New</button>
+            
           </div>
         </div>
       </div>
@@ -344,7 +343,7 @@
 
               <div class="panel-body">
 
-                <div class="col-md-4 form-group">
+                <div class="col-md-6 form-group">
                   <label>CPCB Registration </label>
                   <select class="form-control" formControlName="cpcb_registration">
                     <option>Yes</option>
@@ -352,22 +351,22 @@
                   </select>
                 </div>
 
-                <div class="col-md-4 form-group">
+                <div class="col-md-6 form-group">
                   <label>Validity</label>
-                  <input type="date" class="form-control " formControlName="cpcb_validity">
+                  <input type="date" class="form-control " formControlName="cpcb_validity"  min="{{ todayDate|date:'yyyy-MM-dd' }}" max="2050-03-31">
                 </div>
 
-                <div class="col-md-4 form-group">
+                <div class="col-md-6 form-group">
                   <label>SPCB Registration</label>
                   <select class="form-control" formControlName="spcb_registration">
                     <option>Yes</option>
                     <option>No</option>
                   </select>
                 </div>
-                <div class="clearfix"></div>
-                <div class="col-md-4 form-group">
+                
+                <div class="col-md-6 form-group">
                   <label>Validity </label>
-                  <input type="date" class="form-control " formControlName="spcb_validity">
+                  <input type="date" class="form-control " formControlName="spcb_validity"  min="{{ todayDate|date:'yyyy-MM-dd' }}" max="2050-03-31">
                 </div>
 
 
@@ -412,9 +411,7 @@
           <button type="button" class=" bt light" (click)="handleWarningAlert()">Cancel</button>
 
           <button type="submit" class=" bt danger" [disabled]="isValidbutton" (click)="saveform('save')">Save</button>
-          <button type="submit" class=" bt dark" [disabled]="isValidbutton" (click)="saveasnewform('savenew')">Save &
-            New</button>
-
+         
         </div>
       </div>
     </form>
