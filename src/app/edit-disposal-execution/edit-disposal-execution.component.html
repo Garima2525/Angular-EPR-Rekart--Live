@@ -25,8 +25,12 @@
 
                 <div class="col-md-4 form-group">
                   <label> Material Name  <span class="text-theme">*</span></label>
-                  <select class="form-control" formControlName="material_name">
-                    <option value="ab">ab</option>
+                  <select class="form-control" formControlName="material_name" >
+                    <option value="">Select Material</option>
+                  <option value="MLP">MLP</option>
+                  <option value="Non MLP">Non MLP</option>
+                  <option value="Rigid">Rigid</option>
+                  <option value="Flexible">Flexible</option>
                    
                   </select>
                   <div *ngIf="f.material_name.errors && f.material_name.errors.required && isValidFormSubmitted"
@@ -58,10 +62,10 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-md-4 form-group">
-                  <label> ULB  <span class="text-theme">*</span></label>
+                  <label> ULB <span class="text-theme">*</span></label>
                   <select class="form-control" formControlName="ulb">
-                    <option value="test ulb">test ulb</option>
-
+                    <option value="">Select ULB</option>
+                    <option *ngFor="let objulb of ULBdata" value={{objulb._id}}> {{objulb.ulb_name}} </option>
                   </select>
                   <div *ngIf="f.ulb.errors && f.ulb.errors.required && isValidFormSubmitted"
                   class="text-danger text-left mb-1 errorcontrols">
@@ -69,9 +73,10 @@
                 </div>
                 </div>
                 <div class="col-md-4 form-group">
-                  <label>Collection Center  <span class="text-theme">*</span></label>
+                  <label>Collection Center <span class="text-theme">*</span></label>
                   <select class="form-control" formControlName="collection_center">
-                    <option value="demo">demo</option>
+                    <option value="">Select Collection Center</option>
+                    <option *ngFor="let objCC of collectiondata" value={{objCC._id}}> {{objCC.collection_center_name}} </option>
                   </select>
                   <div *ngIf="f.collection_center.errors && f.collection_center.errors.required && isValidFormSubmitted"
                   class="text-danger text-left mb-1 errorcontrols">
@@ -79,9 +84,10 @@
                 </div>
                 </div>
                 <div class="col-md-4 form-group">
-                  <label> Disposal Facility/PWPF  <span class="text-theme">*</span></label>
+                  <label> Disposal Facility/PWPF <span class="text-theme">*</span></label>
                   <select class="form-control"formControlName="disposal_facility_pwpf">
-                    <option value="zyz">zyz</option>
+                    <option value="">Select Collection Center</option>
+                    <option *ngFor="let objdis of DISdata" value={{objdis._id}}> {{objdis.disposal_company_name}} </option>
                   </select>
                   <div *ngIf="f.disposal_facility_pwpf.errors && f.disposal_facility_pwpf.errors.required && isValidFormSubmitted"
                   class="text-danger text-left mb-1 errorcontrols">
@@ -101,18 +107,22 @@
               <div class="panel-body">
 
                 <div class="col-md-6 form-group">
-                  <label>Transporter Name  <span class="text-theme">*</span></label>
+                  <label>Transporter Name <span class="text-theme">*</span></label>
                   <div class="input-group">
-                    <input type="text" class="form-control" placeholder=""formControlName="transporter_name">
+                    <!-- <input type="text" class="form-control" placeholder=""formControlName="transporter_name"> -->
+                    <select formControlName="transporter_name" class="form-control">
+                      <option>Select Transporter Name </option>
+                      <option *ngFor="let objtrans of transporterdata" value={{objtrans._id}}> {{objtrans.transporter_name}} </option>
+                    </select>
                     <span class="input-group-addon"><i class="fa fa-search">
                       </i></span>
+                    
                   </div>
                   <div *ngIf="f.transporter_name.errors && f.transporter_name.errors.required && isValidFormSubmitted"
                   class="text-danger text-left mb-1 errorcontrols">
                   <div *ngIf="f.transporter_name.errors.required"><small>Disposal Transporter Name is required.</small></div>
                 </div>
                 </div>
-
 
 
 

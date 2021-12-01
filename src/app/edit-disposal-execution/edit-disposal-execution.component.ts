@@ -5,10 +5,13 @@ import { StateCityService } from '../service/state-city.service';
 import { TosterService } from '../service/toster.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
-
+import { DisposalserviceService } from '../service/disposalservice.service'
 import { AttachmentService } from '../service/attachment.service';
 import {DisposalExecutionService} from '../service/disposal-execution.service'
 import Swal from 'sweetalert2';
+import { UlbserviceService } from '../service/ulbservice.service';
+import { CollectioncenterserviceService } from '../service/collectioncenterservice.service';
+import { TranporterserviceService } from '../service/tranporterservice.service';
 @Component({
   selector: 'app-edit-disposal-execution',
   templateUrl: './edit-disposal-execution.component.html',
@@ -34,7 +37,11 @@ export class EditDisposalExecutionComponent implements OnInit {
    disexecutionId: any;
    disposalname: any;
    disposalid: any;
-  
+   ULBdata: any;
+   DISdata:any;
+   transporterdata:any;
+
+   collectiondata:any
     constructor(
       private disposalexecution: DisposalExecutionService,
       private CountryStateCityService: CountryStateCityService,
@@ -43,7 +50,11 @@ export class EditDisposalExecutionComponent implements OnInit {
       private Auth: AuthService,
       private Route: Router,
       private Attach: AttachmentService,
-      private _Activatedroute: ActivatedRoute
+      private _Activatedroute: ActivatedRoute,
+      private ULB:UlbserviceService,
+      private CC:CollectioncenterserviceService,
+      private DisposalS: DisposalserviceService,
+      private transporter:TranporterserviceService
   ) { }
 
   ngOnInit(): void {
@@ -56,6 +67,24 @@ export class EditDisposalExecutionComponent implements OnInit {
       console.log(data.result);
       this.statedata = data.result;
     });
+    this.ULB.getallulb().subscribe((ULBdatas: any) => {
+      // console.log(ULBdatas);
+      this.ULBdata = ULBdatas.result;
+    });
+    this.CC.getallcollection().subscribe((CCdata:any)=>{
+      // console.log(CCdata);
+      this.collectiondata=CCdata.result;
+    })
+    this.DisposalS.getalldisposal().subscribe((Disdatas: any) => {
+      // console.log(Disdatas);
+      this.DISdata = Disdatas.result;
+    });
+    this.transporter.getalltransporter().subscribe((data: any) => {
+      console.log(data.result);
+
+      this.transporterdata = data.result;
+    });
+
     this.disposalexecution.getdisposalexecutionbyid(this.disexecutionId).subscribe((data: any) => {
       console.log(data.result[0]);
       this.forminit(data.result[0]);

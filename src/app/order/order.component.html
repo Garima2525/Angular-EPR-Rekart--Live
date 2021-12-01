@@ -183,7 +183,7 @@
                         </tr>
                         <tr *ngFor="let row of materialInfo;index as i">
                           <th>
-                            <select class="tbl-input form-control" style="width: 130px;" (change)="onchangetext($event,i,'material_name')">
+                            <select class=" form-control" style="width: 130px;" (change)="onchangetext($event,i,'material_name')" style="width: 150px;">
                               <option value="">Select Material</option>
                               <option value="MLP">MLP</option>
                               <option value="Non MLP">Non MLP</option>
@@ -199,9 +199,10 @@
                             </select>
                             <span *ngIf="materialerror[i].state" class="text-danger"> State is Required</span>
                           </th>
-                          <th><input type="" (input)="this.onchange($event,i,'collection_Qty')" class="tbl-input form-control" value="0" ><span *ngIf="materialerror[i].qty" class="text-danger"> Qty is Required</span></th>
-                          <th><input type="date" class="tbl-input form-control" style="width: 150px;" (change)="onchangetext($event,i,'target_date')"><span *ngIf="materialerror[i].targetdate" class="text-danger"> Target Date is Required</span></th>
-                          <th><input type="number" value="0" class="tbl-input form-control" (input)="this.onchange($event,i,'net_unit_price')"><span *ngIf="materialerror[i].price" class="text-danger"> Price is Required</span></th>
+
+                          <th><input type="" (input)="this.onchange($event,i,'collection_Qty')" class=" form-control" value="0" style="width: 130px;"><span *ngIf="materialerror[i].qty" class="text-danger"> Qty is Required</span></th>
+                          <th><input type="date" class="form-control" style="width: 150px;" (change)="onchangetext($event,i,'target_date')"><span *ngIf="materialerror[i].targetdate" class="text-danger"> Target Date is Required</span></th>
+                          <th><input type="number" value="0" class="form-control" (input)="this.onchange($event,i,'net_unit_price')"><span *ngIf="materialerror[i].price" class="text-danger"> Price is Required</span></th>
                           <th>{{ row.sub_total }}</th>
                           <th style="font-size: 14.4px;">
                             <i class="fa fa-trash" aria-hidden="true" (click)="deleteinfo($event,i)"></i>
