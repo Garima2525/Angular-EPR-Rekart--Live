@@ -37,12 +37,13 @@
       </ng-template>
       
       
-        <kendo-grid-column  title="Material Details" [width]="100">
+        <kendo-grid-column  title="Material Details" [width]="120">
           <ng-template kendoGridCellTemplate let-dataItem>
            
             <div class="cd"><b>Material  :</b> {{dataItem.material_name}}</div>
             <div class="cd"> <b>State :</b> {{dataItem.state}}</div>
             <div class="cd"><b>City :</b> {{dataItem.city}}</div>
+            <span class="poDateClass"><i _ngcontent-fcn-c561="" aria-hidden="true" class="fa fa-calendar-check-o" style="color: green;"></i> {{ dataItem.created_at|date: 'dd-MM-yyyy' }}</span>
           </ng-template>
         </kendo-grid-column>
         
@@ -90,7 +91,7 @@
 </kendo-grid-column> 
       
 
-<kendo-grid-column  title="Disposal Date " [width]="130">
+<kendo-grid-column  title="Disposal Date " [width]="100">
   <ng-template kendoGridCellTemplate let-dataItem>
    
     <div class="cd"><i _ngcontent-fcn-c561="" aria-hidden="true" class="fa fa-calendar-check-o" style="color: green;"></i> <b> Date :</b>   {{dataItem.disposal_date_time |date:'dd-MM-yyyy'}}</div>
@@ -103,7 +104,7 @@
 
        <kendo-grid-column
        title="Action"
-       [width]="100"
+       [width]="80"
        [class]="{ 'text-center': true }"
        [resizable]="false"
        [filterable]="false"

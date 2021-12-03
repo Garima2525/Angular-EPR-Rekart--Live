@@ -177,7 +177,7 @@ modalforminit() {
     document_type: ['', Validators.required],
     document_no: ['', Validators.required],
     image: ['', Validators.required],
-    validity: ['', Validators.required],
+    // validity: ['', Validators.required],
   });
 }
 getdistrict(e: any) {

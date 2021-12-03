@@ -67,4 +67,6 @@ export class AuthService {
     }
     return this.http.post(api_url,{email},httpOptions)
   }
+
+ 
 }

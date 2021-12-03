@@ -4,19 +4,31 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn,
   Validators } from '@angular/forms';
   import { TosterService } from '../service/toster.service';
   import Swal from 'sweetalert2';
+  import { AuthService } from '../service/auth.service';
+  import {ChangepassService} from '../service/changepass.service'
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  constructor(private router: Router,private fb: FormBuilder, private Toaster: TosterService,) { }
+  constructor
+  (
+    private router: Router,
+    private fb: FormBuilder, 
+    private Toaster: TosterService,
+    private auth: AuthService,
+    private toast: TosterService,
+    private users:ChangepassService,
+    ) { }
   changeform!: FormGroup;
   username:any;
   saveas: any = true;
   isValidbutton: any;
   isPasswordSame:any;
   isValidFormSubmitted: any;
+  buttondisabled: any = true;
+
   ngOnInit(): void {
    this.username= localStorage.getItem('username')?localStorage.getItem('username'):this.router.navigate(['/login'])
    this.initform();
@@ -70,8 +82,21 @@ export class HeaderComponent implements OnInit {
       this.isValidFormSubmitted = true;
       this.isValidbutton = false;
       this.Toaster.showError('Sorry!, Fields are mandatory.');
-    }else{
-      this.Toaster.showSuccess('save');
+    }else {
+      console.log(this.changeform, 'true');
+      // this.users.changepass(this.changeform.value).subscribe((data: any) => {
+      //   this.buttondisabled = "false";
+      //   console.log(data)
+      //   if (data.status == 200) {
+      //     this.toast.showSuccess(data.message)
+      //     window.location.reload();
+      //     document.getElementById('closemodal')?.click()
+      //   } else if (data.status === 500) {
+      //     this.toast.showError(data.message)
+      //   }
+      //   // setTimeout(()=>{
+      //   // },1000)
+      // })
     }
   }
   handleWarningAlert() {

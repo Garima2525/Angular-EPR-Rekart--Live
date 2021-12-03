@@ -213,7 +213,7 @@
                               </select>
                             </th>
                             <th>
-                              <select class="form-control" (change)="[getdetails($event,i),getChanges($event,i,'material_name')]" style="width: 130px;">
+                              <select class="form-control" (change)="[getdetails($event,i),getChanges($event,i,'city')]" style="width: 130px;">
                                 <option value="" disabled> Select District </option>
                                 <option *ngFor="let dobj of districtdata" value={{dobj}}> {{dobj}} </option>
                               </select>

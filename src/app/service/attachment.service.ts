@@ -6,10 +6,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class AttachmentService {
   constructor(private http: HttpClient) {}
-  base_url = 'https://epr.rekart.co.in/epr/attachment';
+  base_url = 'https://epr.troology.com/epr/attachment';
 
   UploadFile(files: any,id:any) {
-    let api_url = 'https://epr.rekart.co.in/dt/upload';
+    let api_url = 'https://epr.troology.com/dt/upload';
     const formData = new FormData();
     const httpOptions = {
       headers: new HttpHeaders({

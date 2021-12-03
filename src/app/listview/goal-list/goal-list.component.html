@@ -42,11 +42,26 @@
           <div class="target_id ">{{dataItem.target_name}}</div>
            
         </ng-template>
+
+
         </kendo-grid-column>
+
         <kendo-grid-column field="target_duration" title="Target Duration" [width]="100">
+          <ng-template kendoGridCellTemplate let-dataItem>
+           
+          <div class="target_duration ">{{dataItem.target_duration|date:'MMMM-yyyy'}}</div>
+           
+        </ng-template>
+
+
         </kendo-grid-column>
+
+        <!-- <kendo-grid-column field="target_duration" title="Target Duration" [width]="100">
+        </kendo-grid-column> -->
         <kendo-grid-column field="state" title="Target State" [width]="100">
         </kendo-grid-column>
+
+
         <kendo-grid-column field="Target Created" title="Target Created" [width]="100">
           <ng-template kendoGridCellTemplate let-dataItem>
            
