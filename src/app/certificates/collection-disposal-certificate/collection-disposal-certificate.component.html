@@ -1,0 +1,382 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Customer Booking | Fleetware </title>
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+    <meta name="FleetWare" content="Troology" />
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.0/css/font-awesome.min.css" type="text/css" />
+    <!-- <link rel="stylesheet" href="/libs/jquery/bootstrap/dist/css/bootstrap.css" type="text/css" /> -->
+    <style type="text/css" media="all">
+        body {
+            color: #000;
+            font-size: 11px;
+            background: #ffffff;
+        }
+
+        /*table tr th, table tr td {border:none; border-top: none; border-bottom: none; border-left: none; border-right:none;}*/
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        .h1,
+        .h2,
+        .h3,
+        .h4,
+        .h5,
+        .h6 {
+            font-family: 'Ubuntu', sans-serif;
+        }
+
+        #wrapper {
+            max-width: 100%;
+            margin: 0 auto;
+            padding-top: 0px;
+            border: none;
+        }
+
+        .btn {
+            border-radius: 0;
+            margin-bottom: 5px;
+        }
+
+        .bootbox .modal-footer {
+            border-top: 0;
+            text-align: center;
+        }
+
+        h3 {
+            margin: 5px 0;
+        }
+
+        .order_barcodes img {
+            float: none !important;
+            margin-top: 5px;
+        }
+
+        #watermark {
+            height: 450px;
+            width: 450px;
+            position: absolute;
+            overflow: hidden;
+        }
+
+        #watermark p {
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: grey;
+            font-size: 15px;
+            pointer-events: none;
+            opacity: 0.2;
+        }
+        @media print {
+            .pagebreak {
+                page-break-before: always;
+            }
+
+            * {
+                color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+             
+            }
+                hr {
+                    border-top: 1px solid;
+                    border-color: #aba6a6;
+                    border-width: 1px;
+                    margin-bottom: 43px;
+                }
+
+                .print-btn-none {
+                    display: none !important;
+                }
+
+                body {
+                    font-size: 18px !important;
+                }
+
+                #spacer {
+                    height: 18em;
+                }
+
+                /* height of footer + a little extra */
+                #footer {
+                    position: fixed;
+                    bottom: 0;
+                    width: 100%;
+                    /* border: 1px solid #f5f5f5;*/
+                    padding: 5px;
+                }
+
+                .table-bordered>tbody>tr>td,
+                .table-bordered>thead>tr>th {
+                    border: 1px solid #000 !important;
+                }
+
+                p.head-contact {
+                    font-size: 10px;
+                }
+
+                td.rupees-word {
+                    font-size: 10px !important;
+                    color: #ffffff !important;
+                }
+
+                td.price-gst {
+                    font-size: 10px !important;
+                }
+
+                td.computer-generated {
+                    font-size: 10px !important;
+                }
+
+                table>tbody>tr>td {
+                    font-size: 15px !important;
+                }
+
+                #footer2 {
+                    position: fixed;
+                    bottom: 0;
+                    width: 100%;
+                    /*border: 1px solid #f5f5f5;*/
+                    padding: 5px;
+                }
+
+                .no-print {
+                    display: none;
+                }
+
+                #wrapper {
+                    max-width: 800px;
+                    width: 100%;
+                    min-width: 200px;
+                    margin: 0 auto;
+                    border: none;
+                }
+
+                .no-border {
+                    border: none !important;
+                }
+
+                .border-bottom {
+                    border-bottom: 1px solid #eee !important;
+                }
+
+                .table>tbody>tr>td {
+                    border: none;
+                }
+
+                .spacer-print-40 {
+                    height: 40px;
+                }
+
+            }
+
+            @media print {
+                .print-btn-none {
+                    display: none !important;
+                }
+            }
+    </style>
+    <style>
+        span#scissor {
+            position: relative;
+            top: 16px;
+            font-size: 22px;
+            background: #fff;
+        }
+
+        span.label.label-warning {
+            position: relative;
+            top: -.2em;
+        }
+
+        .ad-div {
+            padding: 10px 15px;
+            background-color: #ffffff;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.955.383 1.869.74 2.75 1.072h6.225c-2.51-.73-5.139-1.691-8.233-2.928C65.888 13.278 60.562 12 50 12c-10.626 0-16.855 1.397-26.66 5.063l-1.767.662c-2.475.923-4.66 1.674-6.724 2.275h6.335zm0-20C13.258 2.892 8.077 4 0 4V2c5.744 0 9.951-.574 14.85-2h6.334zM77.38 0C85.239 2.966 90.502 4 100 4V2c-6.842 0-11.386-.542-16.396-2h-6.225zM0 14c8.44 0 13.718-1.21 22.272-4.402l1.768-.661C33.64 5.347 39.647 4 50 4c10.271 0 15.362 1.222 24.629 4.928C84.112 12.722 89.438 14 100 14v-2c-10.271 0-15.362-1.222-24.629-4.928C65.888 3.278 60.562 2 50 2 39.374 2 33.145 3.397 23.34 7.063l-1.767.662C13.223 10.84 8.163 12 0 12v2z' fill='%231e1e1e' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E") !important;
+        }
+
+        .no-border {
+            border-width: 0 !important;
+        }
+
+        .border-bottom {
+            border-bottom: 1px solid #ddd !important;
+        }
+
+        .border-bottom-dotted {
+            border-bottom: 1px dotted #ddd !important;
+        }
+
+        .spacer-5 {
+            height: 5px;
+        }
+
+        .spacer-10 {
+            height: 10px;
+        }
+
+        .spacer-15 {
+            height: 15px;
+        }
+
+        .spacer-20 {
+            height: 20px;
+        }
+
+        .spacer-30 {
+            height: 30px;
+        }
+
+        .spacer-40 {
+            height: 40px;
+        }
+
+        .spacer-50 {
+            height: 50px;
+        }
+
+        .table>thead>tr>th,
+        .table>tbody>tr>th,
+        .table>tfoot>tr>th,
+        .table>thead>tr>td,
+        .table>tbody>tr>td,
+        .table>tfoot>tr>td {
+
+            border-top: 0px solid #ddd;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="wrapper" style="width: 650px;">
+        <tr>
+            <td><button onclick="window.print();" class="btn btn-primary no-print print-btn-none"><i class="fa fa-print"
+                        aria-hidden="true"></i> Print</button></td>
+
+        </tr>
+
+        <div id="receiptData">
+            <div class="no-print">
+            </div>
+            <div id="editor"></div>
+            <div id="receipt-data">
+                <table class="table table-condensed" style=" margin-bottom: 0px;width: 100%;">
+                    <tbody>
+                        <tr >
+                            <th style="text-align:center;  padding-bottom:1%; ">
+									<img src="../../assets/img/logo.PNG" alt="" style="width: 200px;height: 50px;">
+								</th>
+                        </tr>
+                        <tr >
+                            <th style="text-align: center;font-size: 17px;color: #323238; font-weight: normal;"  >
+									www.rekart.co.in | E: Team@rekart.co.in | Missed Call: 80108 11211
+								</th>
+                        </tr>
+                        <tr >
+                            <th style="font-size: 15px;color: #323238; font-weight: normal;padding-left: 79.5%;padding-top: 1%; "  >
+									Date-1-04-2021
+								</th>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+                
+                <table class="table table-condensed" style=" margin-bottom: 0px;text-align: left; padding-top: 2%;color:#323238;font-size: 13px;font-weight:normal;" >
+                   <tr>
+                       <th style="font-weight: normal; padding-top: 2%;">To</th>
+                   </tr>
+                   <tr >
+                    <th  style="font-weight: normal; padding-top: 2%;">The Member Secretory</th>
+                </tr>
+                <tr>
+                    <th  style="font-weight: normal; padding-top: 2%;">Karnataka Pollution Control Board,</th>
+                </tr>
+                <tr>
+                    <th  style="font-weight: normal; padding-top: 2%;">Bengaluru, Karnataka</th>
+                </tr>
+                </table>
+              
+                <table class="table table-condensed" style=" margin-bottom: 0px;text-align: left; padding-top: 5%;color:#323238;font-size: .9rem;font-weight:normal;" >
+                   
+
+                    <tr>
+                        <th style="font-size: 15px;padding-top: 5%;">Sub: Regarding Submission of Collection and Disposal of Post-Consumer plastic waste On Behalf Of Eastern Condiments Pvt Ltd.</th>
+                    </tr>
+                    <tr >
+                        <th  style="padding-top: 4%;font-weight: normal;font-size: 14px;">Respected Sir,</th>
+                    </tr>
+                         
+                    <tr>
+                        <th  style="padding-top: 4%;font-weight: normal;  word-spacing:2px;line-height:18px;text-align: justify;font-size: 14px;"> 
+                        This is to make you acknowledge that we are following the all guidelines under PWM Rule 2016. We, <b>Rekart Innovation Pvt.Ltd.</b> have an agreement with <b>Eastern Condiments Pvt Ltd. </b>to collect and Co-peocessing of post-consumer plastic waste for the Pan india further it is to declare that we have collcted and co-processed the plastic waste Qty.<b>248.99 MT</b> from
+                        <b>Bruhat Bengaluru Mahanagara Palike,Karnataka,</b>in the duration of <b>February 2021.</b>
+                        </th>
+                    </tr>
+
+                    <tr >
+                        <th  style="padding-top: 4%;font-weight: normal;font-size: 14px;">
+                            Request You to Kindly check the attached Collection Co-processing document and request you to acknowledge of the receiving of the same.
+                        </th>
+                    </tr>
+
+                    <tr >
+                        <th  style="padding-top: 4%;font-weight: normal;font-size: 14px;">
+                           Thanking you.
+                        </th>
+                    </tr>
+                    <tr >
+                        <th  style="padding-top: 2%;font-weight: normal;font-size: 14px;">
+                         For Rekart Innovations Pvt.Ltd.
+                        </th>
+                    </tr>
+
+                 </table>
+            
+                 <table class="table table-condensed" style=" margin-bottom: 10px;text-align: left; padding-top: 1%;color:#323238;font-size: .9rem;font-weight:normal;width: 100%;text-align: center;" >
+                   
+<div class="col-sm-12" style="border-top:1px solid black;margin-top: 8%;"></div>
+                   
+<tr>
+                        <th  style="text-align: center;color:#018105;font-size:13px;padding-top: 2%;">REKART INNOVATIONS (P) Ltd.</th>
+                    </tr>
+                         
+                    <tr >
+                        <th style="text-align: center;font-size:11px;">Corporate office:132,Sector-27, Gurugram- 122009</th>
+                    </tr>
+                    <tr >
+                        <th style="text-align: center;font-size: 11px;">Registered Office:1K/72, NIT Faridabad, Haryana - 121001</th>
+                    </tr>
+                    <tr style="text-align: center;font-size: 11px;">
+                        <th >PAN No-AAHCR3634H | GST NO-06AAHCR364H1ZE | CIN No- U93000HR2015PTC055846 | MSME No.-HR03D0016948</th>
+                    </tr>
+
+                  
+
+                  
+                  
+
+                 </table>
+            
+               
+
+            </div>
+
+        </div>
+    </div>
+    <div id="editor"></div>
+    <script src="/libs/jquery/jquery/dist/jquery.js"></script>
+    <script src="/libs/jquery/bootstrap/dist/js/bootstrap.js"></script>
+  
+
+</body>
+
+</html>

@@ -188,7 +188,7 @@ textarea.form-control{
     padding: 2rem 1.5rem;
     color: #f4f4f4;
     font-weight: 600;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     border-radius: 10px 10px 0px 0px;
 }
 .bgcl1 {
@@ -201,7 +201,9 @@ textarea.form-control{
     float: right;
 }
 .boxData .list-group-flush .list-group-item {
-    font-weight: 600;
+    font-weight: 500;
+    font-size: 1.2rem;
+    color: #2b2b2b;
 }
 .boxData .card {
     border: 1px solid gray !important;
@@ -226,19 +228,22 @@ textarea.form-control{
 }
 .boxData .loginBtn {
     background-color: #f8f8f8;
-    padding:5px 43px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 4rem;
+    padding-right: 7rem;
     /* color: #00b140; */
     border-radius: 5px 10px 0px 56px;
     float: right;
     margin-top: -15px;
     color: black;
-    font-size: 14px;
-    width: 132px;
-    margin-right: -11px;
+    font-size: 1.1rem;
+    width: 2rem;
+    margin-right: -10px;
 }
 .boxData .loginBtn1 {
     background-color: #f8f8f8;
-    padding: 8px 17px;
+    padding: 5px 10px;
     /* color: #00b140; */
     border-radius: 16px;
     margin-top: -15px;

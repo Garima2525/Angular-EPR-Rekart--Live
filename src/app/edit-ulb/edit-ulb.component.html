@@ -41,16 +41,10 @@
 
 
                 <div class="col-md-4 form-group">
-                  <label>GSTIN  <span class="text-theme">*</span></label>
+                  <label>GSTIN  </label>
                   <input type="text" class="form-control " placeholder="Enter GSTIN" formControlName="gstin">
-                  <div *ngIf=" f.gstin.invalid && isValidFormSubmitted"
-                    class="text-danger text-left mb-1 errorcontrols">
-                    <div *ngIf="f.gstin.invalid"><small>Invalid GST Number.</small></div>
-                  </div>
-                  <div *ngIf="f.gstin.errors && f.gstin.errors.required && isValidFormSubmitted"
-                    class="text-danger text-left mb-1 errorcontrols">
-                    <div *ngIf="f.gstin.errors.required"><small>GST Number is required.</small></div>
-                  </div>
+                  
+                  
                 </div>
                 <div class="clearfix"></div>
 

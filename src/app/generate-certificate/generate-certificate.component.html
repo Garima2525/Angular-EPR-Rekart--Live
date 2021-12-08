@@ -1,0 +1,118 @@
+<app-header></app-header>
+<app-sidenav></app-sidenav>
+
+<div id="content" class="app-content" role="main">
+  <div class="app-content-body ">
+    <div class=" b-b-none wrapper-md main">
+      <div class="row">
+        <div class="col-sm-6 col-xs-12">
+          <h4 class="m-n font-bold ">Certificates</h4>
+        </div>
+        <div class="col-sm-6 text-right poppins hidden-xs">
+          
+          
+          
+          <button class=" bt dark "><a routerLink="/add-certificate">Add Certificate</a></button>
+        </div>
+      </div>
+    </div>
+  
+
+<kendo-grid
+   [kendoGridBinding]="gridView"
+   kendoGridSelectBy="id"
+   [selectedKeys]="mySelection"
+   [pageSize]="20"
+   [pageable]="true"
+   [sortable]="true"
+   [reorderable]="true"
+   [resizable]="true"
+   [height]="500"
+   [columnMenu]="{ filter: true }"
+ >
+   <ng-template kendoGridToolbarTemplate>
+     <input
+       placeholder="Search in all columns..."
+       kendoTextBox
+       (input)="onFilter($event)"
+       />
+     <kendo-grid-spacer></kendo-grid-spacer>
+   </ng-template>
+   
+   
+     <kendo-grid-column field="" title="Ref No" [width]="100">
+       <ng-template kendoGridCellTemplate let-dataItem>
+         <div class=""> {{dataItem.ulb_id}}</div>
+       </ng-template>
+     </kendo-grid-column>
+
+     <kendo-grid-column field="" title="Date " [width]="100">
+     </kendo-grid-column>
+
+     
+     <kendo-grid-column field="" title="Created" [width]="100">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <div class=""><i class="fa fa-user" aria-hidden="true"></i>{{ dataItem.first_name + " "+ dataItem.last_name }}</div>
+      </ng-template>
+    </kendo-grid-column>
+
+     <kendo-grid-column field="state" title="ULB" [width]="100">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <div class="">{{ dataItem.ulb_state }}</div>
+      </ng-template>
+    </kendo-grid-column>
+
+    <kendo-grid-column field="" title="QTY " [width]="100">
+    </kendo-grid-column>
+
+    <kendo-grid-column
+    title="Action"
+    [width]="100"
+    [class]="{ 'text-center': true }"
+    [resizable]="false"
+    [filterable]="false"
+   >
+    <ng-template kendoGridCellTemplate let-account>
+     <kendo-menu>
+       <kendo-menu-item text="Action">
+         <kendo-menu-item text="Edit" icon="edit"> </kendo-menu-item>
+         <kendo-menu-item text="Delete" icon="delete"></kendo-menu-item>
+       </kendo-menu-item>
+      
+     </kendo-menu>
+    </ng-template>
+  </kendo-grid-column>
+ </kendo-grid>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

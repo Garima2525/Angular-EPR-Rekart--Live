@@ -77,12 +77,7 @@ export class EditUlbComponent implements OnInit {
       ulb_name: [ulbdata.ulb_name, Validators.required],
       gstin: [
         ulbdata.gstin,
-        [
-          Validators.pattern(
-            '^([0][1-9]|[1-2][0-9]|[3][0-7])([A-Z]{5}[0-9]{4}[A-Z]{1}[1-9a-zA-Z]{1}[zZ]{1}[0-9a-zA-Z]{1})+$'
-          ),
-          Validators.required,
-        ],
+        
       ],
       state: [ulbdata.state, Validators.required],
       city: [ulbdata.city, Validators.required],

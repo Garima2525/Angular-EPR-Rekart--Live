@@ -51,13 +51,14 @@
     "hammerjs": "^2.0.0",
     "ng-multiselect-dropdown": "^0.3.7",
     "ng-recaptcha": "^8.0.1",
+    "ngx-owl-carousel-o": "^7.0.1",
     "ngx-swiper-wrapper": "^10.0.0",
     "ngx-toastr": "^14.1.3",
     "ngx-useful-swiper": "^10.0.1",
     "rxjs": "~6.6.0",
     "sweetalert2": "^11.1.5",
     "swiper": "^7.0.8",
-    "tslib": "^2.3.0",
+    "tslib": "^2.3.1",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

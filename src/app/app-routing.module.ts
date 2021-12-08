@@ -31,7 +31,12 @@ import{TargetListComponent} from './listview/target-list/target-list.component'
 import { GoalListComponent } from './listview/goal-list/goal-list.component'; 
 import { EditRoleComponent } from './edit-role/edit-role.component';
 import {TargetviewComponent} from './listview/targetview/targetview.component';
-
+import { GenerateCertificateComponent} from './generate-certificate/generate-certificate.component'
+ 
+import {DiversionCertificateComponent} from './certificates/diversion-certificate/diversion-certificate.component'
+import {CollectionDisposalCertificateComponent} from './certificates/collection-disposal-certificate/collection-disposal-certificate.component'
+import {DisposalCertificateComponent} from './certificates/disposal-certificate/disposal-certificate.component'
+import {AddCertificateComponent} from './add-certificate/add-certificate.component'
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: '', component: DashboardComponent },
@@ -77,8 +82,13 @@ const routes: Routes = [
   {path:'target-list',component:TargetListComponent},
   {path:'goal-list',component:GoalListComponent},
   {path:'edit-role/:id',component:EditRoleComponent},
-  {path:'targetview/:id',component:TargetviewComponent}
+  {path:'targetview/:id',component:TargetviewComponent},
+  {path:"generate-certificate",component:GenerateCertificateComponent},
  
+  {path:'certificate-collection-disposal',component:CollectionDisposalCertificateComponent},
+  {path:"certificate-disposal",component:DisposalCertificateComponent},
+  {path:'certificate-diversion',component:DiversionCertificateComponent},
+  {path:'add-certificate',component:AddCertificateComponent}
 ];
 
 @NgModule({

@@ -9,13 +9,39 @@ import { CountryStateCityService } from '../service/country-state-city.service';
 import { TargetService } from '../service/target.service';
 import { TosterService } from '../service/toster.service';
 import { AttachmentService } from '../service/attachment.service';
-
+import { OwlOptions } from 'ngx-owl-carousel-o';
 @Component({
   selector: 'app-goal',
   templateUrl: './goal.component.html',
   styleUrls: ['./goal.component.css'],
 })
 export class GoalComponent implements OnInit {
+  customOptions: OwlOptions = {
+    loop: true,
+    mouseDrag: false,
+    touchDrag: false,
+    pullDrag: false,
+    dots: false,
+    navSpeed: 700,
+    navText: ['', ''],
+    responsive: {
+      0: {
+        items: 1
+      },
+      400: {
+        items: 2
+      },
+      740: {
+        items: 3
+      },
+      940: {
+        items: 1
+      }
+    },
+    nav: true
+  }
+
+
   @ViewChild('closebutton')
   closebutton:any;
 
@@ -59,8 +85,9 @@ export class GoalComponent implements OnInit {
       private Auth: AuthService,
       private Route: Router,
       private Attach: AttachmentService,
+      private router:Router,
     ) {}
-
+    title = 'angular';
   ngOnInit(): void {
     this.Auth.userLoggedIn().subscribe((logindata: any) => {
       console.log(logindata);
@@ -274,4 +301,5 @@ export class GoalComponent implements OnInit {
     console.log(this.goalattachments);
   }
 
+  
 }

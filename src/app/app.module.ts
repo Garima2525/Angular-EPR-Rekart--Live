@@ -62,7 +62,13 @@ import { AllotmentComponent } from './allotment/allotment.component';
 import { GoalListComponent } from './listview/goal-list/goal-list.component';
 import { EditRoleComponent } from './edit-role/edit-role.component';
 import { TargetviewComponent } from './listview/targetview/targetview.component';
-
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import { GenerateCertificateComponent } from './generate-certificate/generate-certificate.component';
+import { CDisposalComponent } from './Cercertificates/c-disposal/c-disposal.component';
+import { CollectionDisposalCertificateComponent } from './certificates/collection-disposal-certificate/collection-disposal-certificate.component';
+import { DisposalCertificateComponent } from './certificates/disposal-certificate/disposal-certificate.component';
+import { DiversionCertificateComponent } from './certificates/diversion-certificate/diversion-certificate.component';
+import { AddCertificateComponent } from './add-certificate/add-certificate.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -100,6 +106,13 @@ import { TargetviewComponent } from './listview/targetview/targetview.component'
     GoalListComponent,
         EditRoleComponent,
         TargetviewComponent,
+        GenerateCertificateComponent,
+        CDisposalComponent,
+        CollectionDisposalCertificateComponent,
+        DisposalCertificateComponent,
+        DiversionCertificateComponent,
+        AddCertificateComponent,
+        
   ],
   imports: [
     BrowserModule,
@@ -127,6 +140,7 @@ import { TargetviewComponent } from './listview/targetview/targetview.component'
     //   apiKey: 'AIzaSyBF7EaxwTkcOgeBDMxLd6s6QzTVIdXakhM',
     //   libraries: ['places'],
     // }),
+    CarouselModule 
   ],
   providers: [
     {
