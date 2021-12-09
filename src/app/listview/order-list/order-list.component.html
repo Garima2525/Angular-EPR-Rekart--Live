@@ -25,6 +25,7 @@
       <th style="width:88px">Non MLP</th>
       <th style="width:88px">Rigid</th>
       <th style="width:88px">Flexible</th>
+      <th style="width:88px">Action</th>
     </tr>
   </thead>
   <tbody>
@@ -67,6 +68,14 @@
             style="font-weight: 100;color: #848282;font-size: 1rem;vertical-align: super;margin-left: .2rem;font-style: italic; "></i></span>
           <span style="color:green">{{ rec.material=='Flexible'?(rec.achieved+' | '):'' }}</span>
           <span style="color:maroon">{{ (rec.material=='Flexible'?((rec.qty)-(rec.achieved)):'') }}</span>
+        </span>
+      </td>
+
+
+      <td  class="rocket">
+        <span >
+          <span style="font-weight: bold;"><a [routerLink]="['/edit-order-po',pod._id]"><i class="fa fa-edit"></i> Edit</a></span>
+         
         </span>
       </td>
     </tr>

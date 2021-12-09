@@ -69,6 +69,7 @@ import { CollectionDisposalCertificateComponent } from './certificates/collectio
 import { DisposalCertificateComponent } from './certificates/disposal-certificate/disposal-certificate.component';
 import { DiversionCertificateComponent } from './certificates/diversion-certificate/diversion-certificate.component';
 import { AddCertificateComponent } from './add-certificate/add-certificate.component';
+import { EditOrderPoComponent } from './edit-order-po/edit-order-po.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -112,6 +113,7 @@ import { AddCertificateComponent } from './add-certificate/add-certificate.compo
         DisposalCertificateComponent,
         DiversionCertificateComponent,
         AddCertificateComponent,
+        EditOrderPoComponent,
         
   ],
   imports: [
