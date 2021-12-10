@@ -27,8 +27,8 @@ export class PoService {
     };
     return this.http.post(api_url, data, httpOptions);
   }
-  updatepo(_id:any,data: any) {
-    let api_url = this.base_url + 'updatepobyid/' + _id;
+  updatepobyid(id:any,data: any) {
+    let api_url = this.base_url + 'updatepobyid/'+id;
     const httpOptions = {
       headers: new HttpHeaders({
         'content-type': 'application/json;charset=UTF-8',
@@ -37,6 +37,7 @@ export class PoService {
     };
     return this.http.post(api_url, data, httpOptions);
   }
+
   getpobyid(id: any) {
     let api_url = this.base_url + 'getpobyid/' + id;
     const httpOptions = {

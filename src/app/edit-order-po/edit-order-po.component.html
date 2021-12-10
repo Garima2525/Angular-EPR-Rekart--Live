@@ -31,7 +31,7 @@
                 </div>
                 <div class="form-group  col-md-6 ">
                   <label class="control-label ">Organisation/Brand  <span class="text-theme">*</span></label>
-                    <ng-multiselect-dropdown name="city"  [data]="Customers"  [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" [disabled]="disabled" value=""  > </ng-multiselect-dropdown>
+                    <ng-multiselect-dropdown name="city"  [data]="Customers"  [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" [disabled]="disabled" [(ngModel)]="selectedItemtt" > </ng-multiselect-dropdown>
                 </div>
                 <div class="clearfix"></div>
 

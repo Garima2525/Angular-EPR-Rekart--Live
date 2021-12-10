@@ -17,6 +17,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./edit-order-po.component.css']
 })
 export class EditOrderPoComponent implements OnInit {
+ 
 
   constructor(
     private poservice:PoService,
@@ -61,15 +62,15 @@ export class EditOrderPoComponent implements OnInit {
   customer_id: any='';
   materialerror: any = [{ material_name :false,state:false,qty:false,targetdate:false,price:false}];
   materialstatus: any = false
-
+  selectedItemtt : any = [];
   ngOnInit(): void {
-    this.poId=  this._Activatedroute.snapshot.paramMap.get('_id');
+    this.poId=  this._Activatedroute.snapshot.paramMap.get('id');
     this.Auth.userLoggedIn().subscribe((logindata: any) => {
       console.log(logindata);
       this.login_id = logindata.result._id;
     });
     this.Cust.getcustomer().subscribe((data: any) => {
-      // console.log(data)
+      console.log(data.result)
       this.Customers = data.result;
     });
     this.dropdownSettings = {
@@ -82,19 +83,11 @@ export class EditOrderPoComponent implements OnInit {
       closeDropDownOnSelection: true,
     };
     this.CountryStateCityService.getallstates().subscribe((data: any) => {
-      // console.log(data.result);
+      
       this.statedata = data.result;
+      
     });
-    
-   
-    // this.materialInfo.push({
-    //   material_name: '',
-    //   state: null,
-    //   collection_Qty: 0,
-    //   target_date: null,
-    //   net_unit_price: 0,
-    //   sub_total: 0,
-    // });
+
     this.poservice.getpobyid(this.poId).subscribe((data: any) => {
       console.log(data.result[0]);
       this.forminit(data.result[0]);
@@ -102,8 +95,10 @@ export class EditOrderPoComponent implements OnInit {
       this.ccattachments =data.result[0].attachments == null? this.ccattachments : data.result[0].attachments;
      this.materialInfo = data.result[0].materials;
       console.log(this.materialInfo);
-      
+      this.selectedItemtt=data.result[0].customer_data
     });
+    
+
     this.modalforminit();
 
   }
@@ -383,7 +378,7 @@ forminit(podata:any) {
       this.POform.value.materials = this.materialInfo;
       if(this.customer_id!='' && this.POform.value.customer_id!='' && count==0){
         console.log(this.POform.value);
-        this.poservice.updatepo(this.POform.value,this.poId).subscribe((data) => {
+        this.poservice.updatepobyid(this.POform.value,this.poId).subscribe((data) => {
           console.log(data);
           this.toast.showSuccess('Congratulation!, PO has been created.');
           if (this.saveas == 'save') {

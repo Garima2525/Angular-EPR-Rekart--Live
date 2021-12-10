@@ -37,7 +37,8 @@ import {DiversionCertificateComponent} from './certificates/diversion-certificat
 import {CollectionDisposalCertificateComponent} from './certificates/collection-disposal-certificate/collection-disposal-certificate.component'
 import {DisposalCertificateComponent} from './certificates/disposal-certificate/disposal-certificate.component'
 import {AddCertificateComponent} from './add-certificate/add-certificate.component'
-import {EditOrderPoComponent} from './edit-order-po/edit-order-po.component'
+import {EditOrderPoComponent} from './edit-order-po/edit-order-po.component';
+import {EditTargetComponent} from './edit-target/edit-target.component'
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -91,7 +92,8 @@ const routes: Routes = [
   {path:"certificate-disposal",component:DisposalCertificateComponent},
   {path:'certificate-diversion',component:DiversionCertificateComponent},
   {path:'add-certificate',component:AddCertificateComponent},
-  {path:'edit-order-po/:_id',component:EditOrderPoComponent},
+  {path:'edit-order-po/:id',component:EditOrderPoComponent},
+  {path:'edit-target/:id',component:EditTargetComponent}
 ];
 
 @NgModule({
