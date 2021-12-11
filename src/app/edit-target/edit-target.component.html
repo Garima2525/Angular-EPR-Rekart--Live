@@ -1,1 +1,283 @@
-<p>edit-target works!</p>
+<app-header></app-header>
+<app-sidenav></app-sidenav>
+<div id="content" class="app-content" role="main">
+  <div class="app-content-body ">
+    <div class=" b-b-none wrapper-md main">
+      <div class="row">
+        <div class="col-sm-6 col-xs-12">
+          <h4 class="m-n font-bold ">Edit Target Setting</h4>
+        </div>
+        <div class="col-sm-6 text-right poppins hidden-xs">
+          <!-- <button class="btn m-b-xs w-xs btn-sm text-10 btn-default btn-3d m-r-xs"><i class="icon-settings"></i> Action</button>
+              <button class="btn m-b-xs btn-sm text-10 btn-info btn-3d add-user-model"><i class="fa fa-plus"></i> Add User</button> -->
+          <!-- <button type="cancel" class=" bt light">Cancel</button>
+
+          <button type="submit" class=" bt danger ">Save</button>
+          <button type="submit" class=" bt dark ">Save & New</button> -->
+
+        </div>
+      </div>
+    </div>
+    <div class="wrapper-md" ng-controller="FormDemoCtrl">
+     
+
+
+        
+      <form role="form" [formGroup]="targetForm" (ngSubmit)="onFormSubmit()">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">Target Source </div>
+              <div class="panel-body">
+                <div class="col-md-4 form-group">
+                  <label>State  </label>
+
+                  <select class="form-control"  (change)="getdistrict($event)">
+                    <option value="">Select State</option>
+                  <option *ngFor="let obj of statedata" value={{obj}}> {{obj}} </option>
+                  </select>
+                </div>
+                <div class="col-md-4 form-group">
+                  <label> Target Name</label>
+                 <input type="text" formControlName="target_name" class="form-control" (input)="getTargetName($event)" />
+                </div>
+                <div class="col-md-4 form-group">
+                  <label> Month</label>
+                 <input type="month" formControlName="target_duration" class="form-control" (input)="getTargetDuration($event)" />
+                </div> 
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-------end content1-->
+        <!-------start content2-->
+      
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <!-- <div class="panel-heading font-bold">Target Information </div> -->
+              <div class="panel-body">
+                <div class="col-md-12" style="padding: 0px;margin:0px;">
+                  <div class="col-md-10 ">
+                    <b class="upper-heding">Target Information</b>
+                  </div>
+                  <div style="text-align: right;padding-right:18px; ">
+                    <b style="cursor: pointer;">
+
+                      <!-- <button><i class="fa fa-plus" aria-hidden="true" (click)="addinfo($event)"></i></button> -->
+                      <button type="button" class=" bt dark1 " (click)="addinfo($event)" style="cursor: pointer;">Add
+                      </button>
+                    </b>
+
+
+
+                  </div>
+                </div>
+                <div class="col-md-12" style="padding:0px; margin-top:1.5%">
+                  <div class="row">
+                    <div class="col-md-12 " style="padding:0px;overflow-x: scroll;">
+                      <table class="table tbl">
+                        <thead>
+                          <tr style="background:#E4F6EA; ">
+                            <th>Material</th>
+                            <th>City</th>
+                            <th>ULB</th>
+                            <th>Collection Center</th>
+                            <th>Disposal</th>
+                            <th>Collection Target Qty (Kg)</th>
+                            <th>Target Date</th>
+                            <th>Action</th>
+
+                          </tr>
+                          <tr *ngFor="let row of targetInfo;index as i">
+                           
+                            <th>
+                              <select class="form-control" formControlName="material_name" (change)="getChanges($event,i,'material_name')"style="width: 150px;">
+                                <option value="">Select Material</option>
+                                <option value="MLP">MLP</option>
+                                <option value="Non MLP">Non MLP</option>
+                                <option value="Rigid">Rigid</option>
+                                <option value="Flexible">Flexible</option>
+                              </select>
+                            </th>
+                            <th>
+                              <select class="form-control" (change)="[getdetails($event,i),getChanges($event,i,'city')]" style="width: 130px;">
+                                <option value="" disabled> Select District </option>
+                                <option *ngFor="let dobj of districtdata" value={{dobj}}> {{dobj}} </option>
+                              </select>
+                            </th>
+                            <th>
+                              <input type="" class="form-control" readonly value="{{row.ulb}}" style="width: 130px;">
+                            </th>
+
+
+                            <th>
+                              <input type="" class="form-control" readonly value="{{row.collection_center}}"style="width: 130px;">
+                            </th>
+                            <th>
+                              <input type="" class="form-control" readonly value="{{row.disposal}}"style="width: 130px;">
+                            </th>
+                            <th>
+                              <input type="number" class=" form-control" value="{{row.collection_target}}" (input)="getChanges($event,i,'collection_target')"  style="width: 100px;">
+                            </th>
+                            <th>
+                              <input type="date" class=" form-control" value="{{row.target_date}}" (input)="getChanges($event,i,'target_date')"   style="width: 150px;">
+                            </th>
+                            <th style="font-size: 14.4px;">
+                              <i class="fa fa-trash" aria-hidden="true" (click)="deleteinfo($event,i)"></i>
+                              
+                            </th>
+
+
+                          </tr>
+                        </thead>
+                      </table>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-------end content2-->
+        <!-------start content4-->
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+
+              <div class="panel-body">
+                <div class="col-md-12" style="padding: 0px;margin:0px;">
+
+                  <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                      <b class="upper-heding"> Attachment</b>
+                    </div>
+                    <div class="col-sm-6 text-right poppins hidden-xs">
+
+                      <b data-toggle="modal" data-target="#exampleModalCenter" style="cursor: pointer;"
+                      class="upper-heding"> Attach <i class="fa fa-paperclip upper-heding" aria-hidden="true"></i></b>
+
+                    </div>
+                </div>
+
+
+
+
+                </div>
+                <br>
+                <br>
+                <div class="row">
+                  <div class="col-md-12" style="padding:0px;">
+                    <table class="table">
+                      <thead>
+                        <tr style="background:#E4F6EA; ">
+                          <th>Document Type</th>
+                          <th>Document No</th>
+                          <th>File Name (File Size)</th>
+                          <th>Validity</th>
+                          <th>Action</th>
+
+                        </tr>
+                        <tr *ngFor="let attachmentrow of goalattachments;index as i
+                        ">
+                          <th>{{attachmentrow.document_type}}</th>
+                          <th>{{attachmentrow.document_no}} </th>
+                          <th><a href="{{attachmentrow.image}}"><i class="fa fa-file" aria-hidden="true"></i> File</a></th>
+                          <th>{{attachmentrow.validity}}</th>
+                          <th>
+                            <i class="fa fa-trash" aria-hidden="true"(click)="deleteAttachment(i)"></i>
+                          </th>
+                        </tr>
+                      </thead>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-------end content4-->
+
+        
+        <div style="text-align: right; margin:10px 0px;">
+          <button type="button" class=" bt light" (click)="handleWarningAlert()">Cancel</button>
+          <button type="submit" class=" bt danger" [disabled]="isValidbutton" (click)="saveform('save')">Save</button>
+          <button type="submit" class=" bt dark" [disabled]="isValidbutton" (click)="saveasnewform('savenew')">Save &
+            New</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+ 
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document" style="width: 30%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle" style="padding-top: 1%;color:black;">
+          Attached Document</h5>
+      </div>
+      <form [formGroup]="goalModalform" role="form" (ngSubmit)="onModalFormSubmit()">
+      <div class="modal-body">
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Document Type</label>
+
+            <select class="form-control" formControlName="document_type">
+              <option value="PO">PO</option>
+              <option value="Agreement">Agreement</option>
+              <option value="MOU">MOU</option>
+              <option value="Work Order">Work Order</option>
+            </select>
+            <div *ngIf="fm.document_type.errors && fm.document_type.errors.required && isValidFormSubmittedModal"
+              class="text-danger text-left mb-1 errorcontrols">
+              <div *ngIf="fm.document_type.errors.required"><small>document type is required.</small></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Document No</label>
+            <input type="text" class="form-control" placeholder="Enter Document No" formControlName="document_no">
+            <div *ngIf="fm.document_no.errors && fm.document_no.errors.required && isValidFormSubmittedModal"
+              class="text-danger text-left mb-1 errorcontrols">
+              <div *ngIf="fm.document_no.errors.required"><small>document no is required.</small></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputPassword1">File Name</label>
+            <input type="file" class="form-control" formControlName="image" (change)="fileupload($event)">
+            <div *ngIf="fm.image.errors && fm.image.errors.required && isValidFormSubmittedModal"
+              class="text-danger text-left mb-1 errorcontrols">
+              <div *ngIf="fm.image.errors.required"><small>file is required.</small></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputPassword1">Validity</label>
+            <input type="date" class="form-control" formControlName="validity">
+            <div *ngIf="fm.validity.errors && fm.validity.errors.required && isValidFormSubmittedModal"
+              class="text-danger text-left mb-1 errorcontrols">
+              <div *ngIf="fm.validity.errors.required"><small>validity is required.</small></div>
+            </div>
+          </div>
+
+      </div>
+      <div class="modal-footer">
+
+        <button type="cancel" class=" bt light upbt" data-dismiss="modal" #closebutton>Cancel</button>
+        <button type="submit" class=" bt danger upbt" [disabled]="isValidbuttonModal">Save</button>
+      </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+<!-- mode end -->

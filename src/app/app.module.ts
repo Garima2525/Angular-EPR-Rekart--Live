@@ -21,7 +21,7 @@ import { LabelModule } from '@progress/kendo-angular-label';
 import { EditService } from './service/edit.service';
 import { SwiperModule } from 'swiper/angular';
 import { DataTablesModule } from 'angular-datatables';
-
+import { FormsModule } from '@angular/forms';
 import {
   PDFModule,
   ExcelModule,
@@ -71,6 +71,7 @@ import { DiversionCertificateComponent } from './certificates/diversion-certific
 import { AddCertificateComponent } from './add-certificate/add-certificate.component';
 import { EditOrderPoComponent } from './edit-order-po/edit-order-po.component';
 import { EditTargetComponent } from './edit-target/edit-target.component';
+ 
 @NgModule({
   declarations: [
     AppComponent,
@@ -144,7 +145,8 @@ import { EditTargetComponent } from './edit-target/edit-target.component';
     //   apiKey: 'AIzaSyBF7EaxwTkcOgeBDMxLd6s6QzTVIdXakhM',
     //   libraries: ['places'],
     // }),
-    CarouselModule 
+    CarouselModule ,
+    FormsModule
   ],
   providers: [
     {

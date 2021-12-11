@@ -8,7 +8,7 @@ import { TosterService } from '../service/toster.service';
 import { AuthService } from '../service/auth.service';
 import { AttachmentService } from '../service/attachment.service';
 import { CustomerService } from '../service/customer.service';
-
+import { FormsModule }   from '@angular/forms';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -17,7 +17,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./edit-order-po.component.css']
 })
 export class EditOrderPoComponent implements OnInit {
- 
+  material_name:any='string';
 
   constructor(
     private poservice:PoService,
@@ -46,11 +46,11 @@ export class EditOrderPoComponent implements OnInit {
   filedatainput: any;
   isValidbuttonModal: any;
   isValidFormSubmittedModal: any;
-
+  remark:any;
 
   @ViewChild('closebutton')
   closebutton: any;
-  poId:any;
+  pId:any;
   po_id:any;
   materialInfo: any = [];
   Customers: any = [];
@@ -64,7 +64,7 @@ export class EditOrderPoComponent implements OnInit {
   materialstatus: any = false
   selectedItemtt : any = [];
   ngOnInit(): void {
-    this.poId=  this._Activatedroute.snapshot.paramMap.get('id');
+    this.pId=  this._Activatedroute.snapshot.paramMap.get('id');
     this.Auth.userLoggedIn().subscribe((logindata: any) => {
       console.log(logindata);
       this.login_id = logindata.result._id;
@@ -73,6 +73,8 @@ export class EditOrderPoComponent implements OnInit {
       console.log(data.result)
       this.Customers = data.result;
     });
+   
+
     this.dropdownSettings = {
       idField: '_id',
       textField: 'organization_name',
@@ -88,14 +90,18 @@ export class EditOrderPoComponent implements OnInit {
       
     });
 
-    this.poservice.getpobyid(this.poId).subscribe((data: any) => {
+    this.poservice.getpobyid(this.pId).subscribe((data: any) => {
       console.log(data.result[0]);
       this.forminit(data.result[0]);
       this.po_id = data.result[0].PO_id;
       this.ccattachments =data.result[0].attachments == null? this.ccattachments : data.result[0].attachments;
      this.materialInfo = data.result[0].materials;
       console.log(this.materialInfo);
+    
+      console.log(this.materialerror);
       this.selectedItemtt=data.result[0].customer_data
+      console.log(this.selectedItemtt);
+      this.onItemSelect(data.result[0].customer_data[0])
     });
     
 
@@ -129,7 +135,7 @@ onchange(e: any, i: any, name: any) {
     this.materialInfo.map((item: any, i: any) => {
       if (item.material_name == ''|| item.material_name == null )
        this.materialerror[i]['material_name'] =true
-     else this.materialerror[i]['material_name'] = false;
+    //  else this.materialerror[i]['material_name'] = false;
 
      if ( item.state == '' || item.state == null )
        this.materialerror[i]['state'] = true;
@@ -251,7 +257,7 @@ forminit(podata:any) {
       PO_id: [podata.PO_id, Validators.required],
       customer_id:podata.customer_id,
       materials:podata.materials,
-      remark: podata.remark,
+      remark:podata.remark,
       attachments: '',
     });
 }
@@ -338,23 +344,23 @@ forminit(podata:any) {
     this.materialInfo.map((item: any, i: any) => {
       if (item.material_name == ''|| item.material_name == null )
        this.materialerror[i]['material_name'] =true
-     else this.materialerror[i]['material_name'] = false;
+    //  else this.materialerror[i]['material_name'] = false;
 
      if ( item.state == '' || item.state == null )
        this.materialerror[i]['state'] = true;
-     else this.materialerror[i]['state'] = false;
+    //  else this.materialerror[i]['state'] = false;
 
       if (item.collection_Qty == 0)
         this.materialerror[i]['qty'] = true;
-      else this.materialerror[i]['qty'] = false;
+      // else this.materialerror[i]['qty'] = false;
 
       if (item.target_date == '' || item.target_date == null)
         this.materialerror[i]['targetdate'] = true;
-      else this.materialerror[i]['targetdate'] = false;
+      // else this.materialerror[i]['targetdate'] = false;
 
       if (item.net_unit_price == 0)
         this.materialerror[i]['price'] = true;
-      else this.materialerror[i]['price'] = false;
+      // else this.materialerror[i]['price'] = false;
     })
     console.log(this.materialerror,"errormaterial");
     let count=0
@@ -376,9 +382,10 @@ forminit(podata:any) {
       this.POform.value.attachments = this.ccattachments;
       this.POform.value.customer_id = this.customer_id;
       this.POform.value.materials = this.materialInfo;
+      this.POform.value.remark = this.remark;
       if(this.customer_id!='' && this.POform.value.customer_id!='' && count==0){
         console.log(this.POform.value);
-        this.poservice.updatepobyid(this.POform.value,this.poId).subscribe((data) => {
+        this.poservice.updatepobyid(this.pId,this.POform.value).subscribe((data) => {
           console.log(data);
           this.toast.showSuccess('Congratulation!, PO has been created.');
           if (this.saveas == 'save') {
@@ -403,5 +410,9 @@ forminit(podata:any) {
 
     }
   }
-
+  deleteAttachment(i:any){
+    console.log(i)
+    this.ccattachments.splice(i, 1);
+    console.log(this.ccattachments);
+  }
 }

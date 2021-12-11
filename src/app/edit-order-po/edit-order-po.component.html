@@ -31,7 +31,7 @@
                 </div>
                 <div class="form-group  col-md-6 ">
                   <label class="control-label ">Organisation/Brand  <span class="text-theme">*</span></label>
-                    <ng-multiselect-dropdown name="city"  [data]="Customers"  [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" [disabled]="disabled" [(ngModel)]="selectedItemtt" > </ng-multiselect-dropdown>
+                    <ng-multiselect-dropdown name="city"  [data]="Customers"  [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" [disabled]="disabled" [(ngModel)]="selectedItemtt" [ngModelOptions]="{standalone: true}" > </ng-multiselect-dropdown>
                 </div>
                 <div class="clearfix"></div>
 
@@ -129,13 +129,13 @@
                           <th>Action</th>
 
                         </tr>
-                        <tr *ngFor="let attachmentrow of ccattachments">
+                        <tr *ngFor="let attachmentrow of ccattachments;index as i;">
                           <th>{{attachmentrow.document_type}}</th>
                           <th>{{attachmentrow.document_no}} </th>
                           <th><a href="{{attachmentrow.image}}"><i class="fa fa-file" aria-hidden="true"></i> File</a></th>
                           <th>{{attachmentrow.validity}}</th>
                           <th>
-                            <i class="fa fa-trash" aria-hidden="true"></i>
+                            <i class="fa fa-trash" aria-hidden="true" (click)="deleteAttachment(i)" ></i>
                           </th>
                         </tr>
                       </thead>
@@ -182,24 +182,33 @@
                           <th>
                             <select class=" form-control" style="width: 130px;" (change)="onchangetext($event,i,'material_name')" style="width: 150px;">
                               <option value="">Select Material</option>
-                              <option value="MLP">MLP</option>
-                              <option value="Non MLP">Non MLP</option>
-                              <option value="Rigid">Rigid</option>
-                              <option value="Flexible">Flexible</option>
+                              <option value="MLP" [selected]="row.material_name=='MLP'">MLP</option>
+                              <option value="Non MLP" [selected]="row.material_name=='Non MLP'">Non MLP</option>
+                              <option value="Rigid" [selected]="row.material_name=='Rigid'">Rigid</option>
+                              <option value="Flexible" [selected]="row.material_name=='Flexible'">Flexible</option>
                             </select>
-                            <span *ngIf="materialerror[i].material_name" class="text-danger"> Material is Required</span>
+                            <!-- <span *ngIf="materialerror[i].material_name" class="text-danger"> Material is Required</span> -->
                           </th>
                           <th>
                             <select class="form-control"  (change)="[getdistrict($event),onchangetext($event,i,'state')]">
                               <option value="">Select State</option>
-                            <option *ngFor="let obj of statedata" value={{obj}}> {{obj}} </option>
+                            <option *ngFor="let obj of statedata"  value="{{obj}}"  [selected]="row.state == obj"> {{obj}} </option>
                             </select>
-                            <span *ngIf="materialerror[i].state" class="text-danger"> State is Required</span>
+                            <!-- <span *ngIf="materialerror[i].state" class="text-danger"> State is Required</span> -->
                           </th>
 
-                          <th><input type="" (input)="this.onchange($event,i,'collection_Qty')" class=" form-control" value="{{row.collection_Qty}}" style="width: 130px;"><span *ngIf="materialerror[i].qty" class="text-danger"> Qty is Required</span></th>
-                          <th><input type="date" class="form-control" value="{{row.target_date}}" style="width: 150px;" (change)="onchangetext($event,i,'target_date')"><span *ngIf="materialerror[i].targetdate" class="text-danger"> Target Date is Required</span></th>
-                          <th><input type="number" value="{{row.net_unit_price}}" class="form-control" (input)="this.onchange($event,i,'net_unit_price')"><span *ngIf="materialerror[i].price" class="text-danger"> Price is Required</span></th>
+                          <th>
+                            <input type="" (input)="this.onchange($event,i,'collection_Qty')" class=" form-control" value="{{row.collection_Qty}}" style="width: 130px;">
+                            <!-- <span *ngIf="materialerror[i].qty" class="text-danger"> Qty is Required</span> -->
+                          </th>
+                          <th>
+                            <input type="date" class="form-control" value="{{row.target_date}}" style="width: 150px;" (change)="onchangetext($event,i,'target_date')">
+                            <!-- <span *ngIf="materialerror[i].targetdate" class="text-danger"> Target Date is Required</span> -->
+                          </th>
+                          <th>
+                            <input type="number" value="{{row.net_unit_price}}" class="form-control" (input)="this.onchange($event,i,'net_unit_price')">
+                            <!-- <span *ngIf="materialerror[i].price" class="text-danger"> Price is Required</span> -->
+                          </th>
                           <th>{{ row.sub_total }}</th>
                           <th style="font-size: 14.4px;">
                             <i class="fa fa-trash" aria-hidden="true" (click)="deleteinfo($event,i)"></i>

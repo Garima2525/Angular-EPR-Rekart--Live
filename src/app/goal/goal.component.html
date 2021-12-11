@@ -141,11 +141,19 @@
             <div class="panel panel-default">
               <div class="panel-heading font-bold">Target Source </div>
               <div class="panel-body">
-                <div class="col-md-6 form-group">
+                <div class="col-md-4 form-group">
+                  <label>State  </label>
+
+                  <select class="form-control"  (change)="getdistrict($event)">
+                    <option value="">Select State</option>
+                  <option *ngFor="let obj of statedata" value={{obj}}> {{obj}} </option>
+                  </select>
+                </div>
+                <div class="col-md-4 form-group">
                   <label> Target Name</label>
                  <input type="text" formControlName="target_name" class="form-control" (input)="getTargetName($event)" />
                 </div>
-                <div class="col-md-6 form-group">
+                <div class="col-md-4 form-group">
                   <label> Month</label>
                  <input type="month" formControlName="target_duration" class="form-control" (input)="getTargetDuration($event)" />
                 </div> 

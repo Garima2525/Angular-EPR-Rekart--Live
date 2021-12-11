@@ -27,6 +27,17 @@ export class PoService {
     };
     return this.http.post(api_url, data, httpOptions);
   }
+  
+  getpobyid(id: any) {
+    let api_url = this.base_url + 'getpobyid/' + id;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-type': 'application/json;charset=UTF-8',
+        apikey: '8GWF6J1-WVG40Q4-HBWGNVY-9VXTXQ8',
+      }),
+    };
+    return this.http.get(api_url, httpOptions);
+  }
   updatepobyid(id:any,data: any) {
     let api_url = this.base_url + 'updatepobyid/'+id;
     const httpOptions = {
@@ -38,14 +49,4 @@ export class PoService {
     return this.http.post(api_url, data, httpOptions);
   }
 
-  getpobyid(id: any) {
-    let api_url = this.base_url + 'getpobyid/' + id;
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'content-type': 'application/json;charset=UTF-8',
-        apikey: '8GWF6J1-WVG40Q4-HBWGNVY-9VXTXQ8',
-      }),
-    };
-    return this.http.get(api_url, httpOptions);
-  }
 }
