@@ -38,11 +38,25 @@ export class GoalListComponent implements OnInit {
         logic: "or",
         filters: [
           {
-            field: "PO_id",
+            field: "target_name",
             operator: "contains",
             value: inputValue,
           },
-          
+          {
+            field: "target_duration",
+            operator: "contains",
+            value: inputValue,
+          },
+          {
+            field: "created_at",
+            operator: "contains",
+            value: inputValue,
+          },
+          {
+            field: "state",
+            operator: "contains",
+            value: inputValue,
+          },
         ],
       },
     }).data;

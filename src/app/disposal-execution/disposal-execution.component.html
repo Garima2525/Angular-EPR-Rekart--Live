@@ -112,7 +112,7 @@
                   <div class="input-group">
                     <!-- <input type="text" class="form-control" placeholder=""formControlName="transporter_name"> -->
                     <select formControlName="transporter_name" class="form-control">
-                      <option>Select Transporter Name </option>
+                      <option value="" selected >Select Transporter Name </option>
                       <option *ngFor="let objtrans of transporterdata" value={{objtrans._id}}> {{objtrans.transporter_name}} </option>
                     </select>
                     <span class="input-group-addon"><i class="fa fa-search">
@@ -407,10 +407,10 @@
                           <th>Action</th>
 
                         </tr>
-                        <tr *ngFor="let attachmentrow of ccattachments">
+                        <tr *ngFor="let attachmentrow of ccattachments;index as i">
                           <th>{{attachmentrow.document_type}}</th>
                           <th>{{attachmentrow.document_no}} </th>
-                          <th><a href="{{attachmentrow.image}}"><i class="fa fa-file" aria-hidden="true"></i> File</a>
+                          <th><a href="{{attachmentrow.image}}" target="_blank"><i class="fa fa-file" aria-hidden="true"></i> File</a>
                           </th>
                           <!-- <th>{{attachmentrow.validity}}</th> -->
                           <th>

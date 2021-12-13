@@ -37,6 +37,7 @@ export class EditCustomerComponent implements OnInit {
   isValidbutton: any;
   customerId: any;
   customerdata:any;
+  industry_type:any;
   constructor(
     private form: FormBuilder,
     private pincode: StateCityService,
@@ -97,8 +98,10 @@ export class EditCustomerComponent implements OnInit {
   ngOnInit(): void {
     this.todayDate = new Date();
     this.customerId=this._Activatedroute.snapshot.paramMap.get("id")
+  
     this.customerService.getcustomerbyid(this.customerId).subscribe((data:any)=>{
       this.forminit(data.result[0]);
+      this.industry_type = data.result[0].industry_type;
     });
   }
   forminit(uni: any) {

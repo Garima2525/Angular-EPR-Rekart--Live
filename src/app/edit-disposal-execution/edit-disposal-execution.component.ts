@@ -25,6 +25,7 @@ export class EditDisposalExecutionComponent implements OnInit {
    districtdata: any;
    saveas: any;
    saveasnew: any;
+   material_name:any;
    isValidFormSubmitted: any;
    isValidbutton: any;
    ccattachments: any = [];
@@ -56,7 +57,12 @@ export class EditDisposalExecutionComponent implements OnInit {
       private DisposalS: DisposalserviceService,
       private transporter:TranporterserviceService
   ) { }
+  ammountInfo:any=[{
+    amount:null,
+    expenditure_type:null,
+    receipt_no:null
 
+  }]
   ngOnInit(): void {
     this.disexecutionId =  this._Activatedroute.snapshot.paramMap.get('id');
     this.Auth.userLoggedIn().subscribe((logindata: any) => {
@@ -88,8 +94,11 @@ export class EditDisposalExecutionComponent implements OnInit {
     this.disposalexecution.getdisposalexecutionbyid(this.disexecutionId).subscribe((data: any) => {
       console.log(data.result[0]);
       this.forminit(data.result[0]);
+      this.material_name = data.result[0].material_name;
       this.getdistrictonload(data.result[0].state);
+
        this.disposalid = data.result[0].disposal_id;
+      
        this.disposalname = data.result[0].disposal_company_name;
       this.ccattachments =
         data.result[0].attachments == null
@@ -163,7 +172,7 @@ export class EditDisposalExecutionComponent implements OnInit {
       document_type: ['', Validators.required],
       document_no: ['', Validators.required],
       image: ['', Validators.required],
-      validity: ['', Validators.required],
+      
     });
   }
   getdistrict(e: any) {
@@ -194,6 +203,7 @@ export class EditDisposalExecutionComponent implements OnInit {
       this.isValidbutton = true;
       this.disposalexecutionform.value.user_id = this.login_id;
       this.disposalexecutionform.value.attachments = this.ccattachments;
+      this.disposalexecutionform.value.payment = this.ammountInfo;
       this.disposalexecution.updateForm(this.disposalexecutionform.value,this.disexecutionId).subscribe((data:any) => {
         console.log(data);
         this.toast.showSuccess(
@@ -263,5 +273,10 @@ export class EditDisposalExecutionComponent implements OnInit {
         console.log('Clicked No, File is safe!');
       }
     });
+  }
+  deleteAttachment(i:any){
+    console.log(i)
+    this.ccattachments.splice(i, 1);
+    console.log(this.ccattachments);
   }
 }

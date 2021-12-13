@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { PoService } from 'src/app/service/po.service';
 import { EncrDecrService } from 'src/app/service/encr-decr-service.service';
+import { CustomerService } from 'src/app/service/customer.service';
 
 @Component({
   selector: 'app-order-list',
@@ -14,12 +15,15 @@ export class OrderListComponent implements OnInit {
   constructor(
     private router: Router,
     private order: PoService,
-    private EncrDecr: EncrDecrService
+    private EncrDecr: EncrDecrService,
+    private Cust:CustomerService
   ) {}
 
   podata: any;
+  Customers:any;
   public mySelection: string[] = [];
-
+  searchText:any;
+  searchTextor:any;
   public ngOnInit(): void {
     this.getallpo();
     localStorage.setItem('allotment', '');
@@ -29,13 +33,17 @@ export class OrderListComponent implements OnInit {
       console.log(data.result);
       this.podata = data.result;
     });
+    this.Cust.getcustomer().subscribe((data: any) => {
+      // console.log(data)
+      this.Customers = data.result;
+    });
   }
 
   handleEdit(id: any) {
     console.log('edit clicked ' + id);
     this.router.navigateByUrl('/edit-contact', { state: { id } });
   }
-
+ 
   getAllotment(POid: any, materialAllot: any, weight: any) {
     console.log(POid, materialAllot, weight);
     let allot = { POid: POid, materialAllot: materialAllot, weight: weight };

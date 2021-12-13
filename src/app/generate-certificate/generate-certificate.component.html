@@ -6,18 +6,51 @@
     <div class=" b-b-none wrapper-md main">
       <div class="row">
         <div class="col-sm-6 col-xs-12">
-          <h4 class="m-n font-bold ">Certificates</h4>
+          <h4 class="m-n font-bold ">Certificates List</h4>
         </div>
         <div class="col-sm-6 text-right poppins hidden-xs">
           
           
           
-          <button class=" bt dark "><a routerLink="/add-certificate">Add Certificate</a></button>
+         
         </div>
       </div>
     </div>
-  
+  <br>
+    <div class="row">
+      <div class="col-sm-12">
+      
 
+<div class="col-sm-3">
+  <div class="card" >
+     <div class="card-body">
+       <p class="card-text">Disposal</p>
+       <span class="span"><button>Add</button>&nbsp; | &nbsp;<button _ngcontent-iel-c553="" style="border: none; background: white;font-size: 12px;">   <a routerLink="/certificate-disposal">View</a></button></span>
+     </div>
+   </div>
+  </div>
+
+<div class="col-sm-3">
+  <div class="card" >
+     <div class="card-body">
+       <p class="card-text">Collection Disposal</p>
+       <span class="span"><button>Add</button>&nbsp; | &nbsp;<button _ngcontent-iel-c553="" style="border: none; background: white;font-size: 12px;">   <a routerLink="/certificate-collection-disposal">View</a></button></span>
+     </div>
+   </div>
+  </div>
+
+
+<div class="col-sm-3">
+<div class="card" >
+   <div class="card-body">
+     <p class="card-text">Diversion</p>
+     <span class="span"><button>Add</button>&nbsp; | &nbsp;<button _ngcontent-iel-c553="" style="border: none; background: white;font-size: 12px;">  <a routerLink="/certificate-diversion">View</a></button></span>
+   </div>
+ </div>
+</div>
+
+</div>
+</div>
 <kendo-grid
    [kendoGridBinding]="gridView"
    kendoGridSelectBy="id"

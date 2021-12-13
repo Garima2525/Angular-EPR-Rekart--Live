@@ -13,8 +13,24 @@
           </div>
         </div>
       </div>
+<div class="col-sm-12"style="margin-top: 1%;margin-bottom: 1%;">
+  <div class="col-sm-3" style="padding: 0px;margin: 0px;">
+    <select class="form-control" name="serach" [(ngModel)]="searchTextor">
+     <option value=""  >Serach by Organization</option>
+     <option *ngFor="let objcus of Customers" value={{objcus._id}} >{{objcus.organization_name}}  </option>
+     
+      <!-- <option>Serach by Organization </option>
+     <option></option>  -->
+    
+    </select> 
+    
+   </div>
+<div class="col-sm-6"></div>
+<div class="col-sm-3" style="padding: 0px;margin: 0px;">
+  <input type="text" class="form-control" placeholder="Serach " name="serach" [(ngModel)]="searchText">
+  </div>
 
-
+</div>
   <table datatable class="table table-striped">
   <thead>
     <tr>
@@ -29,7 +45,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let pod of podata">
+    <tr *ngFor="let pod of podata | filter:searchTextor |filter:searchText">
       <td>
         <span class=" text-theme"># {{ pod.PO_id }}</span><br>
         <span class="poDateClass"><i _ngcontent-fcn-c561="" aria-hidden="true" class="fa fa-calendar-check-o" style="color: green;"></i> {{ pod.created_at|date: 'dd-MM-yyyy' }}</span>
@@ -88,34 +104,4 @@
 
 </div></div>
 
-  <!-- Modal -->
-  <div #myModel class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document" style="width: 30%;">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle" style="padding-top: 1%;color:black;">
-            Attached Document:</h5>
-
-        </div>
-        <form >
-          <div class="modal-body">
-
-
-            <div class="form-group">
-              <label for="exampleInputPassword1">Document No</label>
-              <input type="text" class="form-control" placeholder="Enter Document No" formControlName="document_no">
-
-            </div>
-
-          </div>
-          <div class="modal-footer">
-
-            <button type="cancel" class=" bt light upbt" data-dismiss="modal" #closebutton>Cancel</button>
-            <button type="submit" class=" bt danger upbt" >Save</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  <!-- mode end -->
+ 

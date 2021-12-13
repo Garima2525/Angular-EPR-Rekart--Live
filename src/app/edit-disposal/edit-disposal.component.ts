@@ -250,4 +250,9 @@ export class EditDisposalComponent implements OnInit {
       }
     });
   }
+  deleteAttachment(i:any){
+    console.log(i)
+    this.ccattachments.splice(i, 1);
+    console.log(this.ccattachments);
+  }
 }

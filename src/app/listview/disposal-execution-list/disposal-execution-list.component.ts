@@ -46,12 +46,27 @@ export class DisposalExecutionListComponent implements OnInit {
         logic: "or",
         filters: [
           {
-            field: "disposal_id",
+            field: "material_name",
             operator: "contains",
             value: inputValue,
           },
           {
-            field: "company_type",
+            field: "state",
+            operator: "contains",
+            value: inputValue,
+          },
+          {
+            field: "city",
+            operator: "contains",
+            value: inputValue,
+          },
+          {
+            field: "ulb_name",
+            operator: "contains",
+            value: inputValue,
+          },
+          {
+            field: "emcollection_center_nameail",
             operator: "contains",
             value: inputValue,
           },
@@ -61,17 +76,42 @@ export class DisposalExecutionListComponent implements OnInit {
             value: inputValue,
           },
           {
+            field: "transporter_name",
+            operator: "contains",
+            value: inputValue,
+          },
+          {
             field: "mobile_no",
             operator: "contains",
             value: inputValue,
           },
           {
-            field: "email",
+            field: "vehicle_no",
             operator: "contains",
             value: inputValue,
           },
           {
-            field: "first_name",
+            field: "driver_name",
+            operator: "contains",
+            value: inputValue,
+          },
+          {
+            field: "collection_material_weight",
+            operator: "contains",
+            value: inputValue,
+          },
+          {
+            field: "disposal_material_weight",
+            operator: "contains",
+            value: inputValue,
+          },
+          {
+            field: "disposal_date_time",
+            operator: "contains",
+            value: inputValue,
+          },
+          {
+            field: "collection_date_time",
             operator: "contains",
             value: inputValue,
           },

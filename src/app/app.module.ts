@@ -71,7 +71,7 @@ import { DiversionCertificateComponent } from './certificates/diversion-certific
 import { AddCertificateComponent } from './add-certificate/add-certificate.component';
 import { EditOrderPoComponent } from './edit-order-po/edit-order-po.component';
 import { EditTargetComponent } from './edit-target/edit-target.component';
- 
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 @NgModule({
   declarations: [
     AppComponent,
@@ -146,7 +146,8 @@ import { EditTargetComponent } from './edit-target/edit-target.component';
     //   libraries: ['places'],
     // }),
     CarouselModule ,
-    FormsModule
+    FormsModule,
+    Ng2SearchPipeModule
   ],
   providers: [
     {

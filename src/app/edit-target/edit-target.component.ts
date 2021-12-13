@@ -102,23 +102,27 @@ export class EditTargetComponent implements OnInit {
     this.CountryStateCityService.getallstates().subscribe((data: any) => {
       console.log(data.result);
       this.statedata = data.result;
-     
+    
     });
+    
     this.target.gettargetbyid(this.tarId).subscribe((data: any) => {
       console.log(data.result[0]);
       this.onformInit(data.result[0]);
+      this.onformInit(data.result[0]);
       // this.getdistrictonload(data.result[0].state);
      
-      this.tname = data.result[0].target_name;
-      this.ulbattachments =
-        (data.result[0].attachments == null
-          ? this.ulbattachments
-          : data.result[0].attachments);
-      console.log(this.ulbattachments);
+      // this.tname = data.result[0].target_name;
+      // this.ulbattachments =
+      //   (data.result[0].attachments == null
+      //     ? this.ulbattachments
+      //     : data.result[0].attachments);
+      // console.log(this.ulbattachments);
       
     });
 
   }
+ 
+
  
   addinfo(e: any) {
     e.preventDefault();
@@ -247,7 +251,7 @@ export class EditTargetComponent implements OnInit {
     }
   }
   onFormSubmit() {
-    // this.isValidFormSubmitted = false;
+    this.isValidFormSubmitted = false;
     // if (this.targetForm.invalid) {
     //   console.log(this.targetForm, 'error');
     //   this.isValidFormSubmitted = true;
@@ -262,7 +266,7 @@ export class EditTargetComponent implements OnInit {
     //   this.targetForm.value.target_duration = this.targetDuration;
     //   this.targetForm.value.attachments = this.goalattachments;
     //   console.log(this.targetForm, 'true');
-    //   this.target.submitForm(this.targetForm.value).subscribe((data:any) => {
+    //   this.target.targetupdatebyid(this.tarId,this.targetForm.value).subscribe((data) => {
     //     console.log(data);
     //     this.toast.showSuccess(
     //       'Congratulation!, Target has been created.'

@@ -278,4 +278,9 @@ handleWarningAlert() {
 handleFilter(value:any) {
   this.transporterdata = this.transporterdata.filter((s:any) => s.text.toLowerCase().indexOf(value.toLowerCase()) !== -1);
 }
+deleteAttachment(i:any){
+  console.log(i)
+  this.ccattachments.splice(i, 1);
+  console.log(this.ccattachments);
+}
 }
