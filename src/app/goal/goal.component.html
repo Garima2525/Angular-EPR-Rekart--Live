@@ -29,26 +29,27 @@
 
               <div class="panel-body">
                 <div class="col-md-4 form-group">
+                  <label>State : </label>
+
+                  <select class="form-control"  (change)="[getdistrict($event),getRecords($event,'state')]">
+                    <option value="">Select State</option>
+                  <option *ngFor="let obj of statedata" value={{obj}}> {{obj}} </option>
+                  </select>
+                </div>
+                <div class="col-md-4 form-group">
                   <label> From Date:</label>
 
-                  <input type="date" class="form-control" name="">
+                  <input type="date" class="form-control" name="" (input)="getRecords($event,'from')">
                 </div>
 
 
                 <div class="col-md-4 form-group">
                   <label>To Date:</label>
-                  <input type="date" class="form-control" name="">
+                  <input type="date" class="form-control" name="" (input)="getRecords($event,'to')">
                 </div>
 
 
-                <div class="col-md-4 form-group">
-                  <label>State : </label>
-
-                  <select class="form-control"  (change)="getdistrict($event)">
-                    <option value="">Select State</option>
-                  <option *ngFor="let obj of statedata" value={{obj}}> {{obj}} </option>
-                  </select>
-                </div>
+                
 
 
               </div>
@@ -58,15 +59,27 @@
                   <div class="card">
                     <div class="card-body">
                       <h5 class="card-title"> <span class="loginBtn1">MLP</span><span class="loginBtn"> <b
-                            style="font-size: 20px;">800</b>kg<p>Balance</p></span></h5>
+                            style="font-size: 20px;">{{arr[0].neworder+arr[0].oldorder-(arr[0].newcollectedqty-arr[0].newdisposedqty)-(arr[0].oldcollectedqty-arr[0].olddisposedqty)}}</b>kg<p>Balance</p></span></h5>
                     </div>
                     <ul class="list-group list-group-flush">
-                      <li class="list-group-item bgcl1"><i class="fa fa-star"></i> New Order <span>1000kg</span></li>
-                      <li class="list-group-item"><i class="fa fa-bars"></i> Old order <span>500kg</span></li>
-                      <li class="list-group-item bgcl2"><i class="fa fa-close"></i> Collected & Disposed
-                        <span>700kg</span></li>
-                      <li class="list-group-item"><i class="fa fa-th-large"></i> Allotted/Un-Allotted
-                        <span>500/200kg</span></li>
+                      <li class="list-group-item bgcl1"><i class="fa fa-star"></i> New Order <span>{{arr[0].neworder}}kg</span></li>
+                      <li class="list-group-item"><i class="fa fa-th-large"></i> Old order <span>{{arr[0].oldorder}}kg</span></li>
+                      <li class="list-group-item bgcl1">
+                        <i class="fa fa-star"></i> New Collected & Disposed
+                        <span>{{arr[0].newcollectedqty}}kg</span><br/>
+                        <i class="fa fa-star"></i> Unalloted
+                        <span>{{arr[0].newcollectedqty-arr[0].newdisposedqty}}kg</span><br/>
+                        <i class="fa fa-star"></i> Alloted
+                        <span>{{arr[0].newdisposedqty}}kg</span>
+                      </li>
+                      <li class="list-group-item">
+                        <i class="fa fa-th-large"></i> Old Collected & Disposed
+                        <span>{{arr[0].oldcollectedqty}}kg</span><br/>
+                        <i class="fa fa-th-large"></i> Unalloted
+                        <span>{{arr[0].oldcollectedqty-arr[0].olddisposedqty}}kg</span><br/>
+                        <i class="fa fa-th-large"></i> Alloted
+                        <span>{{arr[0].olddisposedqty}}kg</span>
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -77,15 +90,27 @@
                   <div class="card">
                     <div class="card-body">
                       <h5 class="card-title"> <span class="loginBtn1">NON-MLP</span><span class="loginBtn"> <b
-                            style="font-size: 20px;">800</b>kg<p>Balance</p></span></h5>
+                            style="font-size: 20px;">{{arr[1].neworder+arr[1].oldorder-(arr[1].newcollectedqty-arr[1].newdisposedqty)-(arr[1].oldcollectedqty-arr[1].olddisposedqty)}}</b>kg<p>Balance</p></span></h5>
                     </div>
                     <ul class="list-group list-group-flush">
-                      <li class="list-group-item bgcl1"><i class="fa fa-star"></i> New Order <span>1000kg</span></li>
-                      <li class="list-group-item"><i class="fa fa-bars"></i> Old order <span>500kg</span></li>
-                      <li class="list-group-item bgcl2"><i class="fa fa-close"></i> Collected & Disposed
-                        <span>700kg</span></li>
-                      <li class="list-group-item"><i class="fa fa-th-large"></i> Allotted/Un-Allotted
-                        <span>500/200kg</span></li>
+                      <li class="list-group-item bgcl1"><i class="fa fa-star"></i> New Order <span>{{arr[1].neworder}}kg</span></li>
+                      <li class="list-group-item"><i class="fa fa-th-large"></i> Old order <span>{{arr[1].oldorder}}kg</span></li>
+                      <li class="list-group-item bgcl1">
+                        <i class="fa fa-star"></i> New Collected & Disposed
+                        <span>{{arr[1].newcollectedqty}}kg</span><br/>
+                        <i class="fa fa-star"></i> Unalloted
+                        <span>{{arr[1].newcollectedqty-arr[1].newdisposedqty}}kg</span><br/>
+                        <i class="fa fa-star"></i> Alloted
+                        <span>{{arr[1].newdisposedqty}}kg</span>
+                      </li>
+                      <li class="list-group-item">
+                        <i class="fa fa-th-large"></i> Old Collected & Disposed
+                        <span>{{arr[1].oldcollectedqty}}kg</span><br/>
+                        <i class="fa fa-th-large"></i> Unalloted
+                        <span>{{arr[1].oldcollectedqty-arr[1].olddisposedqty}}kg</span><br/>
+                        <i class="fa fa-th-large"></i> Alloted
+                        <span>{{arr[1].olddisposedqty}}kg</span>
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -96,15 +121,27 @@
                   <div class="card">
                     <div class="card-body">
                       <h5 class="card-title"> <span class="loginBtn1">FLEXIBLE</span><span class="loginBtn"> <b
-                            style="font-size: 20px;">800</b>kg<p>Balance</p></span></h5>
+                            style="font-size: 20px;">{{arr[2].neworder+arr[2].oldorder-(arr[2].newcollectedqty-arr[2].newdisposedqty)-(arr[2].oldcollectedqty-arr[2].olddisposedqty)}}</b>kg<p>Balance</p></span></h5>
                     </div>
                     <ul class="list-group list-group-flush">
-                      <li class="list-group-item bgcl1"><i class="fa fa-star"></i> New Order <span>1000kg</span></li>
-                      <li class="list-group-item"><i class="fa fa-bars"></i> Old order <span>500kg</span></li>
-                      <li class="list-group-item bgcl2"><i class="fa fa-close"></i> Collected & Disposed
-                        <span>700kg</span></li>
-                      <li class="list-group-item"><i class="fa fa-th-large"></i> Allotted/Un-Allotted
-                        <span>500/200kg</span></li>
+                      <li class="list-group-item bgcl1"><i class="fa fa-star"></i> New Order <span>{{arr[2].neworder}}kg</span></li>
+                      <li class="list-group-item"><i class="fa fa-th-large"></i> Old order <span>{{arr[2].oldorder}}kg</span></li>
+                      <li class="list-group-item bgcl1">
+                        <i class="fa fa-star"></i> New Collected & Disposed
+                        <span>{{arr[2].newcollectedqty}}kg</span><br/>
+                        <i class="fa fa-star"></i> Unalloted
+                        <span>{{arr[2].newcollectedqty-arr[2].newdisposedqty}}kg</span><br/>
+                        <i class="fa fa-star"></i> Alloted
+                        <span>{{arr[2].newdisposedqty}}kg</span>
+                      </li>
+                      <li class="list-group-item">
+                        <i class="fa fa-th-large"></i> Old Collected & Disposed
+                        <span>{{arr[2].oldcollectedqty}}kg</span><br/>
+                        <i class="fa fa-th-large"></i> Unalloted
+                        <span>{{arr[2].oldcollectedqty-arr[2].olddisposedqty}}kg</span><br/>
+                        <i class="fa fa-th-large"></i> Alloted
+                        <span>{{arr[2].olddisposedqty}}kg</span>
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -113,13 +150,27 @@
                 <div class="col-md-3 boxData">
             <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title"> <span class="loginBtn1" >RIGID</span><span class="loginBtn" > <b style="font-size: 20px;">800</b>kg<p>Balance</p></span></h5>
+                  <h5 class="card-title"> <span class="loginBtn1" >RIGID</span><span class="loginBtn" > <b style="font-size: 20px;">{{arr[3].neworder+arr[3].oldorder-(arr[3].newcollectedqty-arr[3].newdisposedqty)-(arr[3].oldcollectedqty-arr[3].olddisposedqty)}}</b>kg<p>Balance</p></span></h5>
                 </div>
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item bgcl1"><i class="fa fa-star"></i> New Order <span>1000kg</span></li>
-                  <li class="list-group-item"><i class="fa fa-bars"></i> Old order <span>500kg</span></li>
-                  <li class="list-group-item bgcl2"><i class="fa fa-close"></i> Collected & Disposed <span>700kg</span></li>
-                  <li class="list-group-item"><i class="fa fa-th-large"></i> Allotted/Un-Allotted <span>500/200kg</span></li>
+                  <li class="list-group-item bgcl1"><i class="fa fa-star"></i> New Order <span>{{arr[3].neworder}}kg</span></li>
+                  <li class="list-group-item"><i class="fa fa-th-large"></i> Old order <span>{{arr[3].oldorder}}kg</span></li>
+                  <li class="list-group-item bgcl1">
+                    <i class="fa fa-star"></i> New Collected & Disposed
+                    <span>{{arr[3].newcollectedqty}}kg</span><br/>
+                    <i class="fa fa-star"></i> Unalloted
+                    <span>{{arr[3].newcollectedqty-arr[3].newdisposedqty}}kg</span><br/>
+                    <i class="fa fa-star"></i> Alloted
+                    <span>{{arr[3].newdisposedqty}}kg</span>
+                  </li>
+                  <li class="list-group-item">
+                    <i class="fa fa-th-large"></i> Old Collected & Disposed
+                    <span>{{arr[3].oldcollectedqty}}kg</span><br/>
+                    <i class="fa fa-th-large"></i> Unalloted
+                    <span>{{arr[3].oldcollectedqty-arr[3].olddisposedqty}}kg</span><br/>
+                    <i class="fa fa-th-large"></i> Alloted
+                    <span>{{arr[3].olddisposedqty}}kg</span>
+                  </li>
                 </ul>
               </div>
         </div> 
@@ -142,12 +193,9 @@
               <div class="panel-heading font-bold">Target Source </div>
               <div class="panel-body">
                 <div class="col-md-4 form-group">
-                  <label>State  </label>
+                  <label>State : </label>
 
-                  <select class="form-control"  (change)="getdistrict($event)">
-                    <option value="">Select State</option>
-                  <option *ngFor="let obj of statedata" value={{obj}}> {{obj}} </option>
-                  </select>
+                  <input type="text" value="" class="form-control" disabled/>
                 </div>
                 <div class="col-md-4 form-group">
                   <label> Target Name</label>
@@ -297,7 +345,7 @@
                         ">
                           <th>{{attachmentrow.document_type}}</th>
                           <th>{{attachmentrow.document_no}} </th>
-                          <th><a href="{{attachmentrow.image}}" target="_blank"><i class="fa fa-file" aria-hidden="true"></i> File</a></th>
+                          <th><a href="{{attachmentrow.image}}"><i class="fa fa-file" aria-hidden="true"></i> File</a></th>
                           <th>{{attachmentrow.validity}}</th>
                           <th>
                             <i class="fa fa-trash" aria-hidden="true"(click)="deleteAttachment(i)"></i>

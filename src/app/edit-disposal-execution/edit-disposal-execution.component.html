@@ -11,12 +11,13 @@
         <div class="col-sm-6 text-right poppins hidden-xs">
           <button type="button" class=" bt light" (click)="handleWarningAlert()">Cancel</button>
           <button type="submit" class=" bt danger" [disabled]="isValidbutton" (click)="saveform('save')">Save</button>
-         
+        
+
         </div>
       </div>
     </div>
     <div class="wrapper-md" ng-controller="FormDemoCtrl">
-     
+
         <div class="row">
           <div class="col-sm-12">
             <div class="panel panel-default">
@@ -24,14 +25,13 @@
               <div class="panel-body">
 
                 <div class="col-md-4 form-group">
-                  <label> Material Name  <span class="text-theme">*</span></label>
-                  <select class="form-control" formControlName="material_name" >
-                    <option value="">Select Material</option>
+                  <label> Material Name <span class="text-theme">*</span></label>
+                  <select class="form-control" formControlName="material_name" value={{material_name}}>
+                  <option value="">Select Material</option>
                   <option value="MLP">MLP</option>
                   <option value="Non MLP">Non MLP</option>
                   <option value="Rigid">Rigid</option>
                   <option value="Flexible">Flexible</option>
-                   
                   </select>
                   <div *ngIf="f.material_name.errors && f.material_name.errors.required && isValidFormSubmitted"
                     class="text-danger text-left mb-1 errorcontrols">
@@ -39,7 +39,7 @@
                   </div>
                 </div>
                 <div class="col-md-4 form-group">
-                  <label> State  <span class="text-theme">*</span></label>
+                  <label> State <span class="text-theme">*</span></label>
                   <select class="form-control" formControlName="state" (change)="getdistrict($event)">
                     <option value="" disabled> Select State </option>
                     <option *ngFor="let obj of statedata" value={{obj}}> {{obj}} </option>
@@ -50,7 +50,7 @@
                   </div>
                 </div>
                 <div class="col-md-4 form-group">
-                  <label> City  <span class="text-theme">*</span></label>
+                  <label> City <span class="text-theme">*</span></label>
                   <select class="form-control" formControlName="city">
                     <option value="" disabled> Select City </option>
                     <option *ngFor="let dobj of districtdata" value={{dobj}}> {{dobj}} </option>
@@ -110,8 +110,8 @@
                   <label>Transporter Name <span class="text-theme">*</span></label>
                   <div class="input-group">
                     <!-- <input type="text" class="form-control" placeholder=""formControlName="transporter_name"> -->
-                    <select formControlName="transporter_name" class="form-control">
-                      <option>Select Transporter Name </option>
+                    <select formControlName="transporter_name" class="form-control" >
+                      <option value="" selected >Select Transporter Name </option>
                       <option *ngFor="let objtrans of transporterdata" value={{objtrans._id}}> {{objtrans.transporter_name}} </option>
                     </select>
                     <span class="input-group-addon"><i class="fa fa-search">
@@ -128,6 +128,21 @@
 
 
 
+
+                <!-- <div class="col-md-6 form-group">
+                  <label> Mobile No <span class="text-theme">*</span></label>
+                  <div class="input-group">
+                    <span class="input-group-addon">+91
+                    </span>
+                    <input type="Number" class="form-control" placeholder="Enter Mobile Number" formControlName="mobile_no">
+
+                  </div>
+                  <div *ngIf="f.mobile_no.errors && f.mobile_no.errors.required && isValidFormSubmitted"
+                  class="text-danger text-left mb-1 errorcontrols">
+                  <div *ngIf="f.mobile_no.errors.required"><small> Mobile No is required.</small></div>
+                  <div *ngIf="f.mobile_no.errors.pattern">Invalid Mobile</div>
+                </div>
+                </div> -->
                 <div class="col-md-6 form-group">
                   <label>Mobile No <span class="text-theme">*</span></label>
                   <div class="input-group">
@@ -143,16 +158,16 @@
 
                 <div class="clearfix"></div>
                 <div class="col-md-4 form-group">
-                  <label>Vehicle No  <span class="text-theme">*</span></label>
-                  <input type="number" class="form-control " placeholder="Enter Vehicle No " formControlName="vehicle_no">
+                  <label>Vehicle No <span class="text-theme">*</span></label>
+                  <input type="text" class="form-control " placeholder="Enter Vehicle No " formControlName="vehicle_no">
                   <div *ngIf="f.vehicle_no.errors && f.vehicle_no.errors.required && isValidFormSubmitted"
                   class="text-danger text-left mb-1 errorcontrols">
-                  <div *ngIf="f.vehicle_no.errors.required"><small>Vehicle No is required.</small></div>
+                  <div *ngIf="f.vehicle_no.errors.required"><small>vehicle no is required.</small></div>
                 </div>
                 </div>
 
                 <div class="col-md-4 form-group">
-                  <label>Driver Name  <span class="text-theme">*</span></label>
+                  <label>Driver Name <span class="text-theme">*</span></label>
                   <input type="text" class="form-control " placeholder="Enter Driver Name" formControlName="driver_name">
                   <div *ngIf="f.driver_name.errors && f.driver_name.errors.required && isValidFormSubmitted"
                   class="text-danger text-left mb-1 errorcontrols">
@@ -161,7 +176,7 @@
                 </div>
 
                 <div class="col-md-4 form-group">
-                  <label>Driver Mobile No  <span class="text-theme">*</span></label>
+                  <label>Driver Mobile No <span class="text-theme">*</span></label>
                   <div class="input-group">
                     <span class="input-group-addon">+91
                     </span>
@@ -174,8 +189,8 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-md-4 form-group">
-                  <label>Bill T No  <span class="text-theme">*</span></label>
-                  <input type="number" class="form-control " placeholder="Enter Bill T No" formControlName="bill_t_no">
+                  <label>Bill T No <span class="text-theme">*</span></label>
+                  <input type="text" class="form-control " placeholder="Enter Bill T No" formControlName="bill_t_no">
                   <div *ngIf="f.bill_t_no.errors && f.bill_t_no.errors.required && isValidFormSubmitted"
                   class="text-danger text-left mb-1 errorcontrols">
                   <div *ngIf="f.bill_t_no.errors.required"><small>Bill T No is required.</small></div>
@@ -183,7 +198,7 @@
                 </div>
 
                 <div class="col-md-4 form-group">
-                  <label>E Way Bill  <span class="text-theme">*</span></label>
+                  <label>E Way Bill <span class="text-theme">*</span></label>
                   <input type="text" class="form-control " placeholder="Enter E Way Bill "  formControlName="e_way_bill">
                   <div *ngIf="f.e_way_bill.errors && f.e_way_bill.errors.required && isValidFormSubmitted"
                   class="text-danger text-left mb-1 errorcontrols">
@@ -192,8 +207,8 @@
                 </div>
 
                 <div class="col-md-4 form-group">
-                  <label>Invoice No  <span class="text-theme">*</span></label>
-                  <input type="number" class="form-control " placeholder="Enter Invoice No" formControlName="invoice_no">
+                  <label>Invoice No <span class="text-theme">*</span></label>
+                  <input type="text" class="form-control " placeholder="Enter Invoice No" formControlName="invoice_no">
                   <div *ngIf="f.invoice_no.errors && f.invoice_no.errors.required && isValidFormSubmitted"
                   class="text-danger text-left mb-1 errorcontrols">
                   <div *ngIf="f.invoice_no.errors.required"><small>Invoice No is required.</small></div>
@@ -222,7 +237,7 @@
                     <b style="cursor: pointer;">
 
                       <!-- <button><i class="fa fa-plus" aria-hidden="true" (click)="addinfo($event)"></i></button> -->
-                      <button type="submit" class=" bt dark1 " >Add
+                      <button type="button" class=" bt dark1 " (click)="addinfo($event)" style="cursor: pointer;">Add
                       </button>
                     </b>
 
@@ -230,25 +245,25 @@
 
                   </div>
                 </div>
-                <div class="col-md-12" style="padding:0px; margin-top:1.5%" >
+                <div class="col-md-12" style="padding:0px; margin-top:1.5%" *ngFor="let row of ammountInfo;index as i">
                   <div class="col-md-4 form-group">
                     <label>Amount</label>
-                    <input type="text" class="form-control " placeholder="Enter Amount" formControlName="amount">
+                    <input type="number" class="form-control " placeholder="Enter Amount" (input)="valueInsert($event,'amount',i)">
                   </div>
 
                   <div class="col-md-4 form-group">
                     <label>Expenditure Type</label>
-                    <input type="text" class="form-control " placeholder="Enter Expenditure No" formControlName="expenditure_type">
+                    <input type="text" class="form-control " placeholder="Enter Expenditure No" (input)="valueInsert($event,'expenditure_type',i)">
                   </div>
                   <div class="col-md-4 form-group">
                     <label>Receipt No</label>
-                    <input type="text" class="form-control " placeholder="Enter Receipt No"formControlName="receipt_no">
+                    <input type="text" class="form-control " placeholder="Enter Receipt No" (input)="valueInsert($event,'receipt_no',i)">
                   </div>
 
                   <div class="clearfix"></div>
 
                   <div class="col-md-12 text-right">
-                    <button><i class="fa fa-trash" aria-hidden="true" ></i></button>
+                    <button><i class="fa fa-trash" aria-hidden="true" (click)="deleteinfo($event,i)"></i></button>
                   </div>
                 </div>
 
@@ -269,7 +284,7 @@
               <div class="panel-heading font-bold">Collection Weight Information </div>
               <div class="panel-body">
                 <div class="col-md-4 form-group">
-                  <label> Collection Date & Time (Loading)  <span class="text-theme">*</span></label>
+                  <label> Collection Date & Time (Loading) <span class="text-theme">*</span></label>
                   <input type="datetime-local" class="form-control"formControlName="collection_date_time">
                   <div *ngIf="f.collection_date_time.errors && f.collection_date_time.errors.required && isValidFormSubmitted"
                   class="text-danger text-left mb-1 errorcontrols">
@@ -279,7 +294,7 @@
 
 
                 <div class="col-md-4 form-group">
-                  <label>Material Weight  <span class="text-theme">*</span></label>
+                  <label>Material Weight <span class="text-theme">*</span></label>
                   <div class="input-group">
 
                     <input type="text" class="form-control" placeholder="Enter Material Weight" formControlName="collection_material_weight">
@@ -314,15 +329,17 @@
               <div class="panel-heading font-bold">Disposal Weight Information </div>
               <div class="panel-body">
                 <div class="col-md-4 form-group">
-                  <label> Disposal Date & Time (Unloading)  <span class="text-theme">*</span></label>
-                  <input type="datetime-local" class="form-control"formControlName="disposal_date_time">
+                  <label> Disposal Date & Time (Unloading) <span class="text-theme">*</span></label>
+                 
+                  <input type="datetime-local" class="form-control"   formControlName="disposal_date_time" >
                   <div *ngIf="f.disposal_date_time.errors && f.disposal_date_time.errors.required && isValidFormSubmitted"
                   class="text-danger text-left mb-1 errorcontrols">
+                  
                   <div *ngIf="f.disposal_date_time.errors.required"><small>Disposal Date & Time is required.</small></div>
                 </div>
                 </div>
                 <div class="col-md-4 form-group">
-                  <label>Material Weight  <span class="text-theme">*</span></label>
+                  <label>Material Weight <span class="text-theme">*</span></label>
                   <div class="input-group">
 
                     <input type="text" class="form-control" placeholder="Enter Material Weight"formControlName="disposal_material_weight">
@@ -388,8 +405,8 @@
                           <th>Document Type</th>
                           <th>Document No</th>
                           <th>File Name (File Size)</th>
-                          <th>Validity</th>
-                       
+                          <!-- <th>Validity</th> -->
+                          <th>Action</th>
 
                         </tr>
                         <tr *ngFor="let attachmentrow of ccattachments;index as i">
@@ -397,7 +414,7 @@
                           <th>{{attachmentrow.document_no}} </th>
                           <th><a href="{{attachmentrow.image}}" target="_blank"><i class="fa fa-file" aria-hidden="true"></i> File</a>
                           </th>
-                        
+                          <!-- <th>{{attachmentrow.validity}}</th> -->
                           <th>
                             <i class="fa fa-trash" aria-hidden="true"></i>
                           </th>
@@ -411,68 +428,22 @@
           </div>
         </div>
         <!-- end -->
-      
+
 
       <div style="text-align: right; margin:10px 0px;">
         <button type="button" class=" bt light" (click)="handleWarningAlert()">Cancel</button>
             <button type="submit" class=" bt danger" [disabled]="isValidbutton" (click)="saveform('save')">Save</button>
-            
+          
       </div>
 
     </div>
- 
- 
+
+
   </div>
   </form>
 </div>
 
 
-     <!-- Modal -->
-     <!-- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-     <div class="modal-dialog modal-dialog-centered" role="document" style="width: 30%;">
-       <div class="modal-content">
-         <div class="modal-header">
-           <h5 class="modal-title" id="exampleModalLongTitle" style="padding-top: 1%;color:black;">
-             Attached Document</h5>
-         </div>
-         <div class="modal-body">
-           <form action="">
-             <div class="form-group">
-               <label for="exampleInputEmail1">Document Type</label>
-
-               <select class="form-control" formControlName="document_type">
-                 <option value="Collection weight Slip">Collection weight Slip</option>
-                 <option value="Disposal weight Slip">Disposal weight Slip</option>
-
-
-               </select>
-
-             </div>
-             <div class="form-group">
-               <label for="exampleInputPassword1">Document No</label>
-               <input type="text" class="form-control" placeholder="Enter Document No"
-                 formControlName="document_no">
-             </div>
-
-             <div class="form-group">
-               <label for="exampleInputPassword1">File Name</label>
-               <input type="file" class="form-control" formControlName="file">
-             </div>
-
-
-           </form>
-
-         </div>
-         <div class="modal-footer">
-
-           <button type="cancel" class=" bt light upbt" data-dismiss="modal">Cancel</button>
-           <button type="submit" class=" bt danger upbt">Save</button>
-         </div>
-       </div>
-     </div>
-   </div> -->
-   <!-- mode end -->
    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document" style="width: 30%;">
@@ -515,7 +486,14 @@
               <div *ngIf="fm.image.errors.required"><small>file is required.</small></div>
             </div>
           </div>
-          
+          <!-- <div class="form-group">
+            <label for="exampleInputPassword1">Validity</label>
+            <input type="date" class="form-control" formControlName="validity">
+            <div *ngIf="fm.validity.errors && fm.validity.errors.required && isValidFormSubmittedModal"
+              class="text-danger text-left mb-1 errorcontrols">
+              <div *ngIf="fm.validity.errors.required"><small>validity is required.</small></div>
+            </div>
+          </div> -->
         </div>
         <div class="modal-footer">
           <button type="cancel" class=" bt light upbt" data-dismiss="modal" #closebutton>Cancel</button>

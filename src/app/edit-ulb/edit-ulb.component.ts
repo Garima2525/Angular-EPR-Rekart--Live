@@ -73,14 +73,14 @@ export class EditUlbComponent implements OnInit {
   }
   forminit(ulbdata: any) {
     this.ulbform = this.ulb.group({
-      ulb_id: [ulbdata.ulb_id, Validators.required],
-      ulb_name: [ulbdata.ulb_name, Validators.required],
+      ulb_id: [ulbdata.ulb_id,[ Validators.required]],
+      ulb_name: [ulbdata.ulb_name, [Validators.required]],
       gstin: [
         ulbdata.gstin,
         
       ],
-      state: [ulbdata.state, Validators.required],
-      city: [ulbdata.city, Validators.required],
+      state: [ulbdata.state, [Validators.required]],
+      city: [ulbdata.city,[ Validators.required]],
       address: [ulbdata.address],
       latitude: [ulbdata.latitude],
       longitude: [ulbdata.longitude],

@@ -18,6 +18,7 @@ import Swal from 'sweetalert2';
 })
 export class EditOrderPoComponent implements OnInit {
   material_name:any='string';
+  po_is_edit: any;
 
   constructor(
     private poservice:PoService,
@@ -94,10 +95,12 @@ export class EditOrderPoComponent implements OnInit {
       console.log(data.result[0]);
       this.forminit(data.result[0]);
       this.po_id = data.result[0].PO_id;
+      this.po_is_edit = data.result[0].is_edit;
       this.ccattachments =data.result[0].attachments == null? this.ccattachments : data.result[0].attachments;
      this.materialInfo = data.result[0].materials;
       console.log(this.materialInfo);
-    
+    this.remark=data.result[0].remark;
+    console.log(this.remark);
       console.log(this.materialerror);
       this.selectedItemtt=data.result[0].customer_data
       console.log(this.selectedItemtt);
@@ -387,7 +390,7 @@ forminit(podata:any) {
         console.log(this.POform.value);
         this.poservice.updatepobyid(this.pId,this.POform.value).subscribe((data) => {
           console.log(data);
-          this.toast.showSuccess('Congratulation!, PO has been created.');
+          this.toast.showSuccess('Congratulation!, PO has been updated.');
           if (this.saveas == 'save') {
             console.log(this.saveas);
             setTimeout(() => {

@@ -43,6 +43,7 @@ export class EditDisposalExecutionComponent implements OnInit {
    transporterdata:any;
 
    collectiondata:any
+
     constructor(
       private disposalexecution: DisposalExecutionService,
       private CountryStateCityService: CountryStateCityService,
@@ -57,7 +58,7 @@ export class EditDisposalExecutionComponent implements OnInit {
       private DisposalS: DisposalserviceService,
       private transporter:TranporterserviceService
   ) { }
-  ammountInfo:any=[{
+ ammountInfo:any=[{
     amount:null,
     expenditure_type:null,
     receipt_no:null
@@ -94,12 +95,15 @@ export class EditDisposalExecutionComponent implements OnInit {
     this.disposalexecution.getdisposalexecutionbyid(this.disexecutionId).subscribe((data: any) => {
       console.log(data.result[0]);
       this.forminit(data.result[0]);
-      this.material_name = data.result[0].material_name;
+    
       this.getdistrictonload(data.result[0].state);
-
+      this.material_name = data.result[0].material_name;
+      console.log(this.material_name)
        this.disposalid = data.result[0].disposal_id;
       
        this.disposalname = data.result[0].disposal_company_name;
+       this.ammountInfo = data.result[0].payment;
+       console.log(this.ammountInfo);
       this.ccattachments =
         data.result[0].attachments == null
           ? this.ccattachments
@@ -108,6 +112,26 @@ export class EditDisposalExecutionComponent implements OnInit {
     });
     this.modalforminit();
   }
+  addinfo(e:any){
+    e.preventDefault()
+    this.ammountInfo.push({
+      amount:0,
+      expenditure_type:null,
+      receipt_no:null
+  
+    })
+    console.log( this.ammountInfo)
+  }
+
+  deleteinfo(e:any,index:any){
+    e.preventDefault()
+    this.ammountInfo.splice(index,1)
+  
+  }
+  valueInsert(e:any,name:any,index:any){
+    this.ammountInfo[index][name]=e.target.value
+    
+    }
   get f() {
     return this.disposalexecutionform.controls;
   }
@@ -139,31 +163,32 @@ export class EditDisposalExecutionComponent implements OnInit {
   forminit(disposalexecutiondata :any) {
     this.disposalexecutionform = this.cd.group({
     
-      material_name:disposalexecutiondata.material_name,
-      state: disposalexecutiondata.state,
-      city: disposalexecutiondata.city,
-      ulb:disposalexecutiondata.ulb,
-      collection_center:disposalexecutiondata.collection_center,
-      disposal_facility_pwpf:disposalexecutiondata.disposal_facility_pwpf,
-      transporter_name:disposalexecutiondata.transporter_name,
+      material_name:[disposalexecutiondata.material_name, [Validators.required]],
+      state: [disposalexecutiondata.state,[ Validators.required]],
+      city: [disposalexecutiondata.city,[ Validators.required]],
+      ulb:[disposalexecutiondata.ulb,[ Validators.required]],
+      collection_center:[disposalexecutiondata.collection_center,[Validators.required]],
+      disposal_facility_pwpf:[disposalexecutiondata.disposal_facility_pwpf,[ Validators.required]],
+      transporter_name:[disposalexecutiondata.transporter_name,[ Validators.required]],
       mobile_no:[disposalexecutiondata.mobile_no,[Validators.required, Validators.pattern('^[6-9][0-9]{9}$')]],
-      vehicle_no:disposalexecutiondata.vehicle_no,
-      driver_name:disposalexecutiondata.driver_name,
+      vehicle_no:[disposalexecutiondata.vehicle_no,[Validators.required]],
+      driver_name:[disposalexecutiondata.driver_name,[ Validators.required]],
       driver_mobile_no:[disposalexecutiondata.driver_mobile_no,[Validators.required, Validators.pattern('^[6-9][0-9]{9}$')]],
-      bill_t_no:disposalexecutiondata.bill_t_no,
-      e_way_bill:disposalexecutiondata.e_way_bill,
-      invoice_no:disposalexecutiondata.invoice_no,
-      amount:disposalexecutiondata.amount,
-      expenditure_type:disposalexecutiondata.expenditure_type,
-      receipt_no:disposalexecutiondata.receipt_no,
-      collection_date_time:disposalexecutiondata.collection_date_time,
-      collection_material_weight:disposalexecutiondata.collection_material_weight,
-      collection_remark:disposalexecutiondata.disposal_date_time,
-      disposal_date_time:disposalexecutiondata.disposal_date_time,
-      disposal_material_weight:disposalexecutiondata.disposal_material_weight,
+      bill_t_no:[disposalexecutiondata.bill_t_no,[Validators.required]],
+      e_way_bill:[disposalexecutiondata.e_way_bill,[ Validators.required]],
+      invoice_no:[disposalexecutiondata.invoice_no,[Validators.required]],
+      payment:disposalexecutiondata.payment,
+      collection_date_time:[disposalexecutiondata.collection_date_time,[Validators.required]],
+      collection_material_weight:[disposalexecutiondata.collection_material_weight,[Validators.required]],
+      collection_remark:disposalexecutiondata.collection_remark,
+      disposal_date_time:[disposalexecutiondata.disposal_date_time,[Validators.required]],
+      disposal_material_weight:[disposalexecutiondata.disposal_material_weight,[Validators.required]],
       disposal_remark:disposalexecutiondata.disposal_remark,
       attachments:'',
     });
+   
+    
+  
   }
   modalforminit() {
     this.disposalexecutionformModal = this.cd.group({

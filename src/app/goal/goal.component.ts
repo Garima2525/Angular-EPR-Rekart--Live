@@ -77,6 +77,16 @@ export class GoalComponent implements OnInit {
   goalattachments: any = [];
 
   ulbattachments: any = [];
+  dataRecord: any=[];
+  fromData:any;
+  toData:any;
+  targetState:any;
+  arr:any=[
+    {"neworder":0,"oldorder":0,"newcollectedqty":0,"newdisposedqty":0,"oldcollectedqty":0,"olddisposedqty":0},
+    {"neworder":0,"oldorder":0,"newcollectedqty":0,"newdisposedqty":0,"oldcollectedqty":0,"olddisposedqty":0},
+    {"neworder":0,"oldorder":0,"newcollectedqty":0,"newdisposedqty":0,"oldcollectedqty":0,"olddisposedqty":0},
+    {"neworder":0,"oldorder":0,"newcollectedqty":0,"newdisposedqty":0,"oldcollectedqty":0,"olddisposedqty":0},
+  ];
   constructor(
      private CountryStateCityService: CountryStateCityService,
      private fb:FormBuilder, 
@@ -300,6 +310,111 @@ export class GoalComponent implements OnInit {
     this.goalattachments.splice(i, 1);
     console.log(this.goalattachments);
   }
+
+  getRecords(w:any,Fields:any){
+    
+    switch (Fields) {
+      case 'state':
+        this.targetState=w.target.value;
+        break;
+    
+      case 'from':
+        this.fromData=w.target.value;
+        break;
+      
+      case 'to':
+        this.toData=w.target.value;
+        break;  
+    }
+    
+    if(this.targetState!=undefined && this.fromData!=undefined && this.toData!=undefined){
+      this.target.getRecordBox({state:this.targetState,from:this.fromData,to:this.toData}).subscribe((getdata:any)=>{
+        console.log(getdata);
+        this.getMLPMaterial(getdata.data)
+      })
+    }
+    else{
+      console.log('false');
+      
+    }
+  }
+
+
+  getMLPMaterial(getdata:any){
+    this.arr=[
+      {"neworder":0,"oldorder":0,"newcollectedqty":0,"newdisposedqty":0,"oldcollectedqty":0,"olddisposedqty":0},
+      {"neworder":0,"oldorder":0,"newcollectedqty":0,"newdisposedqty":0,"oldcollectedqty":0,"olddisposedqty":0},
+      {"neworder":0,"oldorder":0,"newcollectedqty":0,"newdisposedqty":0,"oldcollectedqty":0,"olddisposedqty":0},
+      {"neworder":0,"oldorder":0,"newcollectedqty":0,"newdisposedqty":0,"oldcollectedqty":0,"olddisposedqty":0},
+    ];
+    getdata[0].map((item:any)=>{
+      if(item._id=='MLP'){
+        this.arr[0].neworder=item.totalAmount
+      }
+      if(item._id=='Non MLP'){
+        this.arr[1].neworder=item.totalAmount
+      }
+      if(item._id=='Rigid'){
+        this.arr[2].neworder=item.totalAmount
+      }
+      if(item._id=='Flexible'){
+        this.arr[3].neworder=item.totalAmount
+      }
+    })
+    getdata[1].map((item:any)=>{
+      if(item._id=='MLP'){
+        this.arr[0].oldorder=item.totalAmount
+      }
+      if(item._id=='Non MLP'){
+        this.arr[1].oldorder=item.totalAmount
+      }
+      if(item._id=='Rigid'){
+        this.arr[2].oldorder=item.totalAmount
+      }
+      if(item._id=='Flexible'){
+        this.arr[3].oldorder=item.totalAmount
+      }
+    })
+    getdata[2].map((item:any)=>{
+      if(item._id=='MLP'){
+        this.arr[0].newcollectedqty=item.totalAmount_disposal_material_weight
+        this.arr[0].newdisposedqty=item.totalAmount_disposad_qty
+      }
+      if(item._id=='Non MLP'){
+        this.arr[1].newcollectedqty=item.totalAmount_disposal_material_weight
+        this.arr[1].newdisposedqty=item.totalAmount_disposad_qty
+      }
+      if(item._id=='Rigid'){
+        this.arr[2].newcollectedqty=item.totalAmount_disposal_material_weight
+        this.arr[2].newdisposedqty=item.totalAmount_disposad_qty
+      }
+      if(item._id=='Flexible'){
+        this.arr[3].newcollectedqty=item.totalAmount_disposal_material_weight
+        this.arr[3].newdisposedqty=item.totalAmount_disposad_qty
+      }
+    })
+    getdata[3].map((item:any)=>{
+      if(item._id=='MLP'){
+        this.arr[0].oldcollectedqty=item.totalAmount_disposal_material_weight
+        this.arr[0].olddisposedqty=item.totalAmount_disposad_qty
+      }
+      if(item._id=='Non MLP'){
+        this.arr[1].oldcollectedqty=item.totalAmount_disposal_material_weight
+        this.arr[1].olddisposedqty=item.totalAmount_disposad_qty
+      }
+      if(item._id=='Rigid'){
+        this.arr[2].oldcollectedqty=item.totalAmount_disposal_material_weight
+        this.arr[2].olddisposedqty=item.totalAmount_disposad_qty
+      }
+      if(item._id=='Flexible'){
+        this.arr[3].oldcollectedqty=item.totalAmount_disposal_material_weight
+        this.arr[3].olddisposedqty=item.totalAmount_disposad_qty
+      }
+    })
+    
+  }
+
+ 
 
   
 }

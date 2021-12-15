@@ -111,7 +111,7 @@
                   <label>Transporter Name <span class="text-theme">*</span></label>
                   <div class="input-group">
                     <!-- <input type="text" class="form-control" placeholder=""formControlName="transporter_name"> -->
-                    <select formControlName="transporter_name" class="form-control">
+                    <select formControlName="transporter_name" class="form-control" >
                       <option value="" selected >Select Transporter Name </option>
                       <option *ngFor="let objtrans of transporterdata" value={{objtrans._id}}> {{objtrans.transporter_name}} </option>
                     </select>
@@ -161,7 +161,10 @@
                 <div class="col-md-4 form-group">
                   <label>Vehicle No <span class="text-theme">*</span></label>
                   <input type="text" class="form-control " placeholder="Enter Vehicle No " formControlName="vehicle_no">
-                
+                  <div *ngIf="f.vehicle_no.errors && f.vehicle_no.errors.required && isValidFormSubmitted"
+                  class="text-danger text-left mb-1 errorcontrols">
+                  <div *ngIf="f.vehicle_no.errors.required"><small>vehicle no is required.</small></div>
+                </div>
                 </div>
 
                 <div class="col-md-4 form-group">

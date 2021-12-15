@@ -9,11 +9,10 @@
         <div class="col-sm-6 col-xs-12">
           <h4 class="m-n font-bold ">Order/PO</h4>
         </div>
-        <div class="col-sm-6 text-right poppins hidden-xs">
+        <div class="col-sm-6 text-right poppins hidden-xs" *ngIf="!po_is_edit">
           <button type="button" class=" bt light" (click)="handleWarningAlert()">Cancel</button>
               <button type="submit" class=" bt danger" [disabled]="isValidbutton" (click)="saveform('save')">Save</button>
-              <button type="submit" class=" bt dark" [disabled]="isValidbutton" (click)="saveasnewform('savenew')">Save &
-                New</button>
+              
         </div>
       </div>
     </div>
@@ -238,7 +237,7 @@
 
                 <div class="col-md-12 form-group">
 
-                  <input type="text" class="form-control" placeholder="Remark" formControlName="remark">
+                  <input type="text" class="form-control" placeholder="Remark" formControlName="remark" value="{{remark}}">
                 </div>
 
 
@@ -249,12 +248,11 @@
           </div>
         </div>
 
-        <div style="text-align: right; margin:10px 0px;">
+        <div style="text-align: right; margin:10px 0px;" *ngIf="!po_is_edit">
 
           <button type="button" class=" bt light" (click)="handleWarningAlert()">Cancel</button>
               <button type="submit" class=" bt danger" [disabled]="isValidbutton" (click)="saveform('save')">Save</button>
-              <button type="submit" class=" bt dark" [disabled]="isValidbutton" (click)="saveasnewform('savenew')">Save &
-                New</button>
+             
         </div>
     </div>
     </form>

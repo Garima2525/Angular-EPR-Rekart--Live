@@ -111,7 +111,7 @@ export class EditDisposalComponent implements OnInit {
         ),
       ],
       company_type:disposaldata.company_type,
-      plant_name:disposaldata.plant_name,
+      plant_name:[disposaldata.plant_name,[Validators.required]],
       alias_name:disposaldata.alias_name,
       // pan: ['', [Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')]],
       state: [disposaldata.state, Validators.required],

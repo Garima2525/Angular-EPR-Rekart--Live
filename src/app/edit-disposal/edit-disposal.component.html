@@ -39,12 +39,22 @@
                   <label> Disposal Company Name  <span class="text-theme">*</span></label>
                   <input type="text" class="form-control" placeholder="Enter Disposal Company Name"
                     formControlName="disposal_company_name" value="{{ disposalname }}">
-                </div>
+                    <div *ngIf="f.disposal_company_name.errors && f.disposal_company_name.errors.required && isValidFormSubmitted"
+                    class="text-danger text-left mb-1 errorcontrols">
+                    <div *ngIf="f.disposal_company_name.errors.required"><small>Disposal Company Name is required.</small></div>
+
+                  </div>
+                  </div>
                 <div class="clearfix"></div>
 
                 <div class="col-md-4 form-group">
                   <label>Plant Name  <span class="text-theme">*</span></label>
                   <input type="text" class="form-control" placeholder="Enter Plant Name " formControlName="plant_name">
+                  <div *ngIf="f.plant_name.errors && f.plant_name.errors.required && isValidFormSubmitted"
+                  class="text-danger text-left mb-1 errorcontrols">
+                  <div *ngIf="f.plant_name.errors.required"><small>Plant Name is required.</small></div>
+
+                </div>
                 </div>
 
                 <div class="col-md-4 form-group">
