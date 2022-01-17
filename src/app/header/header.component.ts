@@ -5,7 +5,8 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn,
   import { TosterService } from '../service/toster.service';
   import Swal from 'sweetalert2';
   import { AuthService } from '../service/auth.service';
-  import {ChangepassService} from '../service/changepass.service'
+
+  import { UserService } from '../service/user.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -19,7 +20,8 @@ export class HeaderComponent implements OnInit {
     private Toaster: TosterService,
     private auth: AuthService,
     private toast: TosterService,
-    private users:ChangepassService,
+    private users:UserService,
+    private userAuth:AuthService
     ) { }
   changeform!: FormGroup;
   username:any;
@@ -28,13 +30,25 @@ export class HeaderComponent implements OnInit {
   isPasswordSame:any;
   isValidFormSubmitted: any;
   buttondisabled: any = true;
+  login_id:any
 
   ngOnInit(): void {
-   this.username= localStorage.getItem('username')?localStorage.getItem('username'):this.router.navigate(['/login'])
-   this.initform();
+    this.userAuth.userLoggedIn().subscribe((user:any)=>{
+      console.log(user.result._id)
+      this.login_id=user.result._id;
+      this.username=user.result.username?user.result.username:this.router.navigate(['/login'])
+      // this.username?null:
+    })
+    this.initform();
+  }
+
+  handleLogOut(){
+    localStorage.removeItem('user')
+    localStorage.removeItem('username')
   }
 
 
+  
   initform() {
     this.changeform = this.fb.group(
       {
@@ -81,42 +95,25 @@ export class HeaderComponent implements OnInit {
       console.log(this.changeform,'error');
       this.isValidFormSubmitted = true;
       this.isValidbutton = false;
-      this.Toaster.showError('Sorry!, Fields are mandatory.');
+      this.toast.showError('Sorry!, Fields are mandatory.');
     }else {
-      console.log(this.changeform, 'true');
-      // this.users.changepass(this.changeform.value).subscribe((data: any) => {
-      //   this.buttondisabled = "false";
-      //   console.log(data)
-      //   if (data.status == 200) {
-      //     this.toast.showSuccess(data.message)
-      //     window.location.reload();
-      //     document.getElementById('closemodal')?.click()
-      //   } else if (data.status === 500) {
-      //     this.toast.showError(data.message)
-      //   }
-      //   // setTimeout(()=>{
-      //   // },1000)
-      // })
+      console.log(this.changeform.value, 'true');
+      this.users.changePassword(this.changeform.value,this.login_id).subscribe((data: any) => {
+        this.buttondisabled = "false";
+        console.log(data)
+        if (data.status == 200) {
+          this.toast.showSuccess(data.message)
+          window.location.reload();
+          document.getElementById('closemodal')?.click()
+          this.handleLogOut()
+          window.location.href='/login'
+          
+        } else {
+          this.toast.showError(data.message)
+        }
+      
+      })
     }
   }
-  handleWarningAlert() {
-    Swal.fire({
-
-      text: 'Are you sure you want to exit?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes',
-      cancelButtonText: 'No',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        console.log('Clicked Yes, File deleted!');
-        window.location.href = "userlist"
-      } else if (result.isDismissed) {
-        console.log('Clicked No, File is safe!');
-      }
-    });
-  }
-
-
 
 }

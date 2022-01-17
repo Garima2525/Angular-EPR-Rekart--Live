@@ -33,6 +33,7 @@ export class CollectionComponent implements OnInit {
   closebutton: any;
   ccattachments: any = [];
   filedatainput: any;
+  
   constructor(
     private CountryStateCityService: CountryStateCityService,
     private ulb: FormBuilder,

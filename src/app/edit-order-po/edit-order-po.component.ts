@@ -102,9 +102,9 @@ export class EditOrderPoComponent implements OnInit {
     this.remark=data.result[0].remark;
     console.log(this.remark);
       console.log(this.materialerror);
-      this.selectedItemtt=data.result[0].customer_data
+      this.selectedItemtt=data.result[0].account
       console.log(this.selectedItemtt);
-      this.onItemSelect(data.result[0].customer_data[0])
+      this.onItemSelect(data.result[0].account[0])
     });
     
 
@@ -264,6 +264,8 @@ forminit(podata:any) {
       attachments: '',
     });
 }
+
+
 
   getdistrict(e: any) {
     console.log(e.target.value);

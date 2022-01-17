@@ -46,9 +46,9 @@
       </ng-template>
     </kendo-grid-column> -->
 
-    <kendo-grid-column  title="Mobile" [width]="100">
+    <kendo-grid-column  title="Role" [width]="100">
       <ng-template kendoGridCellTemplate let-dataItem>
-        <div class="user">{{ dataItem.phone }}</div>
+        <div class="user">{{ dataItem.role }}</div>
       </ng-template>
     </kendo-grid-column>
    
@@ -57,13 +57,30 @@
       <ng-template kendoGridCellTemplate let-customer>
         <kendo-menu>
           <kendo-menu-item icon="gear" >
-            <kendo-menu-item text="Edit" url="" icon="edit"> </kendo-menu-item>
+            <kendo-menu-item text="Edit" url=""  icon="edit"> </kendo-menu-item>
            
           </kendo-menu-item>
         </kendo-menu>
   
       </ng-template>
     </kendo-grid-column> -->
+
+
+
+    <kendo-grid-column  title="Controls" [width]="100">
+      <ng-template kendoGridCellTemplate let-user>
+        <div class="user">
+
+          <button class="button" data-toggle="modal" data-target="#exampleModalCenteredit" (click)="getId(user._id)" >Edit</button>
+          
+          <button class="button" data-toggle="modal" data-target="#exampleModal" >Reset Password</button>
+          
+          
+        </div>
+      </ng-template>
+    </kendo-grid-column>
+
+    
   </kendo-grid>
   
   
@@ -201,3 +218,179 @@
       </div>
     </div>
       <!-- mode end -->
+
+
+
+
+ <!--Edit  Modal -->
+ <div class="modal fade" id="exampleModalCenteredit" tabindex="-1" role="dialog"
+ aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+ <div class="modal-dialog modal-dialog-centered" role="document">
+   <div class="modal-content">
+     <div class="modal-header">
+       <button type="button" class="close  m-t-xs" data-dismiss="modal"><span>⤬</span></button>
+       <span class="modal-title  font-weight-600 text-20">Edit User</span>
+     </div>
+     <div class="modal-body">
+       <div class="details">
+         <form [formGroup]="usereditform" (ngSubmit)="onFormSubmit()">
+           <div class="row">
+             <div class="col-md-6">
+               <div class="form-group">
+                 <label class="control-label font-weight-600">Name <span class="text-theme">*</span></label>
+                 <input type="text" class="form-control  input-sm" placeholder="Name" formControlName="username" value="{{editUsername}}">
+                 <div *ngIf="f.username.errors && f.username.errors.required && isValidFormSubmitted"
+                   class="text-danger text-left mb-1 errorcontrols">
+                   <div *ngIf="f.username.errors.required"><small>Name is
+                       required.</small></div>
+                 </div>
+               </div>
+             </div>
+             <div class="col-md-6 form-group">
+               <label class="control-label font-weight-600">Email <span class="text-theme">*</span></label>
+               <input type="text" class="form-control" placeholder="Email" formControlName="email" value="{{email}}" readonly>
+               <div *ngIf="f.email.touched && f.email.invalid && isValidFormSubmitted"
+                 class="text-danger text-left mb-1 errorcontrols">
+                 <div *ngIf="f.email.invalid"><small>Invalid Email.</small></div>
+               </div>
+             </div>
+
+
+           </div>
+           <div class="row">
+
+             <div class="col-md-6">
+               <div class="form-group">
+                 <label class="control-label font-weight-600">Mobile <span class="text-theme">*</span></label>
+                 <input type="text" class="form-control  input-sm" placeholder="Phone" formControlName="phone" value="{{phone}}">
+                  <div *ngIf="f.phone.errors  && isValidFormSubmitted" class="text-danger text-left mb-1 errorcontrols">
+               <div *ngIf="f.phone.errors.required"><small>Mobile is required.</small></div>
+               <div *ngIf="f.phone.errors.pattern">Invalid Mobile.</div>
+             </div>
+               </div>
+             </div>
+             <div class="col-md-6">
+               <div class="form-group">
+                 <label class="control-label font-weight-600">Designation <span class="text-theme">*</span></label>
+                 <input type="text" class="form-control  input-sm" placeholder="Designation" formControlName="designation" value="{{designation}}">
+                 <div *ngIf="f.designation.errors && f.designation.errors.required && isValidFormSubmitted"
+                   class="text-danger text-left mb-1 errorcontrols">
+                   <div *ngIf="f.designation.errors.required"><small>Designation is
+                       required.</small></div>
+                 </div>
+               </div>
+             </div>
+
+
+           </div>
+           <div class="row">
+
+             
+
+           </div>
+
+           <div class="row">
+             <div class="col-md-6">
+               <div class="form-group">
+                 <label class="control-label font-weight-600">Role <span class="text-theme">*</span></label>
+                 <select class="form-control validation user_role input-sm" name="role" formControlName="role" value="{{role}}">
+                   <option value="">Choose Role</option>
+                   <option *ngFor="let obj of roledata" value={{obj._id}}> {{obj.role_name}} </option>
+                  
+                 </select>
+                 <div *ngIf="f.role.errors && f.role.errors.required && isValidFormSubmitted"
+                   class="text-danger text-left mb-1 errorcontrols">
+                   <div *ngIf="f.role.errors.required"><small>Role Name is
+                       required.</small></div>
+                 </div>
+               </div>
+             </div>
+
+           </div>
+           <div class="row">
+             <div class="col-md-6">
+               <label class="control-label font-weight-600">&nbsp;</label>
+               <div class="form-group">
+                 <button type="button" class=" bt light" (click)="handleWarningAlert()">Cancel</button>
+                   <button type="submit" class= "bt danger"   *ngIf="buttondisabled" style="margin-left: 2%;">Save</button>
+                
+               </div>
+             </div>
+           </div>
+         </form>
+       </div>
+     </div>
+
+   </div>
+ </div>
+</div>
+ <!-- mode end -->
+
+<!-- Reset Model -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close  m-t-xs" data-dismiss="modal"><span>⤬</span></button>
+        <span class="modal-title  font-weight-600 text-20">Reset Password</span>
+      </div>
+    
+      <div class="modal-body">
+      
+          <div class="details">
+            <div class="row">
+<form [formGroup]="userpassform" (ngSubmit)="onFormSubmitpass()">
+ 
+
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="control-label font-weight-600">Password <span class="text-theme">*</span></label>
+        <input type="text" class="form-control  input-sm" placeholder="Password" formControlName="password">
+        <div *ngIf="fs.password.errors && fs.password.errors.required && isValidFormSubmitted"
+          class="text-danger text-left mb-1 errorcontrols">
+          <div *ngIf="fs.password.errors.required"><small>Password is
+              required.</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="control-label font-weight-600">Confirm
+         Password <span class="text-theme">*</span></label>
+        <input type="text" class="form-control  input-sm" placeholder="Confirm Password" formControlName="cpassword">
+        <div *ngIf="fs.cpassword.errors && fs.cpassword.errors.required && isValidFormSubmitted"
+          class="text-danger text-left mb-1 errorcontrols">
+          <div *ngIf="fs.cpassword.errors.required"><small>Confirm Password is
+              required.</small></div>
+        </div>
+        <div *ngIf="fs.cpassword.errors && fs.cpassword.errors.mustMatch"
+          class="text-danger text-left mb-1 errorcontrols">
+          <div *ngIf="fs.cpassword.errors.mustMatch"><small>Password and Confirm Password is not match.</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class=" bt light" (click)="handleWarningAlert()">Cancel</button>
+            <button type="submit" class= "bt danger"   *ngIf="buttondisabled" style="margin-left: 2%;">Save</button>
+    </div>
+
+            </form>
+            </div>
+            </div>
+          
+      </div>
+
+
+    
+      
+    </div>
+  </div>
+</div>
+<!-- end model -->
+
+
+
+
