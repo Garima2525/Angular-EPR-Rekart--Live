@@ -51,14 +51,14 @@
            
            
             <div class="collection_type">{{dataItem.ulbdata[0].ulb_name}}</div>
-            <div class="">State : {{dataItem.ulbdata[0].state}}</div>
+            <div class="collection_type">State : {{dataItem.ulbdata[0].state }}</div>
           </ng-template>
         </kendo-grid-column>
 
 
         <kendo-grid-column field="State " [width]="100">
           <ng-template kendoGridCellTemplate let-dataItem>
-            <div class="collection_state">State : {{dataItem.collection_state}}</div>
+            <div class="text-capitalize">State : {{dataItem.collection_state | lowercase}}</div>
             <div class="collection_district">City : {{dataItem.collection_district}}</div>
             
           </ng-template>

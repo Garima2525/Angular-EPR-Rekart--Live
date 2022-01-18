@@ -75,10 +75,7 @@ export class EditUlbComponent implements OnInit {
     this.ulbform = this.ulb.group({
       ulb_id: [ulbdata.ulb_id,[ Validators.required]],
       ulb_name: [ulbdata.ulb_name, [Validators.required]],
-      gstin: [
-        ulbdata.gstin,
-        
-      ],
+      gstin: [ulbdata.gstin,[Validators.pattern(/^([0][1-9]|[1-2][0-9]|[3][0-7])([A-Z]{5})([0-9]{4})([A-Z]{1}[1-9A-Z]{1})([Z]{1})([0-9A-Z]{1})+$/)]],
       state: [ulbdata.state, [Validators.required]],
       city: [ulbdata.city,[ Validators.required]],
       address: [ulbdata.address],

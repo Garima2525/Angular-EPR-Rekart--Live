@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('username',user.results.username)
         localStorage.setItem('user',user.results.email)
         setTimeout(() => {
-        this.router.navigate(['/'])
+        this.router.navigate(['/order-list'])
         }, 1500);
       }
       else if(user.status===404){

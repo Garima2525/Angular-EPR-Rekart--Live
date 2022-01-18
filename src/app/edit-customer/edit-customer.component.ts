@@ -28,6 +28,7 @@ export class EditCustomerComponent implements OnInit {
   c_states: any;
   c_district: any;
   c_country: any;
+  customer_id:any
   c_pincodeerrorStatus = false;
   c_pincodeerrormsg: any;
   isValidFormSubmitted: any;
@@ -102,6 +103,9 @@ export class EditCustomerComponent implements OnInit {
     this.customerService.getcustomerbyid(this.customerId).subscribe((data:any)=>{
       this.forminit(data.result[0]);
       this.industry_type = data.result[0].industry_type;
+      this.customer_id=data.result[0].customer_id
+      console.log(this.customer_id,'...wd');
+      
       console.log(this.industry_type)
     });
   }

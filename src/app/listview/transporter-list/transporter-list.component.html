@@ -57,7 +57,7 @@
 
     <kendo-grid-column  title="State" [width]="100">
       <ng-template kendoGridCellTemplate let-dataItem>
-        <div class="State">State : {{dataItem.state}}</div>
+        <div class="text-capitalize">State : {{dataItem.state | lowercase}}</div>
         <div class="City">City : {{dataItem.city}}</div>
        
       </ng-template>

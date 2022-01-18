@@ -58,9 +58,14 @@
 
         <!-- <kendo-grid-column field="target_duration" title="Target Duration" [width]="100">
         </kendo-grid-column> -->
-        <kendo-grid-column field="state" title="Target State" [width]="100">
+        <!-- <kendo-grid-column field="state" title="Target State" [width]="100">
+        </kendo-grid-column> -->
+        <kendo-grid-column title="State" [width]="100">
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <div class="text-capitalize"> {{dataItem.state | lowercase}}</div>
+        
+          </ng-template>
         </kendo-grid-column>
-
 
         <kendo-grid-column field="Target Created" title="Target Created" [width]="100">
           <ng-template kendoGridCellTemplate let-dataItem>

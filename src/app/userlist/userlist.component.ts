@@ -42,6 +42,8 @@ export class UserlistComponent implements OnInit {
   phone: any;
   designation: any;
   role: any;
+  UId:any;
+   _id: any;
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -53,6 +55,7 @@ export class UserlistComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    
     this.users.userLoggedIn().subscribe((user: any) => {
       console.log(user)
       this.user = user.result
@@ -73,6 +76,7 @@ export class UserlistComponent implements OnInit {
   forminit(uni: any) {
     this.usereditform = this.fb.group(
       {
+        id:[uni.id],
         username:  [uni.username, Validators.required],
         email: [uni.email, [Validators.pattern('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$')]],
         phone: [uni.phone, [Validators.required, Validators.pattern('^[6-9][0-9]{9}$')]],
@@ -93,15 +97,19 @@ export class UserlistComponent implements OnInit {
   }
 
   getId(id:any):void{
-    // console.log(id);
+ 
+    
     this.userservice.getuserbyid(id).subscribe((data:any)=>{
       this.initformpass()
+      //  console.log(id,"----------wed");
       this.forminit(data.result[0]);
+  //  this.id=data.data.result[0].id
+   console.log(id,"----------wed");
       this.editUsername=data.result[0].username;
       this.phone = data.result[0].phone;
       this.designation = data.result[0].designation;
       this.role = data.result[0].role;
-      console.log(this.phone);
+      // console.log(this.phone);
       
       this.email=data.result[0].email;
      
@@ -266,7 +274,7 @@ export class UserlistComponent implements OnInit {
       console.log(this.usereditform, 'true');
       this.isValidbutton = true;
      this.usereditform.value.phone = this.phone;
-     
+     console.log(this.id,"----------wed");
       this.userservice
         .updateForm(this.usereditform.value,this.id)
         .subscribe((data: any) => {
@@ -286,8 +294,6 @@ export class UserlistComponent implements OnInit {
   }
 
 
-
-
   onFormSubmitpass() {
     this.isValidFormSubmitted = false;
     if (this.userpassform.invalid) {
@@ -298,10 +304,10 @@ export class UserlistComponent implements OnInit {
     } else {
       console.log(this.userpassform, 'true');
       this.isValidbutton = true;
-     this.userpassform.value.phone = this.phone;
+    //  this.userpassform.value.phone = this.phone;
      
       this.userservice
-        .passupdat(this.userpassform.value,this.id)
+        .updateForm(this.userpassform.value,this.id)
         .subscribe((data: any) => {
           console.log(data);
           this.Toaster.showSuccess(
@@ -317,6 +323,8 @@ export class UserlistComponent implements OnInit {
            });
      }
   }
+
+ 
  
 
  

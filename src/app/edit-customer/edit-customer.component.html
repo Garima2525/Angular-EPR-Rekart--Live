@@ -24,7 +24,7 @@
               <div class="panel-body">
                 <div class="col-md-4 form-group">
                   <label> Customer ID  <span class="text-theme">*</span></label>
-                  <input type="text" class="form-control" formControlName="customer_id" readonly>
+                  <input type="text" class="form-control" formControlName="customer_id" readonly value="{{customer_id}}">
                 </div>
                 <div class="col-md-4 form-group">
                   <label>Industry Type  <span class="text-theme">*</span></label>
@@ -346,11 +346,12 @@
               <div class="panel-body">
 
                 <div class="col-md-6 form-group">
-                  <label>CPCB Registration </label>
-                  <select class="form-control" formControlName="cpcb_registration">
+                  <label>CPCB Registration No.</label>
+                  <!-- <select class="form-control" formControlName="cpcb_registration">
                     <option>Yes</option>
                     <option>No</option>
-                  </select>
+                  </select> -->
+                  <input  class="form-control" formControlName="cpcb_registration">
                 </div>
 
                 <div class="col-md-6 form-group">
@@ -359,11 +360,12 @@
                 </div>
 
                 <div class="col-md-6 form-group">
-                  <label>SPCB Registration</label>
-                  <select class="form-control" formControlName="spcb_registration">
+                  <label>SPCB Registration No.</label>
+                  <!-- <select class="form-control" formControlName="spcb_registration">
                     <option>Yes</option>
                     <option>No</option>
-                  </select>
+                  </select> -->
+                  <input class="form-control" formControlName="spcb_registration">
                 </div>
                 
                 <div class="col-md-6 form-group">

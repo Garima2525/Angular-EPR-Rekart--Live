@@ -63,7 +63,7 @@
      <kendo-grid-column title="State" [width]="100">
       <ng-template kendoGridCellTemplate let-dataItem>
 
-        <div field="state" class="state">State : {{ dataItem.state }}</div>
+        <div field="state" class="text-capitalize">State : {{ dataItem.state | lowercase}}</div>
         <div class="city"field="city">
           City :  {{ dataItem.city }}</div>
 

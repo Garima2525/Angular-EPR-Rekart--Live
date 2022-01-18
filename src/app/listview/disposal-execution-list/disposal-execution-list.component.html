@@ -71,7 +71,7 @@
   <kendo-grid-column  title="Transporter Details" [width]="110">
     <ng-template kendoGridCellTemplate let-dataItem>
      
-      <div class="cd"><b>Transporter  : </b>{{dataItem.transporter_name}}</div>
+      <div class="cd"><b>Transporter  : </b>{{dataItem.tdata[0].transporter_name}}</div>
       <div class="cd"><b>Mobile :</b> {{dataItem.mobile_no}}</div>
       <div class="cd"><b>Vehicle  :</b> {{dataItem.vehicle_no}}</div>
       <div class="cd"><b>Driver :</b> {{dataItem.driver_name}}</div>
