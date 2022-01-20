@@ -4,6 +4,8 @@ import { DataBindingDirective } from "@progress/kendo-angular-grid";
 import { process } from "@progress/kendo-data-query";
 // import { TargetService } from 'src/app/service/target.service';
 import { TargetService } from 'src/app/service/target.service';
+import { AuthService } from 'src/app/service/auth.service';
+import { UserService } from 'src/app/service/user.service';
 @Component({
   selector: 'app-goal-list',
   templateUrl: './goal-list.component.html',
@@ -12,11 +14,25 @@ import { TargetService } from 'src/app/service/target.service';
 export class GoalListComponent implements OnInit {
 
   @ViewChild(DataBindingDirective) dataBinding!: DataBindingDirective;
-  constructor(private router:Router,private target:TargetService) { }
+  constructor(
+    private router:Router,private target:TargetService,
+    private users:AuthService,
+    private   userservice :UserService
+    ) { }
   public gridData: any;
   public gridView: any;
   public mySelection: string[] = [];
+  user:any
+  userPermission:any
   ngOnInit(): void {
+    this.users.userLoggedIn().subscribe((user:any)=>{
+      console.log(user)
+      this.user=user.result
+      this.userservice.getrolebyid(user.result.role).subscribe((data:any)=>{
+        console.log(data.result[0],'---------->roledta')
+        this.userPermission=data.result[0]
+      })
+    })
     this.getalltarget()
   }
   getalltarget(){

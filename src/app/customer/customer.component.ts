@@ -17,6 +17,7 @@ export class CustomerComponent implements OnInit {
   toggle: boolean = false;
   Customerform!: FormGroup;
   add1: any;
+  display:string=''
   add2: any;
   add3: any;
   states: any;
@@ -136,6 +137,7 @@ export class CustomerComponent implements OnInit {
       pan_no: ['', [Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')]],
       msme_no: '',
       cin_no: '',
+      pan:['',[Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')]],
       gst_no: [
         '',
         [
@@ -189,6 +191,7 @@ export class CustomerComponent implements OnInit {
       this.Customerform.value.com_state = this.c_states;
       this.Customerform.value.com_country = this.c_country;
       this.Customerform.value.user_id = this.login_id;
+      this.Customerform.value.pan=this.display;
       this.customerService
         .submitForm(this.Customerform.value)
         .subscribe((resdata: any) => {
@@ -229,5 +232,9 @@ export class CustomerComponent implements OnInit {
     });
   }
 
-  
+  getval(val:string){
+    console.log(val);
+    // this.display=display
+this.display = val.slice(2,12)
+  }
 }

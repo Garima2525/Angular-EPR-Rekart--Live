@@ -319,14 +319,21 @@
                 <div class="clearfix"></div>
                 <div class="col-md-4 form-group">
                   <label>GST No </label>
-                  <input type="text" class="form-control " placeholder="Enter GST No" formControlName="gst_no">
+                  <input type="text" class="form-control " placeholder="Enter GST No" formControlName="gst_no" #box (keyup)="getval(box.value)">
                   <div *ngIf="f.gst_no.touched && f.gst_no.invalid && isValidFormSubmitted"
                     class="text-danger text-left mb-1 errorcontrols">
                     <div *ngIf="f.gst_no.invalid"><small>Invalid GST Number.</small></div>
                   </div>
                 </div>
 
-
+                <div class="col-md-4 form-group">
+                  <label>Pan</label>
+                  <input type="text" class="form-control " placeholder="Enter Pan No" formControlName="Pan" value="{{display}}">
+                  <div *ngIf="f.Pan.touched && f.Pan.invalid && isValidFormSubmitted"
+                    class="text-danger text-left mb-1 errorcontrols">
+                    <div *ngIf="f.Pan.invalid"><small>Invalid Pan Number.</small></div>
+                  </div>
+                </div>
 
                 <div class="clearfix"></div>
               </div>

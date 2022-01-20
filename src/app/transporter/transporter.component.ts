@@ -18,6 +18,7 @@ export class TransporterComponent implements OnInit {
   transporterform!: FormGroup;
   login_id: any;
   statedata: any;
+  display:string=''
   districtdata: any;
   saveas: any;
   saveasnew: any;
@@ -169,6 +170,7 @@ export class TransporterComponent implements OnInit {
       this.isValidbutton = true;
       this.transporterform.value.user_id = this.login_id;
       this.transporterform.value.attachments = this.ccattachments;
+      this.transporterform.value.pan=this.display;
       this.transporter.submitForm(this.transporterform.value).subscribe((data) => {
         console.log(data);
         this.toast.showSuccess(
@@ -200,6 +202,7 @@ export class TransporterComponent implements OnInit {
       this.isValidbuttonModal = true;
       this.transporterformModal.value.image = this.filedatainput;
       this.transporterformModal.value.type_id = this.uniqid;
+      
       this.transporterformModal.value.type = 'Trans';
       let formadata = this.transporterformModal.value;
       this.Attach.submitForm(formadata).subscribe((data: any) => {
@@ -228,5 +231,12 @@ export class TransporterComponent implements OnInit {
         console.log('Clicked No, File is safe!');
       }
     });
+  }
+
+
+  getval(val:string){
+    console.log(val);
+    // this.display=display
+this.display = val.slice(2,12)
   }
 }

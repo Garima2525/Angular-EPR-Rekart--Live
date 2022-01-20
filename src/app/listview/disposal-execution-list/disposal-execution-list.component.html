@@ -8,7 +8,7 @@
             <h4 class="m-n font-bold ">Collection & Disposal Execution List</h4>
           </div>
           <div class="col-sm-6 text-right poppins hidden-xs">
-            <button routerLink="/disposal-execution" class="button"><i
+            <button *ngIf="this.userPermission.collectiondisposalcreate" routerLink="/disposal-execution" class="button"><i
               class="fa fa-plus"></i> Add Collection & Disposal Execution</button>
           </div>
         </div>
@@ -112,7 +112,7 @@
        <ng-template kendoGridCellTemplate let-disposalexecution>
         <kendo-menu>
           <kendo-menu-item icon="gear">
-            <kendo-menu-item text="Edit" url="/edit-disposal-execution/{{disposalexecution._id }}"icon="edit"> </kendo-menu-item>
+            <kendo-menu-item *ngIf="this.userPermission.collectiondisposaledit" text="Edit" url="/edit-disposal-execution/{{disposalexecution._id }}"icon="edit"> </kendo-menu-item>
            
           </kendo-menu-item>
          

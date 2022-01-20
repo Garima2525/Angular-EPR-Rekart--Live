@@ -21,6 +21,7 @@ export class EditTransporterComponent implements OnInit {
   statedata: any;
   districtdata: any;
   saveas: any;
+  display:string=''
   saveasnew: any;
   isValidFormSubmitted: any;
   isValidbutton: any;
@@ -185,7 +186,8 @@ export class EditTransporterComponent implements OnInit {
       this.isValidbutton = true;
       this.transporterform.value.user_id = this.login_id;
       this.transporterform.value.attachments = this.ccattachments;
-      this.transporterform.value.transporter_name=this.transname
+      this.transporterform.value.transporter_name=this.transname;
+      this.transporterform.value.pan=this.display;
       this.transporter
         .updateForm(this.transporterform.value, this.transId)
         .subscribe((data) => {
@@ -261,5 +263,10 @@ export class EditTransporterComponent implements OnInit {
         console.log('Clicked No, File is safe!');
       }
     });
+  }
+  getval(val:string){
+    console.log(val);
+    // this.display=display
+this.display = val.slice(2,12)
   }
 }

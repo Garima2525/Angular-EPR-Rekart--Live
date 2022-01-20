@@ -8,7 +8,7 @@
             <h4 class="m-n font-bold ">ULB List</h4>
           </div>
           <div class="col-sm-6 text-right poppins hidden-xs">
-            <button routerLink="/ulb" class="button"><i
+            <button *ngIf="this.userPermission.ulbcreate" routerLink="/ulb" class="button"><i
               class="fa fa-plus"></i> Add ULB</button>
           </div>
         </div>
@@ -79,7 +79,7 @@
     <ng-template kendoGridCellTemplate let-ulb>
      <kendo-menu>
        <kendo-menu-item class="k-icons" icon="gear">
-         <kendo-menu-item text="Edit" icon="edit" url="/edit-ulb/{{ ulb._id }}"> </kendo-menu-item>
+         <kendo-menu-item *ngIf="this.userPermission.ulbedit" text="Edit" icon="edit" url="/edit-ulb/{{ ulb._id }}"> </kendo-menu-item>
      
        </kendo-menu-item>
 

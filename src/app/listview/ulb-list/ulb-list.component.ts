@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 import { DataBindingDirective } from "@progress/kendo-angular-grid";
 import { process } from "@progress/kendo-data-query";
 import { UlbserviceService } from 'src/app/service/ulbservice.service';
-
+import { AuthService } from 'src/app/service/auth.service';
+import { UserService } from 'src/app/service/user.service';
 @Component({
   selector: 'app-ulb-list',
   templateUrl: './ulb-list.component.html',
@@ -14,14 +15,24 @@ import { UlbserviceService } from 'src/app/service/ulbservice.service';
 export class UlbListComponent implements OnInit {
 
   @ViewChild(DataBindingDirective) dataBinding!: DataBindingDirective;
-  constructor(private router:Router,private ulb:UlbserviceService ) { }
+  constructor(private router:Router,private ulb:UlbserviceService, private users:AuthService,
+    private   userservice :UserService ) { }
 
   public gridData: any;
   public gridView: any;
-
+  user:any
+  userPermission:any
   public mySelection: string[] = [];
 
   public ngOnInit(): void {
+    this.users.userLoggedIn().subscribe((user:any)=>{
+      console.log(user)
+      this.user=user.result
+      this.userservice.getrolebyid(user.result.role).subscribe((data:any)=>{
+        console.log(data.result[0],'Roledata')
+        this.userPermission=data.result[0]
+      })
+    })
     this.getallulb()
   }
   getallulb(){

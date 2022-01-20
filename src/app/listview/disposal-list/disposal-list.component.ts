@@ -5,7 +5,8 @@ import { DataBindingDirective } from "@progress/kendo-angular-grid";
 import { process } from "@progress/kendo-data-query";
 import { DisposalserviceService } from 'src/app/service/disposalservice.service';
 // import {data} from '../../kendoui-gridview/employees'
-
+import { AuthService } from 'src/app/service/auth.service';
+import { UserService } from 'src/app/service/user.service';
 @Component({
   selector: 'app-disposal-list',
   templateUrl: './disposal-list.component.html',
@@ -14,14 +15,25 @@ import { DisposalserviceService } from 'src/app/service/disposalservice.service'
 export class DisposalListComponent implements OnInit {
 
   @ViewChild(DataBindingDirective) dataBinding!: DataBindingDirective;
-  constructor(private router:Router,private disposal:DisposalserviceService) { }
+  constructor(private router:Router,private disposal:DisposalserviceService,
+    private users:AuthService,
+    private   userservice :UserService ) { }
 
   public gridData: any;
   public gridView: any;
 
   public mySelection: string[] = [];
-
+  user:any
+  userPermission:any
   public ngOnInit(): void {
+    this.users.userLoggedIn().subscribe((user:any)=>{
+      console.log(user)
+      this.user=user.result
+      this.userservice.getrolebyid(user.result.role).subscribe((data:any)=>{
+        console.log(data.result[0],'Roledata')
+        this.userPermission=data.result[0]
+      })
+    })
     this.getalldisposal()
   }
   getalldisposal(){

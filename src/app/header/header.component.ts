@@ -36,6 +36,7 @@ export class HeaderComponent implements OnInit {
     this.userAuth.userLoggedIn().subscribe((user:any)=>{
       console.log(user.result._id)
       this.login_id=user.result._id;
+      
       this.username=user.result.username?user.result.username:this.router.navigate(['/login'])
       // this.username?null:
     })
@@ -54,7 +55,7 @@ export class HeaderComponent implements OnInit {
       {
 
         old_pass: ['', Validators.required],
-        new_pass: ['', Validators.compose([Validators.required])],
+        new_pass:['', Validators.compose([Validators.required,Validators.pattern("(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d\\W]{8,63}$")])],
         c_pass: ['', Validators.compose([Validators.required])],
         
       },

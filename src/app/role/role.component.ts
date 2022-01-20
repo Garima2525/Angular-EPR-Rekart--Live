@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { DataBindingDirective } from '@progress/kendo-angular-grid';
 import { process } from '@progress/kendo-data-query';
 import { UserService } from '../service/user.service';
+import { AuthService } from '../service/auth.service';
 @Component({
   selector: 'app-role',
   templateUrl: './role.component.html',
@@ -13,13 +14,23 @@ export class RoleComponent implements OnInit {
 
   @ViewChild(DataBindingDirective) dataBinding!: DataBindingDirective;
 
-  constructor(private router:Router,private userS:UserService) { }
+  constructor(private router:Router,private userS:UserService,private users:AuthService,
+   ) { }
   public gridData: any;
   public gridView: any;
-
+  user:any
+  userPermission:any
   public mySelection: string[] = [];
 
   ngOnInit(): void {
+    this.users.userLoggedIn().subscribe((user:any)=>{
+      console.log(user)
+      this.user=user.result
+      this.userS.getrolebyid(user.result.role).subscribe((data:any)=>{
+        console.log(data.result[0],'Roledata')
+        this.userPermission=data.result[0]
+      })
+    })
     this.getallrole()
   }
 

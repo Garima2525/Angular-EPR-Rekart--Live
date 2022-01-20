@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { PoService } from 'src/app/service/po.service';
 import { EncrDecrService } from 'src/app/service/encr-decr-service.service';
 import { CustomerService } from 'src/app/service/customer.service';
-
+import { AuthService } from 'src/app/service/auth.service';
+import { UserService } from 'src/app/service/user.service';
 @Component({
   selector: 'app-order-list',
   templateUrl: './order-list.component.html',
@@ -16,7 +17,9 @@ export class OrderListComponent implements OnInit {
     private router: Router,
     private order: PoService,
     private EncrDecr: EncrDecrService,
-    private Cust:CustomerService
+    private Cust:CustomerService,
+    private users:AuthService,
+    private   userservice :UserService
   ) {}
 
   podata: any;
@@ -24,7 +27,21 @@ export class OrderListComponent implements OnInit {
   public mySelection: string[] = [];
   searchText:any;
   searchTextor:any;
+  user:any
+  userPermission:any
   public ngOnInit(): void {
+
+    this.users.userLoggedIn().subscribe((user:any)=>{
+      console.log(user)
+      this.user=user.result
+      this.userservice.getrolebyid(user.result.role).subscribe((data:any)=>{
+        console.log(data.result[0],'---------->Roledata')
+        this.userPermission=data.result[0]
+      })
+    })
+
+
+
     this.getallpo();
     localStorage.setItem('allotment', '');
   }

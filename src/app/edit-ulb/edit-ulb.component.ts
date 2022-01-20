@@ -19,6 +19,7 @@ export class EditUlbComponent implements OnInit {
   ulbform!: FormGroup;
   ulbModalform!: FormGroup;
   statedata: any = [];
+  display:string=''
   uniqueId: any;
   saveas: any = true;
   saveasnew: any = true;
@@ -75,6 +76,7 @@ export class EditUlbComponent implements OnInit {
     this.ulbform = this.ulb.group({
       ulb_id: [ulbdata.ulb_id,[ Validators.required]],
       ulb_name: [ulbdata.ulb_name, [Validators.required]],
+      pan:[ulbdata.pan,[Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')]],
       gstin: [ulbdata.gstin,[Validators.pattern(/^([0][1-9]|[1-2][0-9]|[3][0-7])([A-Z]{5})([0-9]{4})([A-Z]{1}[1-9A-Z]{1})([Z]{1})([0-9A-Z]{1})+$/)]],
       state: [ulbdata.state, [Validators.required]],
       city: [ulbdata.city,[ Validators.required]],
@@ -170,6 +172,7 @@ export class EditUlbComponent implements OnInit {
       this.ulbform.value.user_id = this.login_id;
       this.ulbform.value.attachments = this.ulbattachments;
       this.ulbform.value.ulb_name=this.ulbname
+      this.ulbform.value.pan=this.display;
       console.log(this.ulbform, 'true');
       this.ulbservice
         .updateulb(this.customerId, this.ulbform.value)
@@ -249,4 +252,10 @@ export class EditUlbComponent implements OnInit {
       }
     });
   }
+  getval(val:string){
+    console.log(val);
+    
+    // this.display=display
+    this.display = val.slice(2,12)
+    }
 }

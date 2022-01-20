@@ -21,6 +21,7 @@ export class ULBComponent implements OnInit {
   ulbModalform!: FormGroup;
   statedata: any = [];
   uniqueId: any;
+  display:string=''
   saveas: any = true;
   saveasnew: any = true;
   isValidFormSubmitted: any;
@@ -61,6 +62,7 @@ export class ULBComponent implements OnInit {
     this.ulbform = this.ulb.group({
       ulb_id: [uid, Validators.required],
       ulb_name: ['', Validators.required],
+      pan:['',[Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')]],
       gstin: ['',Validators.pattern(/^([0][1-9]|[1-2][0-9]|[3][0-7])([A-Z]{5})([0-9]{4})([A-Z]{1}[1-9A-Z]{1})([Z]{1})([0-9A-Z]{1})+$/)],
       state: ['', Validators.required],
       city: ['', Validators.required],
@@ -149,6 +151,7 @@ export class ULBComponent implements OnInit {
       this.isValidbutton = true;
       this.ulbform.value.user_id = this.login_id;
       this.ulbform.value.attachments = this.ulbattachments;
+      this.ulbform.value.pan=this.display;
       this.ulbservice.saveulb(this.ulbform.value).subscribe((data) => {
         console.log(data);
         this.toast.showSuccess('Congratulation!, ULB has been created.');
@@ -222,4 +225,11 @@ export class ULBComponent implements OnInit {
       }
     });
   }
+
+  getval(val:string){
+    console.log(val);
+    
+    // this.display=display
+    this.display = val.slice(2,12)
+    }
 }

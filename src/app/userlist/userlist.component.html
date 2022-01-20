@@ -9,7 +9,7 @@
             <h4 class="m-n font-bold ">User List</h4>
           </div>
           <div class="col-sm-6 text-right poppins hidden-xs">
-            <button class="button" data-toggle="modal"
+            <button  class="button" data-toggle="modal"
             data-target="#exampleModalCenter" style="cursor: pointer;"><i class="fa fa-plus"></i> Add User</button>
           </div>
         </div>
@@ -48,7 +48,7 @@
 
     <kendo-grid-column  title="Role" [width]="100">
       <ng-template kendoGridCellTemplate let-dataItem>
-        <div class="user">{{ dataItem.role }}</div>
+        <div class="user">{{dataItem.role }}</div>
       </ng-template>
     </kendo-grid-column>
    
@@ -67,7 +67,7 @@
 
 
 
-    <!-- <kendo-grid-column  title="Controls" [width]="100">
+    <kendo-grid-column  title="Action" [width]="100">
       <ng-template kendoGridCellTemplate let-user>
         <div class="user">
 
@@ -78,7 +78,7 @@
           
         </div>
       </ng-template>
-    </kendo-grid-column> -->
+    </kendo-grid-column>
 
     
   </kendo-grid>
@@ -115,9 +115,12 @@
                   <div class="col-md-6 form-group">
                     <label class="control-label font-weight-600">Email <span class="text-theme">*</span></label>
                     <input type="text" class="form-control" placeholder="Email" formControlName="email">
-                    <div *ngIf="f.email.touched && f.email.invalid && isValidFormSubmitted"
-                      class="text-danger text-left mb-1 errorcontrols">
-                      <div *ngIf="f.email.invalid"><small>Invalid Email.</small></div>
+                    <div *ngIf="f.email.errors  && isValidFormSubmitted" class="text-danger text-left mb-1 errorcontrols">
+                      <div *ngIf="f.email.errors.required"><small>Email is
+                        required.</small></div>
+                     
+                      <div *ngIf="f.email.errors.pattern">Invalid email.</div>
+                     
                     </div>
                   </div>
 
@@ -155,10 +158,15 @@
                     <div class="form-group">
                       <label class="control-label font-weight-600">Password <span class="text-theme">*</span></label>
                       <input type="text" class="form-control  input-sm" placeholder="Password" formControlName="password">
-                      <div *ngIf="f.password.errors && f.password.errors.required && isValidFormSubmitted"
-                        class="text-danger text-left mb-1 errorcontrols">
+                      <div *ngIf="f.password.errors  && isValidFormSubmitted" class="text-danger text-left mb-1 errorcontrols">
                         <div *ngIf="f.password.errors.required"><small>Password is
-                            required.</small></div>
+                          required.</small></div>
+                       
+                        <div *ngIf="f.password.errors.pattern">Minimum 8 character password.</div>
+                        <div *ngIf="f.password.errors.pattern">Use uppercase and lowecase letters(e.g.Aa)</div>
+                        <div *ngIf="f.password.errors.pattern">Use a number(e.g 123)</div>
+                       
+                        <div *ngIf="f.password.errors.pattern">Use special character (e.g @#%*).</div>
                       </div>
                     </div>
                   </div>
@@ -238,9 +246,7 @@
           
           <div class="row">
 
-            <div ng-repeat="item in items">
-              Name : {{ id }} 
-          </div>
+            <input type="hidden" value="{{userid}}">
 
              <div class="col-md-6">
                <div class="form-group">

@@ -8,7 +8,7 @@
             <h4 class="m-n font-bold ">Target Setting List</h4>
           </div>
           <div class="col-sm-6 text-right poppins hidden-xs">
-            <button routerLink="/goal" class="button"><i
+            <button *ngIf="this.userPermission.targetcreate" routerLink="/goal" class="button"><i
               class="fa fa-plus"></i> Add Target Setting</button>
           </div>
         </div>
@@ -88,7 +88,7 @@
         <kendo-menu>
           <kendo-menu-item icon="gear">
             <!-- <kendo-menu-item text="Edit" url="/edit-target/{{target._id }}" icon="edit"> </kendo-menu-item> -->
-            <kendo-menu-item text="Details" url="/targetview/{{ target._id }}" icon="info"> </kendo-menu-item>
+            <kendo-menu-item text="Details" *ngIf="this.userPermission.targetedit" url="/targetview/{{ target._id }}" icon="info"> </kendo-menu-item>
           </kendo-menu-item>
          
         </kendo-menu>

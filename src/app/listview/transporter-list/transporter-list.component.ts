@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 import { DataBindingDirective } from "@progress/kendo-angular-grid";
 import { process } from "@progress/kendo-data-query";
 import { TranporterserviceService } from 'src/app/service/tranporterservice.service';
-
+import { AuthService } from 'src/app/service/auth.service';
+import { UserService } from 'src/app/service/user.service';
 @Component({
   selector: 'app-transporter-list',
   templateUrl: './transporter-list.component.html',
@@ -14,14 +15,25 @@ import { TranporterserviceService } from 'src/app/service/tranporterservice.serv
 export class TransporterListComponent implements OnInit {
 
   @ViewChild(DataBindingDirective) dataBinding!: DataBindingDirective;
-  constructor(private router:Router,private tranporter :TranporterserviceService) { }
+  constructor(private router:Router,private tranporter :TranporterserviceService,
+    private users:AuthService,
+    private   userservice :UserService ) { }
 
   public gridData: any;
   public gridView: any;
 
   public mySelection: string[] = [];
-
+  user:any
+  userPermission:any
   public ngOnInit(): void {
+    this.users.userLoggedIn().subscribe((user:any)=>{
+      console.log(user)
+      this.user=user.result
+      this.userservice.getrolebyid(user.result.role).subscribe((data:any)=>{
+        console.log(data.result[0],'Roledata')
+        this.userPermission=data.result[0]
+      })
+    })
     this.getalltransporter()
   }
   getalltransporter(){

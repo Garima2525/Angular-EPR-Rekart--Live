@@ -7,8 +7,8 @@
           <div class="col-sm-6 col-xs-6">
             <h4 class="m-n font-bold ">Transporter  List</h4>
           </div>
-          <div class="col-sm-6 text-right poppins hidden-xs">
-            <button routerLink="/tranporter" class="button"><i
+          <div class="col-sm-6 text-right poppins hidden-xs" *ngIf="this.userPermission.targetcreate">
+            <button *ngIf="this.userPermission.targetcreate"  routerLink="/tranporter" class="button"><i
               class="fa fa-plus"></i> Add Transporter </button>
           </div>
         </div>
@@ -72,7 +72,7 @@
        <ng-template kendoGridCellTemplate let-transporter>
         <kendo-menu>
           <kendo-menu-item icon="gear">
-            <kendo-menu-item text="Edit" url="/edit-tranporter/{{ transporter._id }}" icon="edit"> </kendo-menu-item>
+            <kendo-menu-item *ngIf="this.userPermission.targetedit" text="Edit" url="/edit-tranporter/{{ transporter._id }}" icon="edit"> </kendo-menu-item>
           
           </kendo-menu-item>
 

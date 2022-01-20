@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 
 import { DataBindingDirective } from "@progress/kendo-angular-grid";
 import { process } from "@progress/kendo-data-query";
-
+import { AuthService } from 'src/app/service/auth.service';
+import { UserService } from 'src/app/service/user.service';
 import {DisposalExecutionService} from 'src/app/service/disposal-execution.service'
 @Component({
   selector: 'app-disposal-execution-list',
@@ -13,14 +14,26 @@ import {DisposalExecutionService} from 'src/app/service/disposal-execution.servi
 export class DisposalExecutionListComponent implements OnInit {
 
   @ViewChild(DataBindingDirective) dataBinding!: DataBindingDirective;
-  constructor(private router:Router,private disposalexecution:DisposalExecutionService) { }
+  constructor(
+    private router:Router,private disposalexecution:DisposalExecutionService,
+    private users:AuthService,
+    private   userservice :UserService) { }
 
   public gridData: any;
   public gridView: any;
 
   public mySelection: string[] = [];
-
+  user:any
+  userPermission:any
   public ngOnInit(): void {
+    this.users.userLoggedIn().subscribe((user:any)=>{
+      console.log(user)
+      this.user=user.result
+      this.userservice.getrolebyid(user.result.role).subscribe((data:any)=>{
+        console.log(data.result[0],'Roledata')
+        this.userPermission=data.result[0]
+      })
+    })
     this.getalldisposalexecution()
   }
   getalldisposalexecution(){

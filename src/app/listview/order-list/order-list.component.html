@@ -8,7 +8,7 @@
             <h4 class="m-n font-bold ">Order/PO List</h4>
           </div>
           <div class="col-sm-6 text-right poppins hidden-xs">
-            <button routerLink="/order" class="button"><i
+            <button *ngIf="this.userPermission.orderedit"  routerLink="/order" class="button"><i
               class="fa fa-plus"></i> Add Order/PO</button>
           </div>
         </div>
@@ -16,7 +16,7 @@
 <div class="col-sm-12"style="margin-top: 1%;margin-bottom: 1%;">
   <div class="col-sm-3" style="padding: 0px;margin: 0px;">
     <select class="form-control" name="serach" [(ngModel)]="searchTextor">
-     <option value=""  >Serach by Organization</option>
+     <option selected disabled value=""  >Serach by Organization</option>
      <option *ngFor="let objcus of Customers" value={{objcus._id}} >{{objcus.organization_name}}  </option>
      
       <!-- <option>Serach by Organization </option>
@@ -90,7 +90,7 @@
 
       <td  class="rocket">
         <span >
-          <span style="font-weight: bold;" ><a  [routerLink]="['/edit-order-po',pod._id]"><i class="fa fa-edit"></i> Edit</a></span>
+          <span style="font-weight: bold;" *ngIf="this.userPermission.orderedit" ><a    [routerLink]="['/edit-order-po',pod._id]"><i class="fa fa-edit"></i> Edit</a></span>
          
         </span>
       </td>

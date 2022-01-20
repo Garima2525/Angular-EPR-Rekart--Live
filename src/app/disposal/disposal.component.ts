@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
 })
 export class DisposalComponent implements OnInit {
   uniqid: any;
+  display:string=''
   disposalform!: FormGroup;
   login_id: any;
   statedata: any;
@@ -87,6 +88,7 @@ export class DisposalComponent implements OnInit {
     this.disposalform = this.tp.group({
       disposal_id: [this.uniqid, Validators.required],
       disposal_company_name: ['', Validators.required],
+      pan:['',[Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')]],
       gstin: [
         '',
         Validators.pattern(
@@ -166,7 +168,9 @@ export class DisposalComponent implements OnInit {
       console.log(this.disposalform, 'true');
       this.isValidbutton = true;
       this.disposalform.value.user_id = this.login_id;
+     
       this.disposalform.value.attachments = this.ccattachments;
+      this.disposalform.value.pan=this.display;
       this.disposal.submitForm(this.disposalform.value).subscribe((data) => {
         console.log(data);
         this.toast.showSuccess(
@@ -199,6 +203,7 @@ export class DisposalComponent implements OnInit {
       this.disposalformModal.value.type_id = this.uniqid;
       this.disposalformModal.value.type = 'CC';
       let formadata = this.disposalformModal.value;
+      
       this.Attach.submitForm(formadata).subscribe((data: any) => {
         this.ccattachments.push(data);
         console.log(this.ccattachments);
@@ -226,4 +231,11 @@ export class DisposalComponent implements OnInit {
       }
     });
   }
-}
+  getval(val:string){
+    console.log(val);
+    
+    // this.display=display
+    this.display = val.slice(2,12)
+    }
+    
+    }

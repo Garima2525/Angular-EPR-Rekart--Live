@@ -19,6 +19,7 @@ export class EditCustomerComponent implements OnInit {
   add2: any;
   add3: any;
   states: any;
+  display:string=''
   district: any;
   country: any;
   todayDate:any;
@@ -39,6 +40,7 @@ export class EditCustomerComponent implements OnInit {
   customerId: any;
   customerdata:any;
   industry_type:any;
+  pan:any;
   constructor(
     private form: FormBuilder,
     private pincode: StateCityService,
@@ -105,7 +107,8 @@ export class EditCustomerComponent implements OnInit {
       this.industry_type = data.result[0].industry_type;
       this.customer_id=data.result[0].customer_id
       console.log(this.customer_id,'...wd');
-      
+      this.pan=data.result[0].pan
+      console.log(this.pan)
       console.log(this.industry_type)
     });
   }
@@ -143,6 +146,7 @@ export class EditCustomerComponent implements OnInit {
       pan_no: [uni.pan_no, [Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')]],
       msme_no: uni.msme_no,
       cin_no: uni.cin_no,
+      pan:[uni.pan, [Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')]],
       gst_no: [
         uni.gst_no,
         [
@@ -193,6 +197,7 @@ export class EditCustomerComponent implements OnInit {
       this.Customerform.value.com_city = this.c_district;
       this.Customerform.value.com_state = this.c_states;
       this.Customerform.value.com_country = this.c_country;
+      this.Customerform.value.pan=this.display;
       this.customerService
         .updateForm(this.customerId,this.Customerform.value)
         .subscribe((resdata: any) => {
@@ -230,5 +235,9 @@ export class EditCustomerComponent implements OnInit {
       }
     });
   }
-
+  getval(val:string){
+    console.log(val);
+    // this.display=display
+this.display = val.slice(2,12)
+  }
 }

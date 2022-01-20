@@ -10,7 +10,7 @@
         <div class="col-sm-6 text-right poppins hidden-xs">
           <!-- <a href="/customer" class="btn m-b-xs btn-sm text-10 btn-info btn-3d add-role-model"><i
               class="fa fa-plus"></i> Add Customer</a> -->
-              <button type="button"  class="button"><i
+              <button  *ngIf="this.userPermission.customercreate" type="button"  class="button"><i
                 class="fa fa-plus"></i> <a routerLink="/customer">Add Customer</a></button>
         </div>
       </div>
@@ -52,17 +52,29 @@
     </ng-template>
   </kendo-grid-column>
  
-  <kendo-grid-column  title="Registration" [width]="100">
+  <kendo-grid-column  title="CPCB Registration" [width]="100">
     <ng-template kendoGridCellTemplate let-dataItem>
-      <div class="cpcb_registration ">CPCB No : {{ dataItem.cpcb_registration}}</div>
-      <div class="cpcb_validity"><i _ngcontent-fcn-c561="" aria-hidden="true" class="fa fa-calendar-check-o" style="color: green;"></i> CPCB Validity : {{ dataItem.cpcb_validity |date:'dd-MM-yyyy'}} ({{calculateDiff(dataItem.cpcb_validity)}})</div>
+      <div class="cpcb_registration ">Reg No : {{ dataItem.cpcb_registration}}</div>
+      <div class="cpcb_validity"><i _ngcontent-fcn-c561="" aria-hidden="true" class="fa fa-calendar-check-o" style="color: green;"></i>Validity : {{ dataItem.cpcb_validity |date:'dd-MM-yyyy'}} </div>
       <div class="cpcb_validity">Aging : {{calculateDiff(dataItem.cpcb_validity)}}</div>
      
-      <!-- <div class="spcb_registration ">SPCB No : {{ dataItem.spcb_registration}}</div>
-      <div class="spcb_validity"><i _ngcontent-fcn-c561="" aria-hidden="true" class="fa fa-calendar-check-o" style="color: green;"></i> SPCB Validity : {{ dataItem.spcb_validity |date:'dd-MM-yyyy' }} ({{calculateDiff(dataItem.spcb_validity)}})</div> -->
+    
     </ng-template>
   </kendo-grid-column>
   
+  <kendo-grid-column  title="SPCB Registration" [width]="100">
+    <ng-template kendoGridCellTemplate let-dataItem>
+        <div class="spcb_registration ">Reg No : {{ dataItem.spcb_registration}}</div>
+      <div class="spcb_validity"><i _ngcontent-fcn-c561="" aria-hidden="true" class="fa fa-calendar-check-o" style="color: green;"></i>Validity : {{ dataItem.spcb_validity |date:'dd-MM-yyyy' }} </div> 
+      <div class="cpcb_validity">Aging : {{calculateDiff(dataItem.spcb_validity)}}</div>
+     
+    
+    </ng-template>
+  </kendo-grid-column>
+
+
+
+
 
   
   <kendo-grid-column title="Action" [width]="100" [class]="{ 'text-center': true }" [resizable]="false"
@@ -70,7 +82,7 @@
     <ng-template kendoGridCellTemplate let-customer>
       <kendo-menu>
         <kendo-menu-item  icon="gear" >
-          <kendo-menu-item text="Edit" url="/edit-customer/{{ customer._id }}" icon="edit"> </kendo-menu-item>
+          <kendo-menu-item text="Edit" *ngIf="this.userPermission.customeredit" url="/edit-customer/{{ customer._id }}" icon="edit"> </kendo-menu-item>
          
         </kendo-menu-item>
       </kendo-menu>

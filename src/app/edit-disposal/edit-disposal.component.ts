@@ -22,6 +22,7 @@ export class EditDisposalComponent implements OnInit {
   districtdata: any;
   saveas: any;
   saveasnew: any;
+  display:string=''
   isValidFormSubmitted: any;
   isValidbutton: any;
   ccattachments: any = [];
@@ -104,11 +105,8 @@ export class EditDisposalComponent implements OnInit {
     this.disposalform = this.tp.group({
       disposal_id: [disposaldata.disposal_id, Validators.required],
       disposal_company_name: [disposaldata.disposal_company_name, Validators.required],
-      gstin: [
-        disposaldata.gstin,
-        Validators.pattern(
-          '^([0][1-9]|[1-2][0-9]|[3][0-7])([A-Z]{5}[0-9]{4}[A-Z]{1}[1-9a-zA-Z]{1}[zZ]{1}[0-9a-zA-Z]{1})+$'
-        ),
+      pan:[disposaldata.pan,[Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')]],
+      gstin: [disposaldata.gstin,Validators.pattern('^([0][1-9]|[1-2][0-9]|[3][0-7])([A-Z]{5}[0-9]{4}[A-Z]{1}[1-9a-zA-Z]{1}[zZ]{1}[0-9a-zA-Z]{1})+$' ),
       ],
       company_type:disposaldata.company_type,
       plant_name:[disposaldata.plant_name,[Validators.required]],
@@ -182,6 +180,7 @@ export class EditDisposalComponent implements OnInit {
       this.disposalform.value.user_id = this.login_id;
       this.disposalform.value.attachments = this.ccattachments;
       this.disposalform.value.company_type=this.ctype
+      this.disposalform.value.pan=this.display;
       this.disposal.updateForm(this.disposalform.value,this.disId).subscribe((data:any) => {
         console.log(data);
         this.toast.showSuccess(
@@ -255,4 +254,11 @@ export class EditDisposalComponent implements OnInit {
     this.ccattachments.splice(i, 1);
     console.log(this.ccattachments);
   }
-}
+  getval(val:string){
+    console.log(val);
+    
+    // this.display=display
+    this.display = val.slice(2,12)
+    }
+    
+    }

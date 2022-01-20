@@ -8,7 +8,7 @@
             <h4 class="m-n font-bold ">Collection Center  List</h4>
           </div>
           <div class="col-sm-6 text-right poppins hidden-xs">
-            <button routerLink="/collection" class="button"><i
+            <button *ngIf="this.userPermission.collectioncentercreate" routerLink="/collection" class="button"><i
             class="fa fa-plus"></i> Add Collection Center</button>
           </div>
         </div>
@@ -78,7 +78,7 @@
        <ng-template kendoGridCellTemplate let-collectioncenter>
          <kendo-menu>
            <kendo-menu-item icon="gear">
-             <kendo-menu-item text="Edit" icon="edit" url="edit-collectioncenter/{{ collectioncenter._id }}"> </kendo-menu-item>
+             <kendo-menu-item text="Edit" *ngIf="this.userPermission.collectioncenteredit" icon="edit" url="edit-collectioncenter/{{ collectioncenter._id }}"> </kendo-menu-item>
  
            </kendo-menu-item>
          </kendo-menu>

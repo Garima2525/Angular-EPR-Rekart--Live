@@ -30,6 +30,7 @@ export class UserlistComponent implements OnInit {
   roledata: any;
   user: any
   userId:any
+  userid:any
   id:any
   isValidbutton: any;
   userPermission: any
@@ -43,6 +44,7 @@ export class UserlistComponent implements OnInit {
   designation: any;
   role: any;
   UId:any;
+
    _id: any;
   constructor(
     private router: Router,
@@ -59,6 +61,10 @@ export class UserlistComponent implements OnInit {
     this.users.userLoggedIn().subscribe((user: any) => {
       console.log(user)
       this.user = user.result
+      this.userservice.getrolebyid(user.result.role).subscribe((data:any)=>{
+        console.log(data.result[0],'Roledata')
+        this.userPermission=data.result[0]
+      })
       this.userservice.getallrole().subscribe((data: any) => {
         // console.log(data.result);
         this.roledata = data.result;
@@ -76,7 +82,7 @@ export class UserlistComponent implements OnInit {
   forminit(uni: any) {
     this.usereditform = this.fb.group(
       {
-        id:[uni.id],
+       
         username:  [uni.username, Validators.required],
         email: [uni.email, [Validators.pattern('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$')]],
         phone: [uni.phone, [Validators.required, Validators.pattern('^[6-9][0-9]{9}$')]],
@@ -101,19 +107,20 @@ export class UserlistComponent implements OnInit {
     
     this.userservice.getuserbyid(id).subscribe((data:any)=>{
       this.initformpass()
-      //  console.log(id,"----------wed");
+  
       this.forminit(data.result[0]);
-  //  this.id=data.data.result[0].id
-   console.log(id,"----------wed");
+  
+   console.log(id);
       this.editUsername=data.result[0].username;
+      this.userid=data.result[0]._id;
+      // console.log(this.userid,"---------------->_id");
+      
       this.phone = data.result[0].phone;
       this.designation = data.result[0].designation;
       this.role = data.result[0].role;
-      // console.log(this.phone);
-      
       this.email=data.result[0].email;
      
-      // console.log(this.usereditform)
+     
     });
   }
  
@@ -126,10 +133,10 @@ export class UserlistComponent implements OnInit {
     this.userform = this.fb.group(
       {
         username: ['', Validators.required],
-        email: ['', [Validators.pattern('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$')]],
+        email: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$')]],
         phone: ['', [Validators.required, Validators.pattern('^[6-9][0-9]{9}$')]],
         designation: ['', Validators.required],
-        password: ['', Validators.compose([Validators.required])],
+        password: ['', Validators.compose([Validators.required,Validators.pattern("(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d\\W]{8,63}$")])],
         cpassword: ['', Validators.compose([Validators.required])],
         role: ['', Validators.required],
       },
@@ -263,6 +270,39 @@ export class UserlistComponent implements OnInit {
     this.dataBinding.skip = 0;
   }
 
+  // onFormSubmit() {
+  //   this.isValidFormSubmitted = false;
+  //   if (this.usereditform.invalid) {
+  //     console.log(this.usereditform, 'error');
+  //     this.isValidFormSubmitted = true;
+  //     this.isValidbutton = false;
+  //     this.Toaster.showError('Sorry!, Fields are mandatory.');
+  //   } else {
+  //     console.log(this.usereditform, 'true');
+  //     this.isValidbutton = true;
+   
+  //    console.log(this.userid,"----------id");
+  //     this.userservice
+  //       .updateForm(this.userid, this.usereditform.value)
+  //       .subscribe((data: any) => {
+  //         console.log(data);
+          
+  //         this.Toaster.showSuccess(
+  //           'Congratulation!, User has been updated.'
+  //         );
+  //         if (data.status == 200) {
+  //                   this.Toaster.showSuccess(data.message)
+  //                   window.location.reload();
+  //                   document.getElementById('closemodal')?.click()
+  //                 } else if (data.status === 500) {
+  //                   this.Toaster.showError(data.message)
+  //                 }
+  //          });
+  //    }
+  // }
+
+
+
   onFormSubmit() {
     this.isValidFormSubmitted = false;
     if (this.usereditform.invalid) {
@@ -273,25 +313,31 @@ export class UserlistComponent implements OnInit {
     } else {
       console.log(this.usereditform, 'true');
       this.isValidbutton = true;
-     this.usereditform.value.phone = this.phone;
-     console.log(this.id,"----------wed");
+       this.usereditform.value.username = this.editUsername;
+       console.log(this.userid,'--------userid');
       this.userservice
-        .updateForm(this.usereditform.value,this.id)
+     
+      
+        .updateForm(this.userid, this.usereditform.value)
         .subscribe((data: any) => {
           console.log(data);
           this.Toaster.showSuccess(
-            'Congratulation!, User has been updated.'
+            'Congratulation!, Customer has been updated.'
           );
           if (data.status == 200) {
-                    this.Toaster.showSuccess(data.message)
-                    window.location.reload();
-                    document.getElementById('closemodal')?.click()
-                  } else if (data.status === 500) {
-                    this.Toaster.showError(data.message)
-                  }
-           });
-     }
+                              this.Toaster.showSuccess(data.message)
+                              window.location.reload();
+                              document.getElementById('closemodal')?.click()
+                            } else if (data.status === 500) {
+                              this.Toaster.showError(data.message)
+                            }
+        });
+    }
   }
+
+
+
+
 
 
   onFormSubmitpass() {
@@ -307,7 +353,7 @@ export class UserlistComponent implements OnInit {
     //  this.userpassform.value.phone = this.phone;
      
       this.userservice
-        .updateForm(this.userpassform.value,this.id)
+        .updateForm(this.userid, this.userpassform.value)
         .subscribe((data: any) => {
           console.log(data);
           this.Toaster.showSuccess(

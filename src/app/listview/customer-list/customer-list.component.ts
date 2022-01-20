@@ -32,7 +32,7 @@ export class CustomerListComponent implements OnInit {
       console.log(user)
       this.user=user.result
       this.userservice.getrolebyid(user.result.role).subscribe((data:any)=>{
-        console.log(data.result[0])
+        console.log(data.result[0],'sdwdswewee')
         this.userPermission=data.result[0]
       })
     })
