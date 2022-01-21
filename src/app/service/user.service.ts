@@ -108,14 +108,26 @@ export class UserService {
     return this.http.post(api_url, data, httpOptions);
   }
 
-  passupdat(id:any,data: any) {
-    let api_url = this.base_url + '/user/passupdat/'+id;
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'content-type': 'application/json;charset=UTF-8',
-        apikey: '8GWF6J1-WVG40Q4-HBWGNVY-9VXTXQ8',
-      }),
-    };
-    return this.http.post(api_url, data, httpOptions);
-  }
+//   passupdat(id:any,data: any) {
+//     let api_url = this.base_url + '/user/passupdat/'+id;
+//     const httpOptions = {
+//       headers: new HttpHeaders({
+//         'content-type': 'application/json;charset=UTF-8',
+//         apikey: '8GWF6J1-WVG40Q4-HBWGNVY-9VXTXQ8',
+//       }),
+//     };
+//     return this.http.post(api_url, data, httpOptions);
+//   }
+// }
+passupdat(data: any,id:any) {
+  console.log(data);
+  let api_url = this.base_url + '/user/passupdat/'+id;
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'content-type': 'application/json;charset=UTF-8',
+      apikey: '8GWF6J1-WVG40Q4-HBWGNVY-9VXTXQ8',
+    }),
+  };
+  return this.http.post(api_url, data, httpOptions);
+}
 }

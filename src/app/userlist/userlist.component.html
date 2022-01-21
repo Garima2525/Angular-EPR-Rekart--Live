@@ -251,8 +251,8 @@
              <div class="col-md-6">
                <div class="form-group">
                  <label class="control-label font-weight-600">Name <span class="text-theme">*</span></label>
-                 <input type="text" class="form-control  input-sm" placeholder="Name" formControlName="username" value="{{editUsername}}">
-                 <div *ngIf="f.username.errors && f.username.errors.required && isValidFormSubmitted"
+                 <input type="text" class="form-control  input-sm" placeholder="Name" formControlName="username" value="{{editUsername}}" (input)="getValues($event,'username')">
+                 <div *ngIf="f.username.errors && f.username.errors.required && isValidFormSubmittededit"
                    class="text-danger text-left mb-1 errorcontrols">
                    <div *ngIf="f.username.errors.required"><small>Name is
                        required.</small></div>
@@ -262,7 +262,7 @@
              <div class="col-md-6 form-group">
                <label class="control-label font-weight-600">Email <span class="text-theme">*</span></label>
                <input type="text" class="form-control" placeholder="Email" formControlName="email" value="{{email}}" readonly>
-               <div *ngIf="f.email.touched && f.email.invalid && isValidFormSubmitted"
+               <div *ngIf="f.email.touched && f.email.invalid && isValidFormSubmittededit"
                  class="text-danger text-left mb-1 errorcontrols">
                  <div *ngIf="f.email.invalid"><small>Invalid Email.</small></div>
                </div>
@@ -275,8 +275,8 @@
              <div class="col-md-6">
                <div class="form-group">
                  <label class="control-label font-weight-600">Mobile <span class="text-theme">*</span></label>
-                 <input type="text" class="form-control  input-sm" placeholder="Phone" formControlName="phone" value="{{phone}}">
-                  <div *ngIf="f.phone.errors  && isValidFormSubmitted" class="text-danger text-left mb-1 errorcontrols">
+                 <input type="text" class="form-control  input-sm" placeholder="Phone" formControlName="phone" value="{{phone}}" (input)="getValues($event,'phone')">
+                  <div *ngIf="f.phone.errors  && isValidFormSubmittededit" class="text-danger text-left mb-1 errorcontrols">
                <div *ngIf="f.phone.errors.required"><small>Mobile is required.</small></div>
                <div *ngIf="f.phone.errors.pattern">Invalid Mobile.</div>
              </div>
@@ -285,8 +285,8 @@
              <div class="col-md-6">
                <div class="form-group">
                  <label class="control-label font-weight-600">Designation <span class="text-theme">*</span></label>
-                 <input type="text" class="form-control  input-sm" placeholder="Designation" formControlName="designation" value="{{designation}}">
-                 <div *ngIf="f.designation.errors && f.designation.errors.required && isValidFormSubmitted"
+                 <input type="text" class="form-control  input-sm" placeholder="Designation" formControlName="designation" value="{{designation}}" (input)="getValues($event,'designation')">
+                 <div *ngIf="f.designation.errors && f.designation.errors.required && isValidFormSubmittededit"
                    class="text-danger text-left mb-1 errorcontrols">
                    <div *ngIf="f.designation.errors.required"><small>Designation is
                        required.</small></div>
@@ -306,12 +306,12 @@
              <div class="col-md-6">
                <div class="form-group">
                  <label class="control-label font-weight-600">Role <span class="text-theme">*</span></label>
-                 <select class="form-control validation user_role input-sm" name="role" formControlName="role" value="{{role}}">
+                 <select class="form-control validation user_role input-sm" name="role" formControlName="role" value="{{role}}" (change)="getValuesChange($event,'role')">
                    <option value="">Choose Role</option>
                    <option *ngFor="let obj of roledata" value={{obj._id}}> {{obj.role_name}} </option>
                   
                  </select>
-                 <div *ngIf="f.role.errors && f.role.errors.required && isValidFormSubmitted"
+                 <div *ngIf="f.role.errors && f.role.errors.required && isValidFormSubmittededit"
                    class="text-danger text-left mb-1 errorcontrols">
                    <div *ngIf="f.role.errors.required"><small>Role Name is
                        required.</small></div>
@@ -356,11 +356,13 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="details">
         <form [formGroup]="userpassform" (ngSubmit)="onFormSubmitpass()">
           <div class="row">
+            <!-- <input type="text" value="{{userid}}"> -->
+
             <div class="col-md-6">
               <div class="form-group">
                 <label class="control-label font-weight-600">Password <span class="text-theme">*</span></label>
-                <input type="text" class="form-control  input-sm" placeholder="Password" formControlName="password">
-                <div *ngIf="fs.password.errors && fs.password.errors.required && isValidFormSubmitted"
+                <input type="text" class="form-control  input-sm" placeholder="password" formControlName="password">
+                <div *ngIf="fs.password.errors && fs.password.errors.required && isValidFormSubmittedpass"
                   class="text-danger text-left mb-1 errorcontrols">
                   <div *ngIf="fs.password.errors.required"><small>Password is
                       required.</small></div>
@@ -373,7 +375,7 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <label class="control-label font-weight-600">Confirm
                  Password <span class="text-theme">*</span></label>
                 <input type="text" class="form-control  input-sm" placeholder="Confirm Password" formControlName="cpassword">
-                <div *ngIf="fs.cpassword.errors && fs.cpassword.errors.required && isValidFormSubmitted"
+                <div *ngIf="fs.cpassword.errors && fs.cpassword.errors.required && isValidFormSubmittedpass"
                   class="text-danger text-left mb-1 errorcontrols">
                   <div *ngIf="fs.cpassword.errors.required"><small>Confirm Password is
                       required.</small></div>

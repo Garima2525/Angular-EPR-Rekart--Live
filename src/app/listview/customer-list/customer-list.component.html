@@ -56,7 +56,7 @@
     <ng-template kendoGridCellTemplate let-dataItem>
       <div class="cpcb_registration ">Reg No : {{ dataItem.cpcb_registration}}</div>
       <div class="cpcb_validity"><i _ngcontent-fcn-c561="" aria-hidden="true" class="fa fa-calendar-check-o" style="color: green;"></i>Validity : {{ dataItem.cpcb_validity |date:'dd-MM-yyyy'}} </div>
-      <div class="cpcb_validity">Aging : {{calculateDiff(dataItem.cpcb_validity)}}</div>
+      <div class="cpcb_validity"><b>{{calculateDiff(dataItem.cpcb_validity)}}</b> Days Left to Expire</div>
      
     
     </ng-template>
@@ -66,7 +66,7 @@
     <ng-template kendoGridCellTemplate let-dataItem>
         <div class="spcb_registration ">Reg No : {{ dataItem.spcb_registration}}</div>
       <div class="spcb_validity"><i _ngcontent-fcn-c561="" aria-hidden="true" class="fa fa-calendar-check-o" style="color: green;"></i>Validity : {{ dataItem.spcb_validity |date:'dd-MM-yyyy' }} </div> 
-      <div class="cpcb_validity">Aging : {{calculateDiff(dataItem.spcb_validity)}}</div>
+      <div class="cpcb_validity"><b> {{calculateDiff(dataItem.spcb_validity)}}</b> Days Left to Expire</div>
      
     
     </ng-template>

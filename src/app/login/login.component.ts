@@ -114,5 +114,11 @@ export class LoginComponent implements OnInit {
       password: ['',Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)]
     });
   }
-
+  keyDownFunction(event:any) {
+    if (event.keyCode === 13) {
+      // this.checkoutForm
+      this.SubmitLogin();
+    }
+    
+  }
 }

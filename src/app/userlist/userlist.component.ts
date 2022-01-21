@@ -25,6 +25,8 @@ export class UserlistComponent implements OnInit {
   usereditform!: FormGroup;
   public mySelection: string[] = [];
   isValidFormSubmitted: any;
+  isValidFormSubmittedpass: any;
+  isValidFormSubmittededit: any;
   isPasswordSame: any;
   buttondisabled: any = true;
   roledata: any;
@@ -32,7 +34,9 @@ export class UserlistComponent implements OnInit {
   userId:any
   userid:any
   id:any
+  isValidbuttonedit: any;
   isValidbutton: any;
+  isValidbuttonpass: any;
   userPermission: any
  
   username:any
@@ -270,39 +274,6 @@ export class UserlistComponent implements OnInit {
     this.dataBinding.skip = 0;
   }
 
-  // onFormSubmit() {
-  //   this.isValidFormSubmitted = false;
-  //   if (this.usereditform.invalid) {
-  //     console.log(this.usereditform, 'error');
-  //     this.isValidFormSubmitted = true;
-  //     this.isValidbutton = false;
-  //     this.Toaster.showError('Sorry!, Fields are mandatory.');
-  //   } else {
-  //     console.log(this.usereditform, 'true');
-  //     this.isValidbutton = true;
-   
-  //    console.log(this.userid,"----------id");
-  //     this.userservice
-  //       .updateForm(this.userid, this.usereditform.value)
-  //       .subscribe((data: any) => {
-  //         console.log(data);
-          
-  //         this.Toaster.showSuccess(
-  //           'Congratulation!, User has been updated.'
-  //         );
-  //         if (data.status == 200) {
-  //                   this.Toaster.showSuccess(data.message)
-  //                   window.location.reload();
-  //                   document.getElementById('closemodal')?.click()
-  //                 } else if (data.status === 500) {
-  //                   this.Toaster.showError(data.message)
-  //                 }
-  //          });
-  //    }
-  // }
-
-
-
   onFormSubmit() {
     this.isValidFormSubmitted = false;
     if (this.usereditform.invalid) {
@@ -313,43 +284,52 @@ export class UserlistComponent implements OnInit {
     } else {
       console.log(this.usereditform, 'true');
       this.isValidbutton = true;
-       this.usereditform.value.username = this.editUsername;
-       console.log(this.userid,'--------userid');
+   
+     console.log(this.userid,"----------id");
       this.userservice
-     
-      
         .updateForm(this.userid, this.usereditform.value)
         .subscribe((data: any) => {
           console.log(data);
+          
           this.Toaster.showSuccess(
-            'Congratulation!, Customer has been updated.'
+            'Congratulation!, User has been updated.'
           );
+          window.location.reload();
           if (data.status == 200) {
-                              this.Toaster.showSuccess(data.message)
-                              window.location.reload();
-                              document.getElementById('closemodal')?.click()
-                            } else if (data.status === 500) {
-                              this.Toaster.showError(data.message)
-                            }
-        });
-    }
+            this.Toaster.showSuccess(data.message)
+            window.location.reload();
+            document.getElementById('closemodal')?.click()
+          } else if (data.status === 500) {
+            this.Toaster.showError(data.message)
+          }
+           });
+     }
   }
 
+    getValues(e:any,field:any){
+      this.usereditform.value[field]=e.target.value;
+    }
 
+    getValuesChange(e:any,field:any){
+      this.usereditform.value[field]=e.target.value;
+    }
+ 
+
+ 
 
 
 
 
   onFormSubmitpass() {
-    this.isValidFormSubmitted = false;
+    this.isValidFormSubmittedpass = false;
     if (this.userpassform.invalid) {
       console.log(this.userpassform, 'error');
-      this.isValidFormSubmitted = true;
-      this.isValidbutton = false;
+      this.isValidFormSubmittedpass = true;
+      this.isValidbuttonpass = false;
       this.Toaster.showError('Sorry!, Fields are mandatory.');
     } else {
       console.log(this.userpassform, 'true');
-      this.isValidbutton = true;
+      this.isValidbuttonpass = true;
     //  this.userpassform.value.phone = this.phone;
      
       this.userservice
