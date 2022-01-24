@@ -48,7 +48,7 @@
 
     <kendo-grid-column  title="Role" [width]="100">
       <ng-template kendoGridCellTemplate let-dataItem>
-        <div class="user">{{dataItem.role }}</div>
+        <div class="user">{{dataItem.roledata[0].role_name }}</div>
       </ng-template>
     </kendo-grid-column>
    
@@ -73,8 +73,8 @@
 
           <button class="button" data-toggle="modal" data-target="#exampleModalCenteredit" (click)="getId(user._id)" >Edit</button>
           
-          <button class="button" data-toggle="modal" data-target="#exampleModal" (click)="getId(user._id)" >Reset Password</button>
-          
+          <!-- <button class="button" data-toggle="modal" data-target="#exampleModal" (click)="getId(user._id)" >Reset Password</button>
+           -->
           
         </div>
       </ng-template>

@@ -197,7 +197,7 @@ export class EditCustomerComponent implements OnInit {
       this.Customerform.value.com_city = this.c_district;
       this.Customerform.value.com_state = this.c_states;
       this.Customerform.value.com_country = this.c_country;
-      this.Customerform.value.pan=this.display;
+      this.Customerform.value.pan_no=this.display;
       this.customerService
         .updateForm(this.customerId,this.Customerform.value)
         .subscribe((resdata: any) => {

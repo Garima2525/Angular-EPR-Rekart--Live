@@ -14,9 +14,11 @@
         </div>
       </div>
 <div class="col-sm-12"style="margin-top: 1%;margin-bottom: 1%;">
+ 
   <div class="col-sm-3" style="padding: 0px;margin: 0px;">
+    <b>Serach by Organization</b>
     <select class="form-control" name="serach" [(ngModel)]="searchTextor">
-     <option selected disabled  >Serach by Organization</option>
+     <!-- <option selected disabled  >Serach by Organization</option> -->
      <option *ngFor="let objcus of Customers" value={{objcus._id}} >{{objcus.organization_name}}  </option>
      
       <!-- <option>Serach by Organization </option>

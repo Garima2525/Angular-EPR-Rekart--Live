@@ -65,6 +65,9 @@ export class EditTargetComponent implements OnInit {
   statesdata: any;
   statename: any;
   uniqueId: any;
+
+  state:any
+  uniqid:any
   isValidFormSubmitted: any;
   isValidFormSubmittedModal: any;
   saveas: any;
@@ -77,9 +80,19 @@ export class EditTargetComponent implements OnInit {
   targetDuration: any;
   goalModalform!: FormGroup;
   goalattachments: any = [];
- tarId:any
-  tname:any;
+  TId:any;
+  targetInfoerror:any
   ulbattachments: any = [];
+  dataRecord: any=[];
+  fromData:any;
+  toData:any;
+  targetState:any;
+  arr:any=[
+    {"neworder":0,"oldorder":0,"newcollectedqty":0,"newdisposedqty":0,"oldcollectedqty":0,"olddisposedqty":0},
+    {"neworder":0,"oldorder":0,"newcollectedqty":0,"newdisposedqty":0,"oldcollectedqty":0,"olddisposedqty":0},
+    {"neworder":0,"oldorder":0,"newcollectedqty":0,"newdisposedqty":0,"oldcollectedqty":0,"olddisposedqty":0},
+    {"neworder":0,"oldorder":0,"newcollectedqty":0,"newdisposedqty":0,"oldcollectedqty":0,"olddisposedqty":0},
+  ];
   constructor(
      private CountryStateCityService: CountryStateCityService,
      private fb:FormBuilder, 
@@ -92,9 +105,8 @@ export class EditTargetComponent implements OnInit {
       private _Activatedroute: ActivatedRoute,
     ) {}
     title = 'angular';
-
   ngOnInit(): void {
-    this.tarId = this._Activatedroute.snapshot.paramMap.get('id');
+    this.TId=  this._Activatedroute.snapshot.paramMap.get('id');
     this.Auth.userLoggedIn().subscribe((logindata: any) => {
       console.log(logindata);
       this.login_id = logindata.result._id;
@@ -102,27 +114,20 @@ export class EditTargetComponent implements OnInit {
     this.CountryStateCityService.getallstates().subscribe((data: any) => {
       console.log(data.result);
       this.statedata = data.result;
-    
     });
-    
-    this.target.gettargetbyid(this.tarId).subscribe((data: any) => {
-      console.log(data.result[0]);
-      this.onformInit(data.result[0]);
-      this.onformInit(data.result[0]);
-      // this.getdistrictonload(data.result[0].state);
-     
-      // this.tname = data.result[0].target_name;
-      // this.ulbattachments =
-      //   (data.result[0].attachments == null
-      //     ? this.ulbattachments
-      //     : data.result[0].attachments);
-      // console.log(this.ulbattachments);
-      
+    this.target.gettargetbyid(this.TId).subscribe((data: any) => {
+      console.log(data.result[0],'------------>TargetData');
+      this.onformInit(data.result[0])
+      this.state = data.result[0].state;
+      console.log(this.state);
+      this.targetInfo = data.result[0].target_info;
+      console.log(this.targetInfo,'sds' );
+      this.goalattachments =data.result[0].attachments == null? this.goalattachments : data.result[0].attachments;
+
     });
+    this.modalforminit();
 
   }
- 
-
  
   addinfo(e: any) {
     e.preventDefault();
@@ -136,8 +141,25 @@ export class EditTargetComponent implements OnInit {
       collection_target: null,
       target_date: null,
     });
+    this.targetInfoerror.push({
+      material_name: null,
+      state: null,
+      city:  null,
+      ulb: null,
+      collection_center: null,
+      disposal: null,
+      collection_target: null,
+      target_date: null,
+    });
+   
+
+
+
     console.log(this.targetInfo);
   }
+
+
+
   deleteinfo(e: any, index: any) {
     e.preventDefault();
     this.targetInfo.splice(index, 1);
@@ -153,7 +175,7 @@ export class EditTargetComponent implements OnInit {
       state:tdata.state,
       user_id:tdata.user_id,
       target_info:tdata.target_info,
-      attachments:[]
+      attachments:'',
     })
   }
 
@@ -167,19 +189,6 @@ export class EditTargetComponent implements OnInit {
       this.districtdata = data.result;
       this.targetInfo.map((item:any,i:any)=>{
         this.targetInfo[i].state=e.target.value
-      })
-    });
-  }
-  getdistrictonload(state: any) {
-    console.log(state);
-    this.statename=state
-    this.CountryStateCityService.getalldistrictwithstatewise({
-      statename: state,
-    }).subscribe((data: any) => {
-      console.log(data);
-      this.districtdata = data.result;
-      this.targetInfo.map((item:any,i:any)=>{
-        this.targetInfo[i].state=state
       })
     });
   }
@@ -215,99 +224,48 @@ export class EditTargetComponent implements OnInit {
   getTargetDuration(e:any){
     this.targetDuration = e.target.value;
   }
-  modalforminit() {
-    this.goalModalform = this.fb.group({
-      type_id: this.uniqueId,
-      type: 'target',
-      document_type: ['', Validators.required],
-      document_no: ['', Validators.required],
-      image: ['', Validators.required],
-      validity: ['', Validators.required],
-    });
-  }
+ 
 
   get fm() {
     return this.goalModalform.controls;
   }
-  fileupload(e: any) {
-    console.log(e.target.files[0].type);
-    if (
-      e.target.files[0].type == 'application/pdf' ||
-      e.target.files[0].type == 'image/png' ||
-      e.target.files[0].type == 'image/jpeg' ||
-      e.target.files[0].type == 'image/jpg'
-    ) {
-      this.Attach.UploadFile(e.target.files, this.uniqueId).subscribe(
-        (imagedata: any) => {
-          console.log(imagedata);
-          this.filedatainput = imagedata.url;
-          this.isValidbuttonModal=false;
-        }
-      );
-    } else {
-      this.filedatainput = null;
-      this.isValidbuttonModal=true;
-      this.toast.showError('Invalid File.');
-    }
-  }
+  
   onFormSubmit() {
     this.isValidFormSubmitted = false;
-    // if (this.targetForm.invalid) {
-    //   console.log(this.targetForm, 'error');
-    //   this.isValidFormSubmitted = true;
-    //   this.isValidbutton = false;
-    //   // this.toast.showError('Sorry!, Fields are mandatory.');
-    // } else {
-    //   this.isValidbutton = true;
-    //   this.targetForm.value.user_id = this.login_id;
-    //   this.targetForm.value.target_info = this.targetInfo;
-    //   this.targetForm.value.state = this.statename;
-    //   this.targetForm.value.target_name = this.targetname;
-    //   this.targetForm.value.target_duration = this.targetDuration;
-    //   this.targetForm.value.attachments = this.goalattachments;
-    //   console.log(this.targetForm, 'true');
-    //   this.target.targetupdatebyid(this.tarId,this.targetForm.value).subscribe((data) => {
-    //     console.log(data);
-    //     this.toast.showSuccess(
-    //       'Congratulation!, Target has been created.'
-    //     );
-    //     if (this.saveas == 'save') {
-    //       console.log(this.saveas);
-    //       setTimeout(() => {
-    //         this.Route.navigate(['/goal-list']);
-    //       }, 5000);
-    //     } else {
-    //       console.log(this.saveas);
-    //       setTimeout(() => {
-    //         window.location.reload();
-    //       }, 5000);
-    //     }
-    //   });
-    // }
-  }
-  onModalFormSubmit() {
-    this.isValidFormSubmittedModal = false;
-    if (this.goalModalform.invalid) {
-      console.log(this.goalModalform, 'error');
-      this.isValidFormSubmittedModal = true;
-      this.isValidbuttonModal = false;
+    if (this.targetForm.invalid) {
+      console.log(this.targetForm, 'error');
+      this.isValidFormSubmitted = true;
+      this.isValidbutton = false;
+      // this.toast.showError('Sorry!, Fields are mandatory.');
     } else {
-      console.log(this.goalModalform, 'true');
-      this.isValidbuttonModal = true;
-      this.goalModalform.value.image = this.filedatainput;
-      this.goalModalform.value.type_id = this.uniqueId;
-      this.goalModalform.value.type = 'ULB';
-      let formadata = this.goalModalform.value;
-      this.Attach.submitForm(formadata).subscribe((data: any) => {
-        this.ulbattachments.push(data);
-        console.log(this.ulbattachments);
-        this.toast.showSuccess('Attachment added.');
-        this.goalModalform.reset();
-        this.closebutton.nativeElement.click();
-        this.isValidbuttonModal = false;
+      this.isValidbutton = true;
+      this.targetForm.value.user_id = this.login_id;
+      this.targetForm.value.target_info = this.targetInfo;
+      this.targetForm.value.state = this.statename;
+      this.targetForm.value.target_name = this.targetname;
+      this.targetForm.value.target_duration = this.targetDuration;
+      this.targetForm.value.attachments = this.goalattachments;
+      console.log(this.targetForm, 'true');
+      this.target.targetupdatebyid(this.targetForm.value).subscribe((data) => {
+        console.log(data);
+        this.toast.showSuccess(
+          'Congratulation!, Target has been created.'
+        );
+        if (this.saveas == 'save') {
+          console.log(this.saveas);
+          setTimeout(() => {
+            this.Route.navigate(['/goal-list']);
+          }, 5000);
+        } else {
+          console.log(this.saveas);
+          setTimeout(() => {
+            window.location.reload();
+          }, 5000);
+        }
       });
     }
   }
+  
   handleWarningAlert() {
     Swal.fire({
       
@@ -336,6 +294,194 @@ export class EditTargetComponent implements OnInit {
     console.log(this.goalattachments);
   }
 
-  
-}
+  getRecords(w:any,Fields:any){
+    
+    switch (Fields) {
+      case 'state':
+        this.targetState=w.target.value;
+        break;
+    
+      case 'from':
+        this.fromData=w.target.value;
+        break;
+      
+      case 'to':
+        this.toData=w.target.value;
+        break;  
+    }
+    
+    if(this.targetState!=undefined && this.fromData!=undefined && this.toData!=undefined){
+      this.target.getRecordBox({state:this.targetState,from:this.fromData,to:this.toData}).subscribe((getdata:any)=>{
+        console.log(getdata);
+        this.getMLPMaterial(getdata.data)
+      })
+    }
+    else{
+      console.log('false');
+      
+    }
+  }
 
+
+  getMLPMaterial(getdata:any){
+    this.arr=[
+      {"neworder":0,"oldorder":0,"newcollectedqty":0,"newdisposedqty":0,"oldcollectedqty":0,"olddisposedqty":0},
+      {"neworder":0,"oldorder":0,"newcollectedqty":0,"newdisposedqty":0,"oldcollectedqty":0,"olddisposedqty":0},
+      {"neworder":0,"oldorder":0,"newcollectedqty":0,"newdisposedqty":0,"oldcollectedqty":0,"olddisposedqty":0},
+      {"neworder":0,"oldorder":0,"newcollectedqty":0,"newdisposedqty":0,"oldcollectedqty":0,"olddisposedqty":0},
+    ];
+    getdata[0].map((item:any)=>{
+      if(item._id=='MLP'){
+        this.arr[0].neworder=item.totalAmount
+      }
+      if(item._id=='Non MLP'){
+        this.arr[1].neworder=item.totalAmount
+      }
+      if(item._id=='Rigid'){
+        this.arr[2].neworder=item.totalAmount
+      }
+      if(item._id=='Flexible'){
+        this.arr[3].neworder=item.totalAmount
+      }
+    })
+    getdata[1].map((item:any)=>{
+      if(item._id=='MLP'){
+        this.arr[0].oldorder=item.totalAmount
+      }
+      if(item._id=='Non MLP'){
+        this.arr[1].oldorder=item.totalAmount
+      }
+      if(item._id=='Rigid'){
+        this.arr[2].oldorder=item.totalAmount
+      }
+      if(item._id=='Flexible'){
+        this.arr[3].oldorder=item.totalAmount
+      }
+    })
+    getdata[2].map((item:any)=>{
+      if(item._id=='MLP'){
+        this.arr[0].newcollectedqty=item.totalAmount_disposal_material_weight
+        this.arr[0].newdisposedqty=item.totalAmount_disposad_qty
+      }
+      if(item._id=='Non MLP'){
+        this.arr[1].newcollectedqty=item.totalAmount_disposal_material_weight
+        this.arr[1].newdisposedqty=item.totalAmount_disposad_qty
+      }
+      if(item._id=='Rigid'){
+        this.arr[2].newcollectedqty=item.totalAmount_disposal_material_weight
+        this.arr[2].newdisposedqty=item.totalAmount_disposad_qty
+      }
+      if(item._id=='Flexible'){
+        this.arr[3].newcollectedqty=item.totalAmount_disposal_material_weight
+        this.arr[3].newdisposedqty=item.totalAmount_disposad_qty
+      }
+    })
+    getdata[3].map((item:any)=>{
+      if(item._id=='MLP'){
+        this.arr[0].oldcollectedqty=item.totalAmount_disposal_material_weight
+        this.arr[0].olddisposedqty=item.totalAmount_disposad_qty
+      }
+      if(item._id=='Non MLP'){
+        this.arr[1].oldcollectedqty=item.totalAmount_disposal_material_weight
+        this.arr[1].olddisposedqty=item.totalAmount_disposad_qty
+      }
+      if(item._id=='Rigid'){
+        this.arr[2].oldcollectedqty=item.totalAmount_disposal_material_weight
+        this.arr[2].olddisposedqty=item.totalAmount_disposad_qty
+      }
+      if(item._id=='Flexible'){
+        this.arr[3].oldcollectedqty=item.totalAmount_disposal_material_weight
+        this.arr[3].olddisposedqty=item.totalAmount_disposad_qty
+      }
+    })
+    
+  }
+
+ 
+ 
+  fileupload(e: any) {
+    console.log(e.target.files[0].type,'ikolkjlkjl');
+    if (
+      e.target.files[0].type == 'application/pdf' ||
+      e.target.files[0].type == 'image/png' ||
+      e.target.files[0].type == 'image/jpeg' ||
+      e.target.files[0].type == 'image/jpg'
+    ) {
+      this.Attach.UploadFile(e.target.files, this.uniqid).subscribe(
+        (imagedata: any) => {
+          console.log(imagedata);
+          this.filedatainput = imagedata.url;
+          this.isValidbuttonModal = false;
+        }
+      );
+    } else {
+      this.filedatainput = null;
+      this.toast.showError('Invalid File.');
+      this.isValidbuttonModal = true;
+    }
+  }
+  onModalFormSubmit() {
+    this.isValidFormSubmittedModal = false;
+    if (this.goalModalform.invalid) {
+      console.log(this.goalModalform, 'error');
+      this.isValidFormSubmittedModal = true;
+      this.isValidbuttonModal = false;
+    } else {
+      console.log(this.goalModalform, 'true');
+      this.isValidbuttonModal = true;
+      this.goalModalform.value.image = this.filedatainput;
+      this.goalModalform.value.type_id = this.uniqid;
+      this.goalModalform.value.type = 'CC';
+      let formadata = this.goalModalform.value;
+      this.Attach.submitForm(formadata).subscribe((data: any) => {
+        this.goalattachments.push(data);
+        console.log(this.goalattachments);
+        this.toast.showSuccess('Attachment added.');
+        this.goalModalform.reset();
+        this.closebutton.nativeElement.click();
+        this.isValidbuttonModal = false;
+      });
+    }
+  }
+  modalforminit() {
+    this.goalModalform = this.fb.group({
+      type_id: this.uniqid,
+      type: 'po',
+      document_type: ['', Validators.required],
+      document_no: ['', Validators.required],
+      image: ['', Validators.required],
+      validity: ['', Validators.required],
+      
+    });
+  }
+
+
+  onchangetext(e: any, i: any, name: any) {
+    this.targetInfo[i][name] = e.target.value;
+   this.targetInfo.map((item: any, i: any) => {
+     if (item.material_name == ''|| item.material_name == null )
+       this.targetInfoerror[i]['material_name'] =true
+     else this.targetInfoerror[i]['material_name'] = false;
+
+     if ( item.state == '' || item.state == null )
+       this.targetInfoerror[i]['state'] = true;
+     else this.targetInfoerror[i]['state'] = false;
+
+      if (item.collection_Qty == 0)
+        this.targetInfoerror[i]['qty'] = true;
+      else this.targetInfoerror[i]['qty'] = false;
+
+      if (item.target_date == '' || item.target_date == null)
+        this.targetInfoerror[i]['targetdate'] = true;
+      else this.targetInfoerror[i]['targetdate'] = false;
+
+      if (item.net_unit_price == 0)
+        this.targetInfoerror[i]['price'] = true;
+      else this.targetInfoerror[i]['price'] = false;
+
+
+   });
+   console.log(this.targetInfoerror);
+
+  }
+}

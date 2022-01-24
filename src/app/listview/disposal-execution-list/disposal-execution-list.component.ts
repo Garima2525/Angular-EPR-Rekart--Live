@@ -74,6 +74,11 @@ export class DisposalExecutionListComponent implements OnInit {
             value: inputValue,
           },
           {
+            field: "created_at",
+            operator: "contains",
+            value: inputValue,
+          },
+          {
             field: "ulb_name",
             operator: "contains",
             value: inputValue,
@@ -125,6 +130,16 @@ export class DisposalExecutionListComponent implements OnInit {
           },
           {
             field: "collection_date_time",
+            operator: "contains",
+            value: inputValue,
+          },
+          {
+            field: "disposal_date_time",
+            operator: "contains",
+            value: inputValue,
+          },
+          {
+            field: "disposal_material_weight",
             operator: "contains",
             value: inputValue,
           },

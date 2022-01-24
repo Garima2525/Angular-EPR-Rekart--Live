@@ -122,12 +122,17 @@ export class CollectioncenterComponent implements OnInit {
             value: inputValue,
           },
           {
-            field: "collection_state",
+            field: "state",
             operator: "contains",
             value: inputValue,
           },
           {
             field: "collection_district",
+            operator: "contains",
+            value: inputValue,
+          },
+          {
+            field: "collection_state",
             operator: "contains",
             value: inputValue,
           },
@@ -142,6 +147,11 @@ export class CollectioncenterComponent implements OnInit {
             value: inputValue,
           },{
             field: "email",
+            operator: "contains",
+            value: inputValue,
+          }
+          ,{
+            field: "ulb_name",
             operator: "contains",
             value: inputValue,
           }

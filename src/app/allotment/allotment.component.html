@@ -105,6 +105,7 @@
           <th>Quantity</th>
           <th>Target Date</th>
           <th>Achieved Qty.</th>
+          <th>Balance Qty</th>
           <th>Price</th>
           <th>Allotment</th>
         </tr>
@@ -115,6 +116,7 @@
           <td>{{ item.collection_Qty}}</td>
           <td>{{ item.target_date}}</td>
           <td>{{ item.achieved_qty}}</td>
+          <td>{{ totalbalances}}</td>
           <td>{{ item.net_unit_price }}</td>
           <td><button class="btn btn-success btn-xs" (click)="getallotmentstatewise(item._id,podata.materialAllot,item.state,item.collection_Qty,item.achieved_qty)">Allotment</button></td>
         </tr>
@@ -154,7 +156,7 @@
           <td>
             <select class="form-control" (change)="getbucket($event,i,item.disposal_material_weight)">
               <option value="partial" selected>Partial bucket</option>
-              <option value="full">Full bucket</option>
+              <!-- <option value="full">Full bucket</option> -->
             </select>
           </td>
           <td>

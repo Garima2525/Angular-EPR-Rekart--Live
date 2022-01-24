@@ -30,13 +30,14 @@
               <div class="panel-heading font-bold">Target Source </div>
               <div class="panel-body">
                 <div class="col-md-4 form-group">
-                  <label>State  </label>
+                  <label>State : </label>
 
-                  <select class="form-control"  (change)="getdistrict($event)">
+                  <select class="form-control"  (change)="[getdistrict($event),getRecords($event,'state')]">
                     <option value="">Select State</option>
-                  <option *ngFor="let obj of statedata" value={{obj}}> {{obj}} </option>
+                  <option *ngFor="let obj of statedata" value="{{state}}"> {{obj}} </option>
                   </select>
                 </div>
+              
                 <div class="col-md-4 form-group">
                   <label> Target Name</label>
                  <input type="text" formControlName="target_name" class="form-control" (input)="getTargetName($event)" />
@@ -93,13 +94,14 @@
                           <tr *ngFor="let row of targetInfo;index as i">
                            
                             <th>
-                              <select class="form-control" formControlName="material_name" (change)="getChanges($event,i,'material_name')"style="width: 150px;">
+                              <select class=" form-control" style="width: 130px;" (change)="onchangetext($event,i,'material_name')" style="width: 150px;">
                                 <option value="">Select Material</option>
-                                <option value="MLP">MLP</option>
-                                <option value="Non MLP">Non MLP</option>
-                                <option value="Rigid">Rigid</option>
-                                <option value="Flexible">Flexible</option>
+                                <option value="MLP" [selected]="row.material_name=='MLP'">MLP</option>
+                                <option value="Non MLP" [selected]="row.material_name=='Non MLP'">Non MLP</option>
+                                <option value="Rigid" [selected]="row.material_name=='Rigid'">Rigid</option>
+                                <option value="Flexible" [selected]="row.material_name=='Flexible'">Flexible</option>
                               </select>
+                              <!-- <span *ngIf="materialerror[i].material_name" class="text-danger"> Material is Required</span> -->
                             </th>
                             <th>
                               <select class="form-control" (change)="[getdetails($event,i),getChanges($event,i,'city')]" style="width: 130px;">
@@ -216,68 +218,70 @@
  
 
 
-<!-- Modal -->
+
+
+
+
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document" style="width: 30%;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle" style="padding-top: 1%;color:black;">
-          Attached Document</h5>
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="width: 30%;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle" style="padding-top: 1%;color:black;">
+            Attached Document:</h5>
+
+        </div>
+        <form [formGroup]="goalModalform" role="form" (ngSubmit)="onModalFormSubmit()">
+          <div class="modal-body">
+
+            <div class="form-group">
+              <label for="exampleInputEmail1">Document Type</label>
+
+              <select class="form-control" formControlName="document_type">
+                <option value="PO">PO</option>
+                <option value="Agreement">Agreement</option>
+                <option value="MOU">MOU</option>
+                <option value="Work Order">Work Order</option>
+              </select>
+              <div *ngIf="fm.document_type.errors && fm.document_type.errors.required && isValidFormSubmittedModal"
+                class="text-danger text-left mb-1 errorcontrols">
+                <div *ngIf="fm.document_type.errors.required"><small>document type is required.</small></div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Document No</label>
+              <input type="text" class="form-control" placeholder="Enter Document No" formControlName="document_no">
+              <div *ngIf="fm.document_no.errors && fm.document_no.errors.required && isValidFormSubmittedModal"
+                class="text-danger text-left mb-1 errorcontrols">
+                <div *ngIf="fm.document_no.errors.required"><small>document no is required.</small></div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputPassword1">File Name</label>
+              <input type="file" class="form-control" formControlName="image" (change)="fileupload($event)">
+              <div *ngIf="fm.image.errors && fm.image.errors.required && isValidFormSubmittedModal"
+                class="text-danger text-left mb-1 errorcontrols">
+                <div *ngIf="fm.image.errors.required"><small>file is required.</small></div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputPassword1">Validity</label>
+              <input type="date" class="form-control" formControlName="validity">
+              <div *ngIf="fm.validity.errors && fm.validity.errors.required && isValidFormSubmittedModal"
+                class="text-danger text-left mb-1 errorcontrols">
+                <div *ngIf="fm.validity.errors.required"><small>validity is required.</small></div>
+              </div>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+
+            <button type="cancel" class=" bt light upbt" data-dismiss="modal" #closebutton>Cancel</button>
+            <button type="submit" class=" bt danger upbt" [disabled]="isValidbuttonModal">Save</button>
+          </div>
+        </form>
       </div>
-      <form [formGroup]="goalModalform" role="form" (ngSubmit)="onModalFormSubmit()">
-      <div class="modal-body">
-
-          <div class="form-group">
-            <label for="exampleInputEmail1">Document Type</label>
-
-            <select class="form-control" formControlName="document_type">
-              <option value="PO">PO</option>
-              <option value="Agreement">Agreement</option>
-              <option value="MOU">MOU</option>
-              <option value="Work Order">Work Order</option>
-            </select>
-            <div *ngIf="fm.document_type.errors && fm.document_type.errors.required && isValidFormSubmittedModal"
-              class="text-danger text-left mb-1 errorcontrols">
-              <div *ngIf="fm.document_type.errors.required"><small>document type is required.</small></div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1">Document No</label>
-            <input type="text" class="form-control" placeholder="Enter Document No" formControlName="document_no">
-            <div *ngIf="fm.document_no.errors && fm.document_no.errors.required && isValidFormSubmittedModal"
-              class="text-danger text-left mb-1 errorcontrols">
-              <div *ngIf="fm.document_no.errors.required"><small>document no is required.</small></div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="exampleInputPassword1">File Name</label>
-            <input type="file" class="form-control" formControlName="image" (change)="fileupload($event)">
-            <div *ngIf="fm.image.errors && fm.image.errors.required && isValidFormSubmittedModal"
-              class="text-danger text-left mb-1 errorcontrols">
-              <div *ngIf="fm.image.errors.required"><small>file is required.</small></div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="exampleInputPassword1">Validity</label>
-            <input type="date" class="form-control" formControlName="validity">
-            <div *ngIf="fm.validity.errors && fm.validity.errors.required && isValidFormSubmittedModal"
-              class="text-danger text-left mb-1 errorcontrols">
-              <div *ngIf="fm.validity.errors.required"><small>validity is required.</small></div>
-            </div>
-          </div>
-
-      </div>
-      <div class="modal-footer">
-
-        <button type="cancel" class=" bt light upbt" data-dismiss="modal" #closebutton>Cancel</button>
-        <button type="submit" class=" bt danger upbt" [disabled]="isValidbuttonModal">Save</button>
-      </div>
-      </form>
-
     </div>
   </div>
-</div>
-<!-- mode end -->

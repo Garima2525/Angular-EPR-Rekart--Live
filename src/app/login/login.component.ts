@@ -4,7 +4,7 @@ import {AuthService} from '../service/auth.service'
 import {TosterService} from '../service/toster.service'
 // import Swal from 'sweetalert2/dist/sweetalert2.js'
 import { Router } from '@angular/router';
-
+import { NgxSpinnerService } from "ngx-spinner";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -23,11 +23,13 @@ export class LoginComponent implements OnInit {
   constructor(private fb:FormBuilder,
     private auth:AuthService,
     private toast:TosterService,
-    private router:Router
+    private router:Router,
+    private spinner: NgxSpinnerService
     ) { }
 
 
   SubmitLogin():void{
+    this.spinner.show();
     this.checkoutForm.valid?
     this.auth.loginUser(this.checkoutForm.value).subscribe((user:any)=>{
       if(user.status===200){
@@ -35,13 +37,16 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('username',user.results.username)
         localStorage.setItem('user',user.results.email)
         setTimeout(() => {
+          this.spinner.hide();
         this.router.navigate(['/order-list'])
         }, 1500);
       }
       else if(user.status===404){
+        this.spinner.hide();
         this.toast.showError(user.message)
       }
       if(user.status===401){
+        this.spinner.hide();
         this.toast.showError(user.message)
       }
       
@@ -66,7 +71,9 @@ export class LoginComponent implements OnInit {
 
 
   CheckEmail(usertype:any): void {
+    this.spinner.show();
     this.checkoutForm.valid?
+
     this.auth.CheckEmail(this.checkoutForm.value).subscribe((user:any)=>{
       if(user.status===200){
         
@@ -85,15 +92,18 @@ export class LoginComponent implements OnInit {
               }
             })
           }else if(usertype=="password"){
+            this.spinner.hide();
             this.displaypassword=true
           }
         }, 1500);
         // alert(user.message)
       }
       else if(user.status===404){
+        this.spinner.hide();
         this.toast.showError(user.message)
       }
       if(user.status===401){
+        this.spinner.hide();
         this.toast.showError(user.message)
       }
       

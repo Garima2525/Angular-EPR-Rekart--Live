@@ -377,7 +377,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+ <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document" style="width: 30%;">
     <div class="modal-content">
@@ -389,7 +389,23 @@
       <div class="modal-body">
 
           <div class="form-group">
-            <label for="exampleInputEmail1">Document Type</label>
+            <!-- <label >Document Type</label> -->
+<input type="hidden" class="form-control" formControlName="document_type">
+            <!-- <select class="form-control" formControlName="document_type">
+              <option value="PO">PO</option>
+              <option value="Agreement">Agreement</option>
+              <option value="MOU">MOU</option>
+              <option value="Work Order">Work Order</option>
+            </select> -->
+            <!-- <div *ngIf="fm.document_type.errors && fm.document_type.errors.required && isValidFormSubmittedModal"
+              class="text-danger text-left mb-1 errorcontrols">
+              <div *ngIf="fm.document_type.errors.required"><small>document type is required.</small></div>
+            </div> -->
+          </div>
+
+
+          <div class="form-group">
+            <label >Document Type</label>
 
             <select class="form-control" formControlName="document_type">
               <option value="PO">PO</option>
@@ -439,5 +455,6 @@
 
     </div>
   </div>
-</div>
+</div> 
 <!-- mode end -->
+

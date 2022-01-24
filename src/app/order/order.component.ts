@@ -105,13 +105,13 @@ export class OrderComponent implements OnInit {
     if (e.target.value > 0) {
       this.materialInfo[i][name] = e.target.value;
       this.materialInfo[i].sub_total =
-        parseInt(this.materialInfo[i].collection_Qty) *
-        parseInt(this.materialInfo[i].net_unit_price);
+      parseFloat(this.materialInfo[i].collection_Qty) *
+        parseFloat(this.materialInfo[i].net_unit_price);
     } else {
       this.materialInfo[i][name] = 0;
       this.materialInfo[i].sub_total =
-        parseInt(this.materialInfo[i].collection_Qty) *
-        parseInt(this.materialInfo[i].net_unit_price);
+      parseFloat(this.materialInfo[i].collection_Qty) *
+      parseFloat(this.materialInfo[i].net_unit_price);
     }
     this.materialInfo.map((item: any, i: any) => {
       if (item.material_name == ''|| item.material_name == null )

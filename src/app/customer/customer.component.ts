@@ -191,7 +191,7 @@ export class CustomerComponent implements OnInit {
       this.Customerform.value.com_state = this.c_states;
       this.Customerform.value.com_country = this.c_country;
       this.Customerform.value.user_id = this.login_id;
-      this.Customerform.value.pan=this.display;
+      this.Customerform.value.pan_no=this.display;
       this.customerService
         .submitForm(this.Customerform.value)
         .subscribe((resdata: any) => {

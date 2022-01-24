@@ -72,6 +72,7 @@ import { AddCertificateComponent } from './add-certificate/add-certificate.compo
 import { EditOrderPoComponent } from './edit-order-po/edit-order-po.component';
 import { EditTargetComponent } from './edit-target/edit-target.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { NgxSpinnerModule } from 'ngx-spinner';
 @NgModule({
   declarations: [
     AppComponent,
@@ -147,7 +148,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     // }),
     CarouselModule ,
     FormsModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    NgxSpinnerModule
   ],
   providers: [
     {

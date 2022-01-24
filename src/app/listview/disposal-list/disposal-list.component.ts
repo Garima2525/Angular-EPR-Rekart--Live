@@ -126,6 +126,16 @@ export class DisposalListComponent implements OnInit {
             operator: "contains",
             value: inputValue,
           },
+          {
+            field: "state",
+            operator: "contains",
+            value: inputValue,
+          },
+          {
+            field: "city",
+            operator: "contains",
+            value: inputValue,
+          },
         ],
       },
     }).data;

@@ -299,14 +299,7 @@
 
               <div class="panel-body">
 
-                <div class="col-md-4 form-group">
-                  <label>PAN No </label>
-                  <input type="text" class="form-control " placeholder="Enter PAN No " formControlName="pan_no">
-                  <div *ngIf="f.pan_no.touched && f.pan_no.invalid && isValidFormSubmitted"
-                    class="text-danger text-left mb-1 errorcontrols">
-                    <div *ngIf="f.pan_no.invalid"><small>Invalid Pan Number.</small></div>
-                  </div>
-                </div>
+              
 
                 <div class="col-md-4 form-group">
                   <label>MSME NO </label>
@@ -317,7 +310,7 @@
                   <label>CIN No</label>
                   <input type="text" class="form-control " placeholder="Enter CIN No" formControlName="cin_no">
                 </div>
-                <div class="clearfix"></div>
+                
                 <div class="col-md-4 form-group">
                   <label>GST No </label>
                   <input type="text" class="form-control " placeholder="Enter GST No" formControlName="gst_no" #box (keyup)="getval(box.value)">
@@ -326,15 +319,23 @@
                     <div *ngIf="f.gst_no.invalid"><small>Invalid GST Number.</small></div>
                   </div>
                 </div>
-
+                <div class="clearfix"></div>
                 <div class="col-md-4 form-group">
+                  <label>PAN No </label>
+                  <input type="text" class="form-control validator" placeholder="Enter PAN No " formControlName="pan_no"  value="{{display}}">
+                  <div *ngIf="f.pan_no.touched && f.pan_no.invalid && isValidFormSubmitted"
+                    class="text-danger text-left mb-1 errorcontrols">
+                    <div *ngIf="f.pan_no.invalid"><small>Invalid Pan Number.</small></div>
+                  </div>
+                </div>
+                <!-- <div class="col-md-4 form-group">
                   <label>Pan</label>
                   <input type="text"  class="form-control validator" placeholder="Enter PAN" formControlName="pan"  value="{{display}}" >
                   <div *ngIf="f.Pan.touched && f.Pan.invalid && isValidFormSubmitted"
                     class="text-danger text-left mb-1 errorcontrols">
                     <div *ngIf="f.Pan.invalid"><small>Invalid Pan Number.</small></div>
                   </div>
-                </div>
+                </div> -->
 
 
 
