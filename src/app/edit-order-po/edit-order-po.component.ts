@@ -36,16 +36,8 @@ export class EditOrderPoComponent implements OnInit {
   POform!: FormGroup;
   login_id: any;
   statedata: any;
-  last_name:any
-  first_name:any
   districtdata: any;
-  industry_type:any
-  organization_name:any
   saveas: any;
-  pan_no:any
- 
-  mobile:any
-  phone:any
   saveasnew: any;
   material:any;
   isValidFormSubmitted: any;
@@ -71,8 +63,7 @@ export class EditOrderPoComponent implements OnInit {
   customer_id: any='';
   materialerror: any = [{ material_name :false,state:false,qty:false,targetdate:false,price:false}];
   materialstatus: any = false
-  selectedItemtt : any ;
-  cid:any
+  selectedItemtt : any = [];
   ngOnInit(): void {
     this.pId=  this._Activatedroute.snapshot.paramMap.get('id');
     this.Auth.userLoggedIn().subscribe((logindata: any) => {
@@ -104,35 +95,16 @@ export class EditOrderPoComponent implements OnInit {
       console.log(data.result[0]);
       this.forminit(data.result[0]);
       this.po_id = data.result[0].PO_id;
-      this.cid = data.result[0].customer_id;
-      console.log(this.cid,'dfdfdfgfhghg');
-      
       this.po_is_edit = data.result[0].is_edit;
       this.ccattachments =data.result[0].attachments == null? this.ccattachments : data.result[0].attachments;
      this.materialInfo = data.result[0].materials;
       console.log(this.materialInfo);
     this.remark=data.result[0].remark;
-    console.log(this.remark);
+    console.log(this.remark,"------------>REMARK");
       console.log(this.materialerror);
-     
-      this.Cust.getcustomerbyid(data.result[0].customer_id).subscribe((cdata: any) => {
-        console.log(cdata);
-      
-        this.selectedItemtt=cdata.result
-        this.industry_type=cdata.result[0].industry_type
-        this.first_name=cdata.result[0].first_name
-        this.last_name=cdata.result[0].last_name
-        this.mobile=cdata.result[0].mobile
-        this.pan_no=cdata.result[0].pan_no
-        this.phone=cdata.result[0].phone
-
-        console.log(this.industry_type,);
-        
-        console.log(this.selectedItemtt,'data');
-        
-      
-      
-      })
+      this.selectedItemtt=data.result[0].customer_data
+      console.log(this.selectedItemtt);
+      this.onItemSelect(data.result[0].customer_data[0])
     });
     
 
@@ -148,8 +120,6 @@ onItemSelect(item: any) {
     this.Cust.getcustomerbyid(item._id).subscribe((cdata: any) => {
       console.log(cdata);
       this.customerdata = cdata.result[0];
-      console.log(this.customerdata,'->wana');
-      
     });
   }
 
@@ -157,13 +127,13 @@ onchange(e: any, i: any, name: any) {
     if (e.target.value > 0) {
       this.materialInfo[i][name] = e.target.value;
       this.materialInfo[i].sub_total =
-      parseFloat(this.materialInfo[i].collection_Qty) *
-      parseFloat(this.materialInfo[i].net_unit_price);
+        parseInt(this.materialInfo[i].collection_Qty) *
+        parseInt(this.materialInfo[i].net_unit_price);
     } else {
       this.materialInfo[i][name] = 0;
       this.materialInfo[i].sub_total =
-      parseFloat(this.materialInfo[i].collection_Qty) *
-      parseFloat(this.materialInfo[i].net_unit_price);
+        parseInt(this.materialInfo[i].collection_Qty) *
+        parseInt(this.materialInfo[i].net_unit_price);
     }
     this.materialInfo.map((item: any, i: any) => {
       if (item.material_name == ''|| item.material_name == null )
@@ -259,7 +229,6 @@ onchange(e: any, i: any, name: any) {
       document_no: ['', Validators.required],
       image: ['', Validators.required],
       validity: ['', Validators.required],
-      
     });
   }
   onModalFormSubmit() {
@@ -295,8 +264,6 @@ forminit(podata:any) {
       attachments: '',
     });
 }
-
-
 
   getdistrict(e: any) {
     console.log(e.target.value);
@@ -451,4 +418,11 @@ forminit(podata:any) {
     this.ccattachments.splice(i, 1);
     console.log(this.ccattachments);
   }
+  getValues(e:any,field:any){
+    this.POform.value[field]=e.target.value;
+  }
+  getValuesChange(e:any,field:any){
+    this.POform.value[field]=e.target.value;
+  }
+
 }

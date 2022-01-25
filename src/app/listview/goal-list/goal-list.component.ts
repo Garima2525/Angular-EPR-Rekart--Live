@@ -12,6 +12,7 @@ import { UserService } from 'src/app/service/user.service';
   styleUrls: ['./goal-list.component.css']
 })
 export class GoalListComponent implements OnInit {
+  [x: string]: any;
 
   @ViewChild(DataBindingDirective) dataBinding!: DataBindingDirective;
   constructor(
@@ -79,5 +80,12 @@ export class GoalListComponent implements OnInit {
 
     this.dataBinding.skip = 0;
   }
+delete(id:any){
+console.log(id,'fdgfd');
 
+// this.collection.splice(data)
+this.target.deletetarget(id).subscribe((data)=>{
+  console.log('true')
+})
+}
 }

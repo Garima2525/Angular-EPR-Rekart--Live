@@ -32,9 +32,9 @@
                 <div class="col-md-4 form-group">
                   <label>State : </label>
 
-                  <select class="form-control"  (change)="[getdistrict($event),getRecords($event,'state')]">
+                  <select class="form-control"  (change)="[getdistrict($event),getRecords($event,'state')]"  formControlName="state">
                     <option value="">Select State</option>
-                  <option *ngFor="let obj of statedata" value="{{state}}"> {{obj}} </option>
+                  <option *ngFor="let obj of statedata" value="{{obj}}"> {{obj}} </option>
                   </select>
                 </div>
               

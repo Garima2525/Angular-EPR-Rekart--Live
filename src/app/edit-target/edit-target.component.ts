@@ -107,6 +107,8 @@ export class EditTargetComponent implements OnInit {
     title = 'angular';
   ngOnInit(): void {
     this.TId=  this._Activatedroute.snapshot.paramMap.get('id');
+  
+    
     this.Auth.userLoggedIn().subscribe((logindata: any) => {
       console.log(logindata);
       this.login_id = logindata.result._id;
@@ -246,8 +248,9 @@ export class EditTargetComponent implements OnInit {
       this.targetForm.value.target_duration = this.targetDuration;
       this.targetForm.value.attachments = this.goalattachments;
       console.log(this.targetForm, 'true');
-      this.target.targetupdatebyid(this.targetForm.value).subscribe((data) => {
+      this.target.targetupdatebyid(this.TId,this.targetForm.value).subscribe((data) => {
         console.log(data);
+      
         this.toast.showSuccess(
           'Congratulation!, Target has been created.'
         );

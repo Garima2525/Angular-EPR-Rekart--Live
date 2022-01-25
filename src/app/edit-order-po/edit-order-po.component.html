@@ -237,7 +237,7 @@
 
                 <div class="col-md-12 form-group">
 
-                  <input type="text" class="form-control" placeholder="Remark" formControlName="remark" value="{{remark}}">
+                  <input type="text" class="form-control" placeholder="Remark" formControlName="remark" value="{{remark}}"  (input)="getValues($event,'remark')">
                 </div>
 
 

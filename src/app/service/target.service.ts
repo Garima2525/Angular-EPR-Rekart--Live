@@ -52,7 +52,18 @@ export class TargetService {
     return this.http.get(api_url,httpOptions)
   }
 
-  targetupdatebyid(id: any) {
+  // targetupdatebyid(id: any) {
+  //   let api_url = this.base_url + 'targetupdatebyid/' + id;
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({
+  //       'content-type': 'application/json;charset=UTF-8',
+  //       apikey: '8GWF6J1-WVG40Q4-HBWGNVY-9VXTXQ8',
+  //     }),
+  //   };
+  //   return this.http.get(api_url, httpOptions);
+  // }
+
+  targetupdatebyid(id:any,data: any) {
     let api_url = this.base_url + 'targetupdatebyid/' + id;
     const httpOptions = {
       headers: new HttpHeaders({
@@ -60,9 +71,21 @@ export class TargetService {
         apikey: '8GWF6J1-WVG40Q4-HBWGNVY-9VXTXQ8',
       }),
     };
-    return this.http.get(api_url, httpOptions);
+    return this.http.post(api_url, data, httpOptions);
   }
 
+
+
+  deletetarget(id: any){
+    let api_url=this.base_url+'deletetarget/' + id;
+    const httpOptions={
+      headers:new HttpHeaders({
+        'content-type': 'application/json;charset=UTF-8',
+        apikey: '8GWF6J1-WVG40Q4-HBWGNVY-9VXTXQ8',
+      }),
+    }
+    return this.http.get(api_url,httpOptions)
+  }
   getRecordBox(data: any) {
     let api_url = this.base_url+ 'targetRecords/';
     const httpOptions = {
