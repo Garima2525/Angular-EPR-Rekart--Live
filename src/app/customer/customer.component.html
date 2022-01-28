@@ -26,22 +26,78 @@
                   <label> Customer ID  <span class="text-theme">*</span></label>
                   <input type="text" class="form-control" formControlName="customer_id" readonly>
                 </div>
+
                 <div class="col-md-4 form-group">
-                  <label>Industry Type <span class="text-theme">*</span> </label>
+                  <label >Created by <span class="text-danger">*</span>  </label>
+                
+                  <!-- <input type="text" class="form-control" formControlName="create_by" readonly value="{{currentUser}}"> -->
+                    <ng-multiselect-dropdown
+                    [placeholder]="'Select a User'"
+                    [settings]="ownerDropdownSettings"
+                    [(ngModel)]="selectedUser"
+                    [data]="users"
+                 
+                    formControlName="created_by"
+                    (onSelect)="handleOwnerChange($event)"
+                    >
+                  </ng-multiselect-dropdown>
+                </div>
+
+
+                <div class="col-md-4 form-group">
+                  <label>Industry Type </label>
                   <select class="form-control" formControlName="industry_type">
                     <option value="">select Industry Type </option>
+                    
+                    <option value="AGRICULTURE AND ALLIED INDUSTRIES">AGRICULTURE AND ALLIED INDUSTRIES</option>
+                    <option value="AUTOMOBILES">AUTOMOBILES</option>
+                    <option value="AUTO COMPONENTS">AUTO COMPONENTS</option>
+                    <option value="AVIATION">AVIATION</option>
+                    <option value="BANKING">BANKING</option>
+                    <option value="BIOTECHNOLOGY">BIOTECHNOLOGY</option>
                     <option value="CEMENT">CEMENT</option>
                     <option value="CHEMICALS">CHEMICALS</option>
+                    <option value="CONSUMER DURABLES">CONSUMER DURABLES</option>
+                    <option value="DEFENCE MANUFACTURING">DEFENCE MANUFACTURING</option>
+                    <option value="E-COMMERCE">E-COMMERCE</option>
+                    <option value="EDUCATION AND TRAINING">EDUCATION AND TRAINING</option>
+                    <option value="ELECTRONICS SYSTEM DESIGN & MANUFACTURING">ELECTRONICS SYSTEM DESIGN & MANUFACTURING</option>
+                    <option value="ENGINEERING AND CAPITAL GOODS">ENGINEERING AND CAPITAL GOODS</option>
+                    <option value="FINANCIAL SERVICES">FINANCIAL SERVICES</option>
                     <option value="FMCG">FMCG</option>
+                    <option value="GEMS AND JEWELLERY">GEMS AND JEWELLERY</option>
+                    <option value="HEALTHCARE">HEALTHCARE</option>
+                    <option value="INFRASTRUCTURE">INFRASTRUCTURE</option>
+                    <option value="INSURANCE">INSURANCE</option>
+                    <option value="IT & BPM">IT & BPM</option>
+                    <option value="MANUFACTURING">MANUFACTURING</option>
+                    <option value="MEDIA AND ENTERTAINMENT">MEDIA AND ENTERTAINMENT</option>
+                    <option value="MEDICAL DEVICES">MEDICAL DEVICES</option>
+                    <option value="METALS AND MINING">METALS AND MINING</option>
+                    <option value="MSME">MSME</option>
+                    <option value="OIL AND GAS">OIL AND GAS</option>
+                    <option value="PHARMACEUTICALS">PHARMACEUTICALS</option>
+                    <option value="PORTS">PORTS</option>
+                    <option value="POWER">POWER</option>
                     <option value="RAILWAYS">RAILWAYS</option>
-                    <option value="BIOTECHNOLOGY">BIOTECHNOLOGY</option>
+                    <option value="REAL ESTATE">REAL ESTATE</option>
+                    <option value="RENEWABLE ENERGY">RENEWABLE ENERGY</option>
+                    <option value="RETAIL">RETAIL</option>
+                    <option value="ROADS">ROADS</option>
+                    <option value="SCIENCE AND TECHNOLOGY">CIENCE AND TECHNOLOGY</option>
+                    <option value="SERVICES">SERVICES</option>
+                    <option value="STEEL">STEEL</option>
+                    <option value="TELECOMMUNICATIONS">TELECOMMUNICATIONS</option>
+                    <option value="TEXTILES">TEXTILES</option>
+                    <option value="TOURISM AND HOSPITALITY">TOURISM AND HOSPITALITY</option>
+                    <option value="OTHER">OTHER</option>
                   </select>
 
-                  <div *ngIf="f.industry_type.errors && f.industry_type.errors.required && isValidFormSubmitted"
+                  <!-- <div *ngIf="f.industry_type.errors && f.industry_type.errors.required && isValidFormSubmitted"
                     class="text-danger text-left mb-1 errorcontrols">
                     <div *ngIf="f.industry_type.errors.required"><small>Industry is required.</small></div>
 
-                  </div>
+                  </div> -->
                 </div>
                 <div class="col-md-4 form-group">
                   <label> Organization Name <span class="text-theme">*</span></label>

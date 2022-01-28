@@ -11,6 +11,7 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { CustomerService } from '../service/customer.service';
 import { PoService } from '../service/po.service';
 import Swal from 'sweetalert2';
+import { UserService } from '../service/user.service';
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
@@ -24,6 +25,12 @@ export class OrderComponent implements OnInit {
   districtdata: any;
   saveas: any;
   saveasnew: any;
+  OwnerId:any
+  selectedUser:any
+  currentUser:any
+  users:any
+  Owner:any
+  ownerDropdownSettings={}
   isValidFormSubmitted: any;
   isValidbutton: any;
   ccattachments: any = [];
@@ -52,19 +59,38 @@ export class OrderComponent implements OnInit {
     private Route: Router,
     private Attach: AttachmentService,
     private Cust: CustomerService,
-    private Porder:PoService
+    private Porder:PoService,
+    private user:UserService
   ) {}
 
   ngOnInit(): void {
     this.uniqid = Math.floor(Math.random() * 100000);
-    this.Auth.userLoggedIn().subscribe((logindata: any) => {
-      // console.log(logindata);
-      this.login_id = logindata.result._id;
-    });
+    this.Auth.userLoggedIn().subscribe((logindata:any)=>{
+      console.log(logindata);
+      // this.login_id=logindata.result._id
+
+      this.currentUser=logindata.result.username
+      console.log(this.currentUser,'user');
+      
+      this.login_id=logindata.result._id
+      this.selectedUser=[logindata.result]
+    })
     this.Cust.getcustomer().subscribe((data: any) => {
       // console.log(data)
       this.Customers = data.result;
     });
+    this.user.getalluser().subscribe((data:any)=>{
+      console.log(data)
+      this.users=data.result
+    })
+    this.ownerDropdownSettings={
+      singleSelection: true,
+      idField: '_id',
+      textField: 'username',
+      noDataAvailablePlaceholderText:'No User Found!',
+      closeDropDownOnSelection:true,
+      allowSearchFilter: false
+    }
     this.selectedItem = '';
     this.dropdownSettings = {
       idField: '_id',
@@ -210,6 +236,7 @@ export class OrderComponent implements OnInit {
       materials: '',
       remark: '',
       attachments: '',
+      created_by:this.currentUser,
     });
   }
 
@@ -292,6 +319,7 @@ export class OrderComponent implements OnInit {
       this.POform.value.attachments = this.ccattachments;
       this.POform.value.customer_id = this.customer_id;
       this.POform.value.materials = this.materialInfo;
+      this.POform.value.created_by=this.currentUser
       if(this.customer_id!='' && this.POform.value.customer_id!='' && count==0){
         console.log(this.POform.value);
         this.Porder.saveulb(this.POform.value).subscribe((data) => {
@@ -394,4 +422,10 @@ export class OrderComponent implements OnInit {
     this.ccattachments.splice(i, 1);
     console.log(this.ccattachments);
   }
+  handleOwnerChange(e:any){
+    console.log(e)
+    this.Owner=e.username
+    this.OwnerId=e._id
+   // this.leadOwner=e.target.value.split(',')[0]
+ }
 }

@@ -13,6 +13,7 @@ import { UlbserviceService } from '../service/ulbservice.service';
 import { CollectioncenterserviceService } from '../service/collectioncenterservice.service';
 import Swal from 'sweetalert2';
 import { TranporterserviceService } from '../service/tranporterservice.service';
+import { UserService } from '../service/user.service';
 @Component({
   selector: 'app-disposal-execution',
   templateUrl: './disposal-execution.component.html',
@@ -20,15 +21,25 @@ import { TranporterserviceService } from '../service/tranporterservice.service';
 })
 export class DisposalExecutionComponent implements OnInit {
   
-
+  currentUser:any
   uniqid: any;
   disposalexecutionform!: FormGroup;
   login_id: any;
   statedata: any;
   districtdata: any;
   saveas: any;
+  disabled = false;
   saveasnew: any;
+  mobile:any=''
+  selectedUser:any
+  ownerDropdownSettings={}
+  t_id:any;
+  selecteddata:any={}
   todayDate:any;
+  OwnerId:any
+  Owner:any
+ 
+  TransporterDropdownSettings:any= {}
   isValidFormSubmitted: any;
   isValidbutton: any;
   ccattachments: any = [];
@@ -48,6 +59,7 @@ ammountInfo:any=[{
   ULBdata: any;
   DISdata: any;
   transporterdata:any
+  users: any;
   constructor(
     private disposalexecution: DisposalExecutionService,
     private CountryStateCityService: CountryStateCityService,
@@ -59,7 +71,9 @@ ammountInfo:any=[{
     private DisposalS: DisposalserviceService,
     private ULB:UlbserviceService,
     private CC:CollectioncenterserviceService,
-    private transporter:TranporterserviceService
+    private transporter:TranporterserviceService,
+   
+    private user:UserService
   ) {
    
    }
@@ -67,10 +81,16 @@ ammountInfo:any=[{
   ngOnInit(): void {
     this.todayDate = new Date();
     // this.uniqid = Math.floor(Math.random() * 100000);
-    this.Auth.userLoggedIn().subscribe((logindata: any) => {
+    this.Auth.userLoggedIn().subscribe((logindata:any)=>{
       console.log(logindata);
-      this.login_id = logindata.result._id;
-    });
+      // this.login_id=logindata.result._id
+
+      this.currentUser=logindata.result.username
+      console.log(this.currentUser,'user');
+      
+      this.login_id=logindata.result._id
+      this.selectedUser=[logindata.result]
+    })
     this.CountryStateCityService.getallstates().subscribe((data: any) => {
       // console.log(data.result);
       this.statedata = data.result;
@@ -96,6 +116,28 @@ ammountInfo:any=[{
 
     this.forminit();
     this.modalforminit();
+    this.user.getalluser().subscribe((data:any)=>{
+      console.log(data)
+      this.users=data.result
+    })
+    this.ownerDropdownSettings={
+      singleSelection: true,
+      idField: '_id',
+      textField: 'username',
+      noDataAvailablePlaceholderText:'No User Found!',
+      closeDropDownOnSelection:true,
+      allowSearchFilter: false
+    }
+    this.TransporterDropdownSettings = {
+      idField: '_id',
+      textField: 'transporter_name',
+      singleSelection: true,
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      allowSearchFilter: true,
+      closeDropDownOnSelection: true,
+    };
+
   }
 addinfo(e:any){
   e.preventDefault()
@@ -168,6 +210,7 @@ forminit() {
     disposal_material_weight:['', Validators.required],
     disposal_remark:'',
     attachments:'',
+    created_by:this.currentUser,
   });
 }
 modalforminit() {
@@ -214,8 +257,10 @@ onFormSubmit() {
     console.log(this.disposalexecutionform, 'true');
     this.isValidbutton = true;
     this.disposalexecutionform.value.user_id = this.login_id;
-    this.disposalexecutionform.value.attachments = this.ccattachments;
+    this.disposalexecutionform.value.attachments = this.ccattachments;  
     this.disposalexecutionform.value.payment = this.ammountInfo;
+    this.disposalexecutionform.value.created_by=this.currentUser
+    this.disposalexecutionform.value.mobile_no=this.mobile;
     this.disposalexecution.submitForm(this.disposalexecutionform.value).subscribe((data) => {
       console.log(data);
       this.toast.showSuccess(
@@ -282,5 +327,33 @@ deleteAttachment(i:any){
   console.log(i)
   this.ccattachments.splice(i, 1);
   console.log(this.ccattachments);
+}
+
+onItemSelect(item: any) {
+  console.log('onItemSelect', item);
+  this.t_id = item._id;
+
+  this.disposalexecutionform.value.customer_id = item._id;
+  this.transporter.getTransporterById(item._id).subscribe((cdata: any) => {
+    console.log(cdata);
+    this.transporterdata = cdata.result[0];
+    this.mobile=cdata.result[0].mobile;
+    console.log(this.mobile);
+    
+  });
+
+}
+
+
+
+
+
+
+
+handleOwnerChange(e:any){
+  console.log(e)
+  this.Owner=e.username
+  this.OwnerId=e._id
+ // this.leadOwner=e.target.value.split(',')[0]
 }
 }

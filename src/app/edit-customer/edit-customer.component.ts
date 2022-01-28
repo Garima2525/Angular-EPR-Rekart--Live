@@ -4,7 +4,10 @@ import { StateCityService } from '../service/state-city.service';
 import { CustomerService } from '../service/customer.service';
 import { TosterService } from '../service/toster.service';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { AuthService } from '../service/auth.service';
 import Swal from 'sweetalert2';
+import { UserService } from '../service/user.service';
 @Component({
   selector: 'app-edit-customer',
   templateUrl: './edit-customer.component.html',
@@ -23,7 +26,9 @@ export class EditCustomerComponent implements OnInit {
   district: any;
   country: any;
   todayDate:any;
+  currentUser:any
   uniqueId: any;
+  users:any
   pincodeerrorStatus = false;
   pincodeerrormsg: any;
   c_states: any;
@@ -40,14 +45,21 @@ export class EditCustomerComponent implements OnInit {
   customerId: any;
   customerdata:any;
   industry_type:any;
+  OwnerId:any
+  Owner:any
+  ownerDropdownSettings={}
   pan:any;
+  login_id: any;
+  selectedUser:any
   constructor(
     private form: FormBuilder,
     private pincode: StateCityService,
     private customerService: CustomerService,
     private Toaster: TosterService,
     private Route: Router,
-    private _Activatedroute: ActivatedRoute
+    private _Activatedroute: ActivatedRoute,
+    private Auth:AuthService,
+    private user:UserService
   ) {}
   check() {
     this.add1 = !this.toggle ? this.Customerform.value.reg_address1 : '';
@@ -101,7 +113,16 @@ export class EditCustomerComponent implements OnInit {
   ngOnInit(): void {
     this.todayDate = new Date();
     this.customerId=this._Activatedroute.snapshot.paramMap.get("id")
-  
+    this.Auth.userLoggedIn().subscribe((logindata:any)=>{
+      console.log(logindata);
+      // this.login_id=logindata.result._id
+
+      this.currentUser=logindata.result.username
+      console.log(this.currentUser,'user');
+      
+      this.login_id=logindata.result._id
+      this.selectedUser=[logindata.result]
+    })
     this.customerService.getcustomerbyid(this.customerId).subscribe((data:any)=>{
       this.forminit(data.result[0]);
       this.industry_type = data.result[0].industry_type;
@@ -111,11 +132,15 @@ export class EditCustomerComponent implements OnInit {
       console.log(this.pan)
       console.log(this.industry_type)
     });
+    this.user.getalluser().subscribe((data:any)=>{
+      console.log(data)
+      this.users=data.result
+    })
   }
   forminit(uni: any) {
     this.Customerform = this.form.group({
       customer_id: [uni.customer_id, Validators.required],
-      industry_type: [uni.industry_type, Validators.required],
+      industry_type: [uni.industry_type],
       organization_name: [uni.organization_name, Validators.required],
       title: uni.title,
       first_name: [uni.first_name, Validators.required],
@@ -160,6 +185,7 @@ export class EditCustomerComponent implements OnInit {
       spcb_registration: uni.spcb_registration,
       spcb_validity: uni.spcb_validity,
       remark: uni.remark,
+      
     });
   }
 
@@ -198,6 +224,7 @@ export class EditCustomerComponent implements OnInit {
       this.Customerform.value.com_state = this.c_states;
       this.Customerform.value.com_country = this.c_country;
       this.Customerform.value.pan_no=this.display;
+      this.Customerform.value.created_by=this.currentUser
       this.customerService
         .updateForm(this.customerId,this.Customerform.value)
         .subscribe((resdata: any) => {
@@ -240,4 +267,5 @@ export class EditCustomerComponent implements OnInit {
     // this.display=display
 this.display = val.slice(2,12)
   }
+
 }

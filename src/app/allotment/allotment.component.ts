@@ -63,8 +63,13 @@ export class AllotmentComponent implements OnInit {
           this.allPO.record.map((iten: any) => {
             if(iten.material[0]===this.podata.materialAllot){
               this.totalmaterialqty = iten.qty;
+              console.log(this.totalmaterialqty);
+              
               this.totalmaterialqtyachieved = iten.achieved?iten.achieved:0;
               this.totalbalances=parseInt(this.totalmaterialqty)-parseInt(this.totalmaterialqtyachieved);
+       
+          
+             
             }
             
           });
@@ -87,6 +92,8 @@ export class AllotmentComponent implements OnInit {
     this.Allotserver.getDisposal(ddata).subscribe((disposeddata: any) => {
       console.log(disposeddata.podata);
       this.disposalallotment = disposeddata.podata;
+     
+      
       if (this.disposalallotment.length != 0) {
         this.disposalallotment.map((item: any, i: any) => {
           this.textreadonly[i] = false;
@@ -98,6 +105,8 @@ export class AllotmentComponent implements OnInit {
         });
         
         this.collectionQty = collection_Qty;
+  
+        
         this.achievedQty = achieved_qties;
         this.poMaterialId = pordermaterialid;
       } else {
@@ -199,7 +208,7 @@ export class AllotmentComponent implements OnInit {
       ]).subscribe((result: any) => {
         this.Toaster.showSuccess('Allotment Saved.');
          window.location.reload();
-       
+         
       });
     }
   }

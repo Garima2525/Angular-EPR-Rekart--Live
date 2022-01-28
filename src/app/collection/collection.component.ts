@@ -102,7 +102,7 @@ export class CollectionComponent implements OnInit {
       collection_district: ['', Validators.required],
       address: [''],
       collection_ulb: ['',Validators.required],
-      type_collection_center: ['', Validators.required],
+      type_collection_center: ['',],
       latitude: '',
       longitude: '',
       title: '',

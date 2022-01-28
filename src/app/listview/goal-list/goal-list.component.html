@@ -34,7 +34,15 @@
       <kendo-grid-spacer></kendo-grid-spacer>
       
       </ng-template>
-      
+      <kendo-grid-column field="Created By" title="Created By" [width]="100">
+        <ng-template kendoGridCellTemplate let-dataItem>
+         
+        <div class="target_id text-theme">{{dataItem.created_by}}</div>
+         
+      </ng-template>
+
+
+      </kendo-grid-column>
       
         <kendo-grid-column field="Target Name" title="Target Name" [width]="100">
           <ng-template kendoGridCellTemplate let-dataItem>
@@ -87,9 +95,10 @@
        <ng-template kendoGridCellTemplate let-target>
         <kendo-menu>
           <kendo-menu-item icon="gear">
-            <kendo-menu-item text="Edit" url="/edit-target/{{target._id }}" icon="edit"> </kendo-menu-item>
+            <!-- <kendo-menu-item text="Edit" url="/edit-target/{{target._id }}" icon="edit"> </kendo-menu-item> -->
+            <kendo-menu-item text="Edit"  icon="edit"> </kendo-menu-item>
             <kendo-menu-item text="Details" *ngIf="this.userPermission.targetedit" url="/targetview/{{ target._id }}" icon="info"> </kendo-menu-item>
-            <kendo-menu-item text="Delete"   icon="delete" (click)="delete(target._id)"> </kendo-menu-item>
+            <!-- <kendo-menu-item text="Delete"   icon="delete" (click)="delete(target._id)"> </kendo-menu-item> -->
           </kendo-menu-item>
          
         </kendo-menu>

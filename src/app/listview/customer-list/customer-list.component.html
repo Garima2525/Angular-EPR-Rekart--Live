@@ -34,14 +34,24 @@
 
    
 
-  <kendo-grid-column  title="Customer Details" [width]="100">
+  <kendo-grid-column  title="ID" [width]="100">
 
     <ng-template kendoGridCellTemplate let-dataItem>
       <div class="customer-name text-theme"># {{ dataItem.customer_id }}</div>
+      <div class="customer-name ">{{ dataItem.created_by }}</div>
+      <div class="cpcb_validity"><i _ngcontent-fcn-c561="" aria-hidden="true" class="fa fa-calendar-check-o" style="color: green;"></i>{{ dataItem.created_at |date:'dd-MM-yyyy'}} </div>
+    </ng-template>
+  </kendo-grid-column>
+
+  <kendo-grid-column  title="Customer Details" [width]="100">
+
+    <ng-template kendoGridCellTemplate let-dataItem>
+     
       <div class="industry_type">Industry  : {{ dataItem.industry_type }}</div>
       <div class="organization_name">Organization  :{{ dataItem.organization_name }}</div>
     </ng-template>
   </kendo-grid-column>
+
 
   <kendo-grid-column field="contact" title="Contact" [width]="100">
     <ng-template kendoGridCellTemplate let-dataItem>

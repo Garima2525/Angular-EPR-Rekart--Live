@@ -66,19 +66,19 @@
                 </div>
 
                 <div class="col-md-4 form-group">
-                  <label>Type of Collection Center  <span class="text-theme">*</span> </label>
+                  <label>Type of Collection Center   </label>
                   <select class="form-control" formControlName="type_collection_center">
                     <option value="">Choose Center</option>
                     <option value="Private">Private</option>
                     <option value="Government">Government</option>
                     <option value="Third Party">Third Party</option>
                   </select>
-                  <div
+                  <!-- <div
                     *ngIf="f.type_collection_center.errors && f.type_collection_center.errors.required && isValidFormSubmitted"
                     class="text-danger text-left mb-1 errorcontrols">
                     <div *ngIf="f.type_collection_center.errors.required"><small>Type of Collection Center is
                         required.</small></div>
-                  </div>
+                  </div> -->
                 </div>
                 <div class="clearfix"></div>
               </div>

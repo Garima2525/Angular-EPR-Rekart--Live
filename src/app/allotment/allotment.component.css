@@ -9,13 +9,14 @@ table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, 
 .t-div1{
     padding: 0px;
     margin: 0px;
-    border-top:1px solid gray;
-    border-bottom:1px solid gray;
-    border-left:1px solid gray;
-    border-right:none;
+    border-top:1px solid #CFDADD;
+    border-bottom:1px solid #CFDADD; 
+   border-left:1px solid #CFDADD;
+    border-right:none; 
 }
 .t-div2{
     padding: 0px;
     margin: 0px;
-    border:1px solid gray ;
+    border:1px solid #CFDADD ;
+      /* border-left:1px solid #CFDADD; */
 }

@@ -16,9 +16,8 @@
 <div class="col-sm-12"style="margin-top: 1%;margin-bottom: 1%;">
  
   <div class="col-sm-3" style="padding: 0px;margin: 0px;">
-    <b>Serach by Organization</b>
     <select class="form-control" name="serach" [(ngModel)]="searchTextor">
-     <!-- <option selected disabled  >Serach by Organization</option> -->
+     <option value=""  >All Organization</option>
      <option *ngFor="let objcus of Customers" value={{objcus._id}} >{{objcus.organization_name}}  </option>
      
       <!-- <option>Serach by Organization </option>
@@ -50,6 +49,7 @@
     <tr *ngFor="let pod of podata | filter:searchTextor |filter:searchText">
       <td>
         <span class=" text-theme"># {{ pod.PO_id }}</span><br>
+        <span >{{ pod.created_by }}</span><br>
         <span class="poDateClass"><i _ngcontent-fcn-c561="" aria-hidden="true" class="fa fa-calendar-check-o" style="color: green;"></i> {{ pod.created_at|date: 'dd-MM-yyyy' }}</span>
       </td>
       <td>

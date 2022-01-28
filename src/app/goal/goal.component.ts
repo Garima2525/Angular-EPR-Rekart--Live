@@ -10,6 +10,7 @@ import { TargetService } from '../service/target.service';
 import { TosterService } from '../service/toster.service';
 import { AttachmentService } from '../service/attachment.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { UserService } from '../service/user.service';
 @Component({
   selector: 'app-goal',
   templateUrl: './goal.component.html',
@@ -63,10 +64,16 @@ export class GoalComponent implements OnInit {
   statesdata: any;
   statename: any;
   uniqueId: any;
+  currentUser:any
   isValidFormSubmitted: any;
   isValidFormSubmittedModal: any;
   saveas: any;
+  selectedUser:any
+  users:any
   saveasnew: any;
+  OwnerId:any
+  Owner:any
+  ownerDropdownSettings={}
   isValidbutton: any;
   isValidbuttonModal: any;
   login_id: any;
@@ -96,12 +103,17 @@ export class GoalComponent implements OnInit {
       private Route: Router,
       private Attach: AttachmentService,
       private router:Router,
+      private user:UserService
     ) {}
     title = 'angular';
   ngOnInit(): void {
     this.Auth.userLoggedIn().subscribe((logindata: any) => {
       console.log(logindata);
-      this.login_id = logindata.result._id;
+      this.currentUser=logindata.result.username
+      console.log(this.currentUser,'user');
+      
+      this.login_id=logindata.result._id
+      this.selectedUser=[logindata.result]
     });
     this.CountryStateCityService.getallstates().subscribe((data: any) => {
       console.log(data.result);
@@ -109,6 +121,18 @@ export class GoalComponent implements OnInit {
       this.onformInit()
       this.modalforminit();
     });
+     this.user.getalluser().subscribe((data:any)=>{
+      console.log(data)
+      this.users=data.result
+    })
+    this.ownerDropdownSettings={
+      singleSelection: true,
+      idField: '_id',
+      textField: 'username',
+      noDataAvailablePlaceholderText:'No User Found!',
+      closeDropDownOnSelection:true,
+      allowSearchFilter: false
+    }
   }
  
   addinfo(e: any) {
@@ -140,7 +164,8 @@ export class GoalComponent implements OnInit {
       state:'',
       user_id:'',
       target_info:'',
-      attachments:''
+      attachments:'',
+      created_by:this.currentUser,
     })
   }
 
@@ -240,6 +265,7 @@ export class GoalComponent implements OnInit {
       this.targetForm.value.target_name = this.targetname;
       this.targetForm.value.target_duration = this.targetDuration;
       this.targetForm.value.attachments = this.goalattachments;
+      this.targetForm.value.created_by=this.currentUser
       console.log(this.targetForm, 'true');
       this.target.submitForm(this.targetForm.value).subscribe((data:any) => {
         console.log(data);
@@ -415,6 +441,11 @@ export class GoalComponent implements OnInit {
   }
 
  
-
+  handleOwnerChange(e:any){
+    console.log(e)
+    this.Owner=e.username
+    this.OwnerId=e._id
+  
+ }
   
 }

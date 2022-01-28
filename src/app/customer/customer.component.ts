@@ -6,6 +6,7 @@ import { TosterService } from '../service/toster.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import Swal from 'sweetalert2';
+import { UserService } from '../service/user.service';
 @Component({
   selector: 'app-customer',
   templateUrl: './customer.component.html',
@@ -18,13 +19,19 @@ export class CustomerComponent implements OnInit {
   Customerform!: FormGroup;
   add1: any;
   display:string=''
+  currentUser:any
   add2: any;
   add3: any;
+  OwnerId:any
+  Owner:any
+  ownerDropdownSettings={}
   states: any;
   district: any;
   country: any;
+  selectedUser:any
   uniqueId: any;
   todayDate:any;
+  users:any
   pincodeerrorStatus = false;
   pincodeerrormsg: any;
   c_states: any;
@@ -44,7 +51,8 @@ export class CustomerComponent implements OnInit {
     private customerService: CustomerService,
     private Toaster: TosterService,
     private Route: Router,
-    private Auth:AuthService
+    private Auth:AuthService,
+    private user:UserService
   ) {}
   check() {
     this.add1 = !this.toggle ? this.Customerform.value.reg_address1 : '';
@@ -99,16 +107,35 @@ export class CustomerComponent implements OnInit {
     this.todayDate = new Date();
     this.Auth.userLoggedIn().subscribe((logindata:any)=>{
       console.log(logindata);
+      // this.login_id=logindata.result._id
+
+      this.currentUser=logindata.result.username
+      console.log(this.currentUser,'user');
+      
       this.login_id=logindata.result._id
+      this.selectedUser=[logindata.result]
     })
     this.uniqueId = Math.random() * 100000;
     this.uniqueId = Math.floor(this.uniqueId);
     this.forminit(this.uniqueId);
+
+    this.user.getalluser().subscribe((data:any)=>{
+      console.log(data)
+      this.users=data.result
+    })
+    this.ownerDropdownSettings={
+      singleSelection: true,
+      idField: '_id',
+      textField: 'username',
+      noDataAvailablePlaceholderText:'No User Found!',
+      closeDropDownOnSelection:true,
+      allowSearchFilter: false
+    }
   }
   forminit(uni: any) {
     this.Customerform = this.form.group({
       customer_id: [uni, Validators.required],
-      industry_type: ['', Validators.required],
+      industry_type: [''],
       organization_name: ['', Validators.required],
       title: '',
       first_name: ['', Validators.required],
@@ -151,6 +178,7 @@ export class CustomerComponent implements OnInit {
       spcb_registration: '',
       spcb_validity: '',
       remark: '',
+      created_by:this.currentUser,
     });
   }
 
@@ -192,6 +220,7 @@ export class CustomerComponent implements OnInit {
       this.Customerform.value.com_country = this.c_country;
       this.Customerform.value.user_id = this.login_id;
       this.Customerform.value.pan_no=this.display;
+      this.Customerform.value.created_by=this.currentUser
       this.customerService
         .submitForm(this.Customerform.value)
         .subscribe((resdata: any) => {
@@ -237,4 +266,10 @@ export class CustomerComponent implements OnInit {
     // this.display=display
 this.display = val.slice(2,12)
   }
+  handleOwnerChange(e:any){
+    console.log(e)
+    this.Owner=e.username
+    this.OwnerId=e._id
+  
+ }
 }

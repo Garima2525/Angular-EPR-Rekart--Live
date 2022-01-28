@@ -94,7 +94,7 @@ export class EditCollectioncenterComponent implements OnInit {
       collection_ulb: [ccldata.collection_ulb],
       type_collection_center: [
         ccldata.type_collection_center,
-        Validators.required,
+       
       ],
       latitude: ccldata.latitude,
       longitude: ccldata.longitude,
