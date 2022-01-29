@@ -236,7 +236,7 @@ export class OrderComponent implements OnInit {
       materials: '',
       remark: '',
       attachments: '',
-      created_by:this.currentUser,
+      created_by:[this.currentUser, Validators.required],
     });
   }
 

@@ -6,6 +6,8 @@ import { process } from "@progress/kendo-data-query";
 import { TargetService } from 'src/app/service/target.service';
 import { AuthService } from 'src/app/service/auth.service';
 import { UserService } from 'src/app/service/user.service';
+import { TosterService } from 'src/app/service/toster.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-goal-list',
   templateUrl: './goal-list.component.html',
@@ -18,12 +20,14 @@ export class GoalListComponent implements OnInit {
   constructor(
     private router:Router,private target:TargetService,
     private users:AuthService,
-    private   userservice :UserService
+    private   userservice :UserService,
+    private toseter:TosterService
     ) { }
   public gridData: any;
   public gridView: any;
   public mySelection: string[] = [];
-  user:any
+  user:any;
+  target_name:any
   userPermission:any
   ngOnInit(): void {
     this.users.userLoggedIn().subscribe((user:any)=>{
@@ -80,12 +84,47 @@ export class GoalListComponent implements OnInit {
 
     this.dataBinding.skip = 0;
   }
-delete(id:any){
-console.log(id,'fdgfd');
+  delete(id:any):void{
+    // if (confirm('Are you sure to delete this record ? ')) {
+    //   this.target.deletetarget(id).subscribe((data: any) => {
+    //     console.log(data,'lll');
+        
+    //     this.Toaster.showSuccess(
+    //       'Deleted'
+          
+    //     );
+    //     window.location.reload();
+              
+    //         });
+    //       }
+    Swal.fire({
+    
+      text: 'Are you sure you want to deleted?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.target.deletetarget(id).subscribe((data: any) => {
+          console.log(data,'lll');
+          
+          this.Toaster.showSuccess(
+            'Deleted'
+            
+          );
+          window.location.reload();
+                
+              });
+    
+        console.log('Clicked Yes, File deleted!');
+        window.location.href="goal-list"
+      } else if (result.isDismissed) {
+        console.log('Clicked No, File is safe!');
+      }
+    }); 
+ }
+     
+ 
+}
 
-// this.collection.splice(data)
-this.target.deletetarget(id).subscribe((data)=>{
-  console.log('true')
-})
-}
-}

@@ -10,15 +10,17 @@
         </div>
         <div class="col-sm-6 text-right poppins hidden-xs">
           
-          
+          <button class="button" data-toggle="modal"
+          data-target="#exampleModalCenterGen" style="cursor: pointer;"> <i class="fa fa-plus"></i> ADD</button>
           
          
         </div>
       </div>
     </div>
-  <br>
+  
     <div class="row">
-      <div class="col-sm-12">
+   
+      <!-- <div class="col-sm-12">
       
 
 <div class="col-sm-3">
@@ -49,7 +51,7 @@
  </div>
 </div>
 
-</div>
+</div> -->
 </div>
 <kendo-grid
    [kendoGridBinding]="gridView"
@@ -73,32 +75,35 @@
    </ng-template>
    
    
-     <kendo-grid-column field="" title="Ref No" [width]="100">
+     <kendo-grid-column field="" title="Certificate Type" [width]="100">
        <ng-template kendoGridCellTemplate let-dataItem>
-         <div class=""> {{dataItem.ulb_id}}</div>
+         <div class="">PWPF</div>
        </ng-template>
      </kendo-grid-column>
 
-     <kendo-grid-column field="" title="Date " [width]="100">
+     <kendo-grid-column field="" title="Plastic Type " [width]="100">
      </kendo-grid-column>
 
      
-     <kendo-grid-column field="" title="Created" [width]="100">
+     <kendo-grid-column field="" title="Organization " [width]="100">
       <ng-template kendoGridCellTemplate let-dataItem>
-        <div class=""><i class="fa fa-user" aria-hidden="true"></i>{{ dataItem.first_name + " "+ dataItem.last_name }}</div>
+        <div class=""><i class="fa fa-user" aria-hidden="true"></i></div>
       </ng-template>
     </kendo-grid-column>
 
-     <kendo-grid-column field="state" title="ULB" [width]="100">
-      <ng-template kendoGridCellTemplate let-dataItem>
-        <div class="">{{ dataItem.ulb_state }}</div>
+     <kendo-grid-column field="" title="PO No" [width]="100">
+      <ng-template kendoGridCellTemplate >
+        <div class=""></div>
       </ng-template>
+    </kendo-grid-column>
+
+    <kendo-grid-column field="" title="State " [width]="100">
     </kendo-grid-column>
 
     <kendo-grid-column field="" title="QTY " [width]="100">
     </kendo-grid-column>
 
-    <kendo-grid-column
+    <!-- <kendo-grid-column
     title="Action"
     [width]="100"
     [class]="{ 'text-center': true }"
@@ -114,7 +119,7 @@
       
      </kendo-menu>
     </ng-template>
-  </kendo-grid-column>
+  </kendo-grid-column> -->
  </kendo-grid>
   </div>
 </div>
@@ -122,7 +127,138 @@
 
 
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenterGen" tabindex="-1" role="dialog"
+aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close  m-t-xs" data-dismiss="modal"><span>⤬</span></button>
+      <span class="modal-title  font-weight-600 text-20">Add </span>
+    </div>
+    <div class="modal-body">
+      <div class="details">
+        <form >
+          <div class="row">
+            
+            <div class="col-md-6 form-group">
+              <!-- <input type="text" class="form-control" placeholder="Organization Name " formControlName="org_name"> -->
+              <div  [className]="type_ULB_btn ? 'btn btn-default col-sm-5 redClass' : 'btn btn-default col-sm-5 greyClass'" (click)="getGoalType('ULB')">
+               ULB
+              </div>
+             <div style="margin-left:10px;"  [className]="type_PWPF_btn ? 'btn btn-default col-sm-5 redClass' : 'btn btn-default col-sm-5 greyClass'" (click)="getGoalType('PWPF')">
+             PWPF
+            </div>
+           
+            </div>
 
+
+          </div>
+
+
+
+
+
+
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label class="control-label font-weight-600">Type of Plastic </label>
+              <!-- <input type="text" class="form-control" placeholder="Organization Name " formControlName="org_name"> -->
+              <select class="form-control" >
+                <option value="" selected disabled>Select Type</option>
+                <option value="MLP">MLP</option>
+                <option value="NON MLP">NON MLP</option>
+                <option value="RIGID">RIGID</option>
+                <option value="FLEXIBLE">FLEXIBLE</option>
+              
+              </select>
+             
+            </div>
+            <div class="col-md-6 form-group">
+              <label class="control-label font-weight-600">Organization Name </label>
+              <!-- <input type="text" class="form-control" placeholder="Organization Name " formControlName="org_name"> -->
+             <select  class="form-control">
+              <option value="" selected disabled>Select Organization</option>
+               <option>Test</option>
+               
+             </select>
+            </div>
+
+
+          </div>
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label class="control-label font-weight-600">PO </label>
+              <!-- <input type="text" class="form-control" placeholder="po" formControlName="po"> -->
+              <select class="form-control" >
+                <option value="" selected disabled>Select Po</option>
+                <option>123</option>
+              </select>
+             
+            </div>
+            <div class="col-md-6 form-group">
+              <label class="control-label font-weight-600">State </label>
+              <select class="form-control" >
+                <option value="" selected disabled>Select State</option>
+                <option>UP</option>
+              </select>
+             
+            </div>
+
+
+          </div>
+         
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label class="control-label font-weight-600">QTY </label>
+              <input type="text" class="form-control" >
+              
+             
+            </div>
+            <div class="col-md-6 form-group">
+              <label class="control-label font-weight-600">Certificate No </label>
+             
+              <input type="text" class="form-control" >
+             
+            </div>
+
+
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label class="control-label font-weight-600">Date </label>
+              <input type="date" class="form-control" >
+              
+             
+            </div>
+            <div class="col-md-6 form-group">
+              <label class="control-label font-weight-600">Choose file</label>
+             
+              <input type="file" class="form-control" >
+             
+            </div>
+
+
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label class="control-label font-weight-600">&nbsp;</label>
+              <div class="form-group">
+                <button type="button" class=" bt light" >Cancel</button>
+                  <button type="submit" class= "bt danger"    style="margin-left: 2%;">Save</button>
+               
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+<!-- mode end -->
 
 
 

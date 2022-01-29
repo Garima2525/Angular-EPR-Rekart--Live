@@ -108,6 +108,7 @@ export class UserlistComponent implements OnInit {
 
   getId(id:any):void{
  
+    console.log(id,'wsdds');
     
     this.userservice.getuserbyid(id).subscribe((data:any)=>{
       this.initformpass()

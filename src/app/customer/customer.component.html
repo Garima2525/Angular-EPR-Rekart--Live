@@ -41,6 +41,12 @@
                     (onSelect)="handleOwnerChange($event)"
                     >
                   </ng-multiselect-dropdown>
+                  
+                  <div *ngIf="f.created_by.errors && f.created_by.errors.required && isValidFormSubmitted"
+                    class="text-danger text-left mb-1 errorcontrols">
+                    <div *ngIf="f.created_by.errors.required"><small>Created by is required.</small></div>
+
+                  </div>
                 </div>
 
 
@@ -99,6 +105,7 @@
 
                   </div> -->
                 </div>
+                <div class="clearfix"></div>
                 <div class="col-md-4 form-group">
                   <label> Organization Name <span class="text-theme">*</span></label>
                   <input type="text" class="form-control" placeholder="Enter Organization Name"

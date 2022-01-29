@@ -108,8 +108,8 @@
 
                 <div class="col-md-6 form-group">
                   <label>Transporter Name <span class="text-theme">*</span></label>
-                  <!-- <div class="input-group">
-                  
+                  <div class="input-group">
+                    <!-- <input type="text" class="form-control" placeholder=""formControlName="transporter_name"> -->
                     <select formControlName="transporter_name" class="form-control" >
                       <option value="" selected >Select Transporter Name </option>
                       <option *ngFor="let objtrans of transporterdata" value={{objtrans._id}}> {{objtrans.transporter_name}} </option>
@@ -117,18 +117,7 @@
                     <span class="input-group-addon"><i class="fa fa-search">
                       </i></span>
                     
-                  </div> -->
-
-                  <ng-multiselect-dropdown
-                  [placeholder]="'Select a Transporter'"
-                  [settings]="TransporterDropdownSettings"
-                
-                  [data]="transporterdata"
-               
-                  formControlName="transporter_name"
-                 
-                  >
-                </ng-multiselect-dropdown>
+                  </div>
                   <div *ngIf="f.transporter_name.errors && f.transporter_name.errors.required && isValidFormSubmitted"
                   class="text-danger text-left mb-1 errorcontrols">
                   <div *ngIf="f.transporter_name.errors.required"><small>Disposal Transporter Name is required.</small></div>

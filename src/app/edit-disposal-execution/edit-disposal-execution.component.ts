@@ -33,7 +33,6 @@ export class EditDisposalExecutionComponent implements OnInit {
    filedatainput: any;
    isValidbuttonModal: any;
    isValidFormSubmittedModal: any;
-   TransporterDropdownSettings:any= {}
    @ViewChild('closebutton')
    closebutton: any;
    disexecutionId: any;
@@ -111,16 +110,6 @@ export class EditDisposalExecutionComponent implements OnInit {
           : data.result[0].attachments;
       console.log(this.ccattachments);
     });
-    this.TransporterDropdownSettings = {
-      idField: '_id',
-      textField: 'transporter_name',
-      singleSelection: true,
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      allowSearchFilter: true,
-      closeDropDownOnSelection: true,
-    };
-
     this.modalforminit();
   }
   addinfo(e:any){

@@ -49,7 +49,7 @@
     <tr *ngFor="let pod of podata | filter:searchTextor |filter:searchText">
       <td>
         <span class=" text-theme"># {{ pod.PO_id }}</span><br>
-        <span >{{ pod.created_by }}</span><br>
+        <span ><b>{{ pod.created_by }}</b></span><br>
         <span class="poDateClass"><i _ngcontent-fcn-c561="" aria-hidden="true" class="fa fa-calendar-check-o" style="color: green;"></i> {{ pod.created_at|date: 'dd-MM-yyyy' }}</span>
       </td>
       <td>

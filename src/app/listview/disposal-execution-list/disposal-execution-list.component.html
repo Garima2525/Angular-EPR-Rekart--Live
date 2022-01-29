@@ -35,7 +35,14 @@
       <kendo-grid-spacer></kendo-grid-spacer>
       
       </ng-template>
-      
+      <kendo-grid-column  title="ID" [width]="120">
+        <ng-template kendoGridCellTemplate let-dataItem>
+         
+          <div class="cd"><b>{{dataItem.created_by}}</b> </div>
+       
+          <span class="poDateClass"><i _ngcontent-fcn-c561="" aria-hidden="true" class="fa fa-calendar-check-o" style="color: green;"></i> {{ dataItem.created_at|date: 'dd-MM-yyyy' }}</span>
+        </ng-template>
+      </kendo-grid-column>
       
         <kendo-grid-column  title="Material Details" [width]="120">
           <ng-template kendoGridCellTemplate let-dataItem>
@@ -68,14 +75,14 @@
  
       
      
-  <kendo-grid-column  title="Transporter Details" [width]="110">
+  <kendo-grid-column  title="Transporter Details" [width]="150">
     <ng-template kendoGridCellTemplate let-dataItem>
      
       <div class="cd"><b>Transporter  : </b>{{dataItem.tdata[0].transporter_name}}</div>
-      <div class="cd"><b>Mobile :</b> {{dataItem.mobile_no}}</div>
+   
       <div class="cd"><b>Vehicle  :</b> {{dataItem.vehicle_no}}</div>
       <div class="cd"><b>Driver :</b> {{dataItem.driver_name}}</div>
-     
+      <div class="cd"><b>D Mobile :</b> {{dataItem.driver_mobile_no}}</div>
      
     </ng-template>
 </kendo-grid-column>  

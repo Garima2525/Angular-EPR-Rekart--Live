@@ -18,7 +18,11 @@ export class GenerateCertificateComponent implements OnInit {
 
   public gridData: any;
   public gridView: any;
-
+  type_ULB_btn: any=true;
+  type_PWPF_btn: any=false;
+  
+  dtOptions: DataTables.Settings = {};
+  
   public mySelection: string[] = [];
 
   public ngOnInit(): void {
@@ -76,7 +80,17 @@ export class GenerateCertificateComponent implements OnInit {
 
     this.dataBinding.skip = 0;
   }
-
+  getGoalType(type:any){
+    if(type=='PWPF'){
+      this.type_PWPF_btn=true;
+      this.type_ULB_btn=false;
+    }
+    else{
+      this.type_ULB_btn=true;
+      this.type_PWPF_btn=false;
+    }
+    // this.Perform.value.goal_type=type;
+  }
 
 }
 

@@ -43,7 +43,7 @@
     "@progress/kendo-theme-default": "latest",
     "@sweetalert2/ngx-sweetalert2": "^10.0.0",
     "@types/crypto-js": "^4.0.2",
-    "angular-datatables": "^13.0.0",
+    "angular-datatables": "^13.0.1",
     "bxslider": "^4.2.14",
     "crypto-js": "^4.1.1",
     "datatables.net": "^1.11.3",

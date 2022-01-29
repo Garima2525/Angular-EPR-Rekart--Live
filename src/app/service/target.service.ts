@@ -84,7 +84,7 @@ export class TargetService {
         apikey: '8GWF6J1-WVG40Q4-HBWGNVY-9VXTXQ8',
       }),
     }
-    return this.http.get(api_url,httpOptions)
+    return this.http.delete(api_url,httpOptions)
   }
   getRecordBox(data: any) {
     let api_url = this.base_url+ 'targetRecords/';

@@ -178,7 +178,7 @@ export class CustomerComponent implements OnInit {
       spcb_registration: '',
       spcb_validity: '',
       remark: '',
-      created_by:this.currentUser,
+      created_by:[this.currentUser, Validators.required],
     });
   }
 

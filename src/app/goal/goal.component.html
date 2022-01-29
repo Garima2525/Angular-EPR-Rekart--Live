@@ -43,7 +43,7 @@
                 <div class="col-md-4 form-group">
                   <label> From Date:</label>
 
-                  <input type="date" class="form-control" name="" (input)="getRecords($event,'from')">
+                  <input type="date"  class="form-control" name="" (input)="getRecords($event,'from')">
                 </div>
 
 
@@ -212,9 +212,9 @@
                 </div>
                 <div class="col-md-4 form-group">
                   <label >Created by <span class="text-danger">*</span>  </label>
-                <!-- <input type="text" formControlName="created_by" value="{{this.currentUser}}"> -->
+                <input type="text" readonly formControlName="created_by"  class="form-control" value="{{this.currentUser}}">
                 
-                    <ng-multiselect-dropdown
+                    <!-- <ng-multiselect-dropdown
                     [placeholder]="'Select a User'"
                     [settings]="ownerDropdownSettings"
                     [(ngModel)]="selectedUser"
@@ -223,7 +223,7 @@
                     formControlName="created_by"
                     (onSelect)="handleOwnerChange($event)"
                     >
-                  </ng-multiselect-dropdown>
+                  </ng-multiselect-dropdown> -->
                  
                   
 

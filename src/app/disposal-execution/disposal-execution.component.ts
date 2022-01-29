@@ -21,27 +21,25 @@ import { UserService } from '../service/user.service';
 })
 export class DisposalExecutionComponent implements OnInit {
   
-  currentUser:any
+  disabled = false;
   uniqid: any;
   disposalexecutionform!: FormGroup;
   login_id: any;
   statedata: any;
+  currentUser:any
+  users:any
   districtdata: any;
   saveas: any;
-  disabled = false;
   saveasnew: any;
-  mobile:any=''
-  selectedUser:any
-  ownerDropdownSettings={}
-  t_id:any;
-  selecteddata:any={}
+  transporter_id: any='';
   todayDate:any;
-  OwnerId:any
-  Owner:any
- 
-  TransporterDropdownSettings:any= {}
   isValidFormSubmitted: any;
   isValidbutton: any;
+  OwnerId:any
+  Owner:any
+  dropdownSettings: any = {};
+  selectedUser:any
+  ownerDropdownSettings={}
   ccattachments: any = [];
   disposalexecutionformModal!: FormGroup;
   filedatainput: any;
@@ -59,7 +57,6 @@ ammountInfo:any=[{
   ULBdata: any;
   DISdata: any;
   transporterdata:any
-  users: any;
   constructor(
     private disposalexecution: DisposalExecutionService,
     private CountryStateCityService: CountryStateCityService,
@@ -72,7 +69,6 @@ ammountInfo:any=[{
     private ULB:UlbserviceService,
     private CC:CollectioncenterserviceService,
     private transporter:TranporterserviceService,
-   
     private user:UserService
   ) {
    
@@ -80,7 +76,6 @@ ammountInfo:any=[{
 
   ngOnInit(): void {
     this.todayDate = new Date();
-    // this.uniqid = Math.floor(Math.random() * 100000);
     this.Auth.userLoggedIn().subscribe((logindata:any)=>{
       console.log(logindata);
       // this.login_id=logindata.result._id
@@ -113,13 +108,6 @@ ammountInfo:any=[{
 
       this.transporterdata = data.result;
     });
-
-    this.forminit();
-    this.modalforminit();
-    this.user.getalluser().subscribe((data:any)=>{
-      console.log(data)
-      this.users=data.result
-    })
     this.ownerDropdownSettings={
       singleSelection: true,
       idField: '_id',
@@ -128,7 +116,7 @@ ammountInfo:any=[{
       closeDropDownOnSelection:true,
       allowSearchFilter: false
     }
-    this.TransporterDropdownSettings = {
+    this.dropdownSettings = {
       idField: '_id',
       textField: 'transporter_name',
       singleSelection: true,
@@ -137,7 +125,8 @@ ammountInfo:any=[{
       allowSearchFilter: true,
       closeDropDownOnSelection: true,
     };
-
+    this.forminit();
+    this.modalforminit();
   }
 addinfo(e:any){
   e.preventDefault()
@@ -194,6 +183,7 @@ forminit() {
     ulb:['', Validators.required],
     collection_center:['', Validators.required],
     disposal_facility_pwpf:['', Validators.required],
+    // transporter_id:['', Validators.required],
     transporter_name:['', Validators.required],
     mobile_no:['', [Validators.required, Validators.pattern('^[6-9][0-9]{9}$')]],
     vehicle_no:['', Validators.required],
@@ -210,7 +200,7 @@ forminit() {
     disposal_material_weight:['', Validators.required],
     disposal_remark:'',
     attachments:'',
-    created_by:this.currentUser,
+    created_by:[this.currentUser, Validators.required],
   });
 }
 modalforminit() {
@@ -257,10 +247,11 @@ onFormSubmit() {
     console.log(this.disposalexecutionform, 'true');
     this.isValidbutton = true;
     this.disposalexecutionform.value.user_id = this.login_id;
-    this.disposalexecutionform.value.attachments = this.ccattachments;  
+    this.disposalexecutionform.value.attachments = this.ccattachments;
     this.disposalexecutionform.value.payment = this.ammountInfo;
-    this.disposalexecutionform.value.created_by=this.currentUser
-    this.disposalexecutionform.value.mobile_no=this.mobile;
+    this.disposalexecutionform.value.created_by=this.currentUser;
+    
+    this.disposalexecutionform.value.transporter_id = this.transporter_id;
     this.disposalexecution.submitForm(this.disposalexecutionform.value).subscribe((data) => {
       console.log(data);
       this.toast.showSuccess(
@@ -328,32 +319,19 @@ deleteAttachment(i:any){
   this.ccattachments.splice(i, 1);
   console.log(this.ccattachments);
 }
-
-onItemSelect(item: any) {
-  console.log('onItemSelect', item);
-  this.t_id = item._id;
-
-  this.disposalexecutionform.value.customer_id = item._id;
-  this.transporter.getTransporterById(item._id).subscribe((cdata: any) => {
-    console.log(cdata);
-    this.transporterdata = cdata.result[0];
-    this.mobile=cdata.result[0].mobile;
-    console.log(this.mobile);
-    
-  });
-
-}
-
-
-
-
-
-
-
 handleOwnerChange(e:any){
   console.log(e)
   this.Owner=e.username
   this.OwnerId=e._id
- // this.leadOwner=e.target.value.split(',')[0]
+
+}
+onItemSelect(item: any) {
+  console.log('onItemSelect', item);
+  this.transporter_id = item._id;
+  this.disposalexecutionform.value.customer_id = item._id;
+  this.transporter.getTransporterById(item._id).subscribe((cdata: any) => {
+    console.log(cdata);
+    this.transporterdata = cdata.result[0];
+  });
 }
 }

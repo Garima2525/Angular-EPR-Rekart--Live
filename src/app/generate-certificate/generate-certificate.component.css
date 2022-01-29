@@ -1,19 +1,10 @@
-.card {
-    min-height: 170px;
-    font-size: 20px;
-    color: #000000;
-}
-.span{
-    border: none; background: white; padding-left: 10px;font-size: 12px;text-align: bottom;
-    margin-top: 20px;
-}
 
-button{
-    background-color: white;
-    border: none;
-}
-
-p{
-    line-height: 122px;
-    text-align:center;
-}
+.redClass{
+    border:2px solid green;
+  }
+  .greyClass{
+    border:1px solid #e5e4e4;
+  }
+  img{
+    height: 30px;
+  }

@@ -104,7 +104,7 @@
                               <!-- <span *ngIf="materialerror[i].material_name" class="text-danger"> Material is Required</span> -->
                             </th>
                             <th>
-                              <select class="form-control" (change)="[getdetails($event,i),getChanges($event,i,'city')]" style="width: 130px;">
+                              <select class="form-control"  style="width: 130px;" value={{this.state}}>
                                 <option value="" disabled> Select District </option>
                                 <option *ngFor="let dobj of districtdata" value={{dobj}}> {{dobj}} </option>
                               </select>
